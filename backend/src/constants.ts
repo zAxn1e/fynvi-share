@@ -6,7 +6,12 @@ import { resolveLogLevel } from "./utils/log-level.util";
 export const CONFIG_FILE = process.env.CONFIG_FILE || "../config.yaml";
 
 export const DATA_DIRECTORY =
-  process.env.DATA_DIRECTORY || (existsSync("../data") ? "../data" : "./data");
+  process.env.DATA_DIRECTORY ||
+  (existsSync("./data")
+    ? "./data"
+    : existsSync("../data")
+      ? "../data"
+      : "./data");
 export const SHARE_DIRECTORY = `${DATA_DIRECTORY}/uploads/shares`;
 
 /**
