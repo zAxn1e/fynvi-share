@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <defs>
+    <linearGradient id="fynviGrad1" x1="10" y1="10" x2="110" y2="110" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#3B82F6"/>
+      <stop offset="50%" stop-color="#2563EB"/>
+      <stop offset="100%" stop-color="#4F46E5"/>
+    </linearGradient>
+    <linearGradient id="fynviGrad2" x1="30" y1="20" x2="90" y2="100" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#60A5FA"/>
+      <stop offset="100%" stop-color="#38BDF8"/>
+    </linearGradient>
+    <linearGradient id="fynviGrad3" x1="45" y1="45" x2="105" y2="95" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#818CF8"/>
+      <stop offset="100%" stop-color="#C084FC"/>
+    </linearGradient>
+    <filter id="fynviGlow" x="0" y="0" width="120" height="120" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Background Squircle / Shield -->
+  <rect x="8" y="8" width="104" height="104" rx="28" fill="url(#fynviGrad1)" />
+  <rect x="8" y="8" width="104" height="104" rx="28" stroke="rgba(255, 255, 255, 0.2)" stroke-width="1.5" />
+
+  <!-- Monogram F / Sharing facet sheets -->
+  <!-- Vertical Pillar -->
+  <rect x="32" y="28" width="15" height="64" rx="7.5" fill="#FFFFFF" />
+
+  <!-- Top Bar / Forward Wing -->
+  <path d="M47 35.5C47 31.3579 50.3579 28 54.5 28H82C86.1421 28 89.5 31.3579 89.5 35.5C89.5 39.6421 86.1421 43 82 43H54.5C50.3579 43 47 39.6421 47 35.5Z" fill="#FFFFFF" />
+  
+  <!-- Middle Bar with dynamic share arrow facet -->
+  <path d="M47 56.5C47 52.3579 50.3579 49 54.5 49H73C77.1421 49 80.5 52.3579 80.5 56.5C80.5 60.6421 77.1421 64 73 64H54.5C50.3579 64 47 60.6421 47 56.5Z" fill="url(#fynviGrad2)" />
+
+  <!-- Floating Send / Share Dot -->
+  <circle cx="78" cy="78" r="8" fill="#FFFFFF" opacity="0.9" />
+  <circle cx="78" cy="78" r="4.5" fill="url(#fynviGrad3)" />
+</svg>

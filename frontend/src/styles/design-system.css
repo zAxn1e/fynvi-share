@@ -1,0 +1,236 @@
+/* ==========================================================================
+   Design System & Token Architecture
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+:root {
+  /* Font Families */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --fynvi-font-sans: var(--font-sans);
+  --fynvi-font-mono: var(--font-mono);
+
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-normal: 250ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-slow: 400ms cubic-bezier(0.16, 1, 0.3, 1);
+  --fynvi-transition-fast: var(--transition-fast);
+  --fynvi-transition-normal: var(--transition-normal);
+  --fynvi-transition-slow: var(--transition-slow);
+
+  /* Radius Scale */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-pill: 9999px;
+  --fynvi-radius-xs: var(--radius-xs);
+  --fynvi-radius-sm: var(--radius-sm);
+  --fynvi-radius-md: var(--radius-md);
+  --fynvi-radius-lg: var(--radius-lg);
+  --fynvi-radius-xl: var(--radius-xl);
+  --fynvi-radius-full: var(--radius-pill);
+
+  /* Brand Gradients & Fades (Default fallback before dynamic injection) */
+  --brand-gradient: linear-gradient(135deg, #3B82F6 0%, #2563EB 55%, #1D4ED8 100%);
+  --brand-gradient-vertical: linear-gradient(180deg, #3B82F6 0%, #2563EB 100%);
+  --brand-glow: radial-gradient(circle at center, rgba(59, 130, 246, 0.22) 0%, rgba(59, 130, 246, 0.05) 50%, transparent 80%);
+  --brand-glow-header: radial-gradient(ellipse 70% 40% at 50% -10%, rgba(59, 130, 246, 0.15), transparent 70%);
+  --surface-fade: linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, transparent 100%);
+  
+  --fynvi-brand-gradient: var(--brand-gradient);
+  --fynvi-brand-glow: var(--brand-glow);
+}
+
+/* Dark Theme Tokens (Default) */
+[data-mantine-color-scheme="dark"],
+body.fynvi-dark,
+.theme-dark {
+  --canvas: #090B0E;
+  --surface-0: #0F1319;
+  --surface-1: #151B24;
+  --surface-2: #1C2430;
+  --surface-3: #242E3D;
+
+  --glass-bg: rgba(15, 19, 25, 0.75);
+  --glass-border: rgba(255, 255, 255, 0.09);
+  --glass-blur: 16px;
+
+  --border-subtle: rgba(255, 255, 255, 0.07);
+  --border-medium: rgba(255, 255, 255, 0.13);
+  --border-strong: rgba(255, 255, 255, 0.22);
+
+  --text-primary: #F8FAFC;
+  --text-secondary: #94A3B8;
+  --text-muted: #64748B;
+  --text-disabled: #475569;
+
+  --accent-cyan: #06B6D4;
+  --accent-violet: #8B5CF6;
+  --accent-emerald: #10B981;
+
+  --state-success: #10B981;
+  --state-success-bg: rgba(16, 185, 129, 0.12);
+  --state-warning: #F59E0B;
+  --state-warning-bg: rgba(245, 158, 11, 0.12);
+  --state-danger: #EF4444;
+  --state-danger-bg: rgba(239, 68, 68, 0.12);
+  --state-info: #06B6D4;
+  --state-info-bg: rgba(6, 182, 212, 0.12);
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.5);
+
+  /* Legacy synonym bindings */
+  --fynvi-canvas: var(--canvas);
+  --fynvi-surface-0: var(--surface-0);
+  --fynvi-surface-1: var(--surface-1);
+  --fynvi-surface-2: var(--surface-2);
+  --fynvi-surface-3: var(--surface-3);
+  --fynvi-glass-bg: var(--glass-bg);
+  --fynvi-glass-border: var(--glass-border);
+  --fynvi-glass-blur: var(--glass-blur);
+  --fynvi-border-subtle: var(--border-subtle);
+  --fynvi-border-medium: var(--border-medium);
+  --fynvi-border-strong: var(--border-strong);
+  --fynvi-border-focus: var(--border-focus);
+  --fynvi-text-primary: var(--text-primary);
+  --fynvi-text-secondary: var(--text-secondary);
+  --fynvi-text-muted: var(--text-muted);
+  --fynvi-text-disabled: var(--text-disabled);
+  --fynvi-primary: var(--brand-primary);
+  --fynvi-primary-hover: var(--brand-primary-hover);
+  --fynvi-primary-light: var(--brand-primary-light);
+  --fynvi-state-success: var(--state-success);
+  --fynvi-state-success-bg: var(--state-success-bg);
+  --fynvi-state-warning: var(--state-warning);
+  --fynvi-state-warning-bg: var(--state-warning-bg);
+  --fynvi-state-danger: var(--state-danger);
+  --fynvi-state-danger-bg: var(--state-danger-bg);
+  --fynvi-state-info: var(--state-info);
+  --fynvi-state-info-bg: var(--state-info-bg);
+  --fynvi-shadow-sm: var(--shadow-sm);
+  --fynvi-shadow-md: var(--shadow-md);
+  --fynvi-shadow-lg: var(--shadow-lg);
+}
+
+/* Light Theme Tokens */
+[data-mantine-color-scheme="light"],
+body.fynvi-light,
+.theme-light {
+  --canvas: #F8FAFC;
+  --surface-0: #FFFFFF;
+  --surface-1: #F1F5F9;
+  --surface-2: #E2E8F0;
+  --surface-3: #CBD5E1;
+
+  --glass-bg: rgba(255, 255, 255, 0.82);
+  --glass-border: rgba(15, 23, 42, 0.08);
+  --glass-blur: 16px;
+
+  --border-subtle: rgba(15, 23, 42, 0.06);
+  --border-medium: rgba(15, 23, 42, 0.12);
+  --border-strong: rgba(15, 23, 42, 0.20);
+
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  --text-muted: #94A3B8;
+  --text-disabled: #CBD5E1;
+
+  --accent-cyan: #0891B2;
+  --accent-violet: #7C3AED;
+  --accent-emerald: #059669;
+
+  --state-success: #10B981;
+  --state-success-bg: rgba(16, 185, 129, 0.10);
+  --state-warning: #F59E0B;
+  --state-warning-bg: rgba(245, 158, 11, 0.10);
+  --state-danger: #DC2626;
+  --state-danger-bg: rgba(220, 38, 38, 0.10);
+  --state-info: #0891B2;
+  --state-info-bg: rgba(8, 145, 178, 0.10);
+
+  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06);
+  --shadow-md: 0 4px 14px rgba(15, 23, 42, 0.08);
+  --shadow-lg: 0 12px 32px rgba(15, 23, 42, 0.12);
+
+  /* Legacy synonym bindings */
+  --fynvi-canvas: var(--canvas);
+  --fynvi-surface-0: var(--surface-0);
+  --fynvi-surface-1: var(--surface-1);
+  --fynvi-surface-2: var(--surface-2);
+  --fynvi-surface-3: var(--surface-3);
+  --fynvi-glass-bg: var(--glass-bg);
+  --fynvi-glass-border: var(--glass-border);
+  --fynvi-glass-blur: var(--glass-blur);
+  --fynvi-border-subtle: var(--border-subtle);
+  --fynvi-border-medium: var(--border-medium);
+  --fynvi-border-strong: var(--border-strong);
+  --fynvi-border-focus: var(--border-focus);
+  --fynvi-text-primary: var(--text-primary);
+  --fynvi-text-secondary: var(--text-secondary);
+  --fynvi-text-muted: var(--text-muted);
+  --fynvi-text-disabled: var(--text-disabled);
+  --fynvi-primary: var(--brand-primary);
+  --fynvi-primary-hover: var(--brand-primary-hover);
+  --fynvi-primary-light: var(--brand-primary-light);
+  --fynvi-state-success: var(--state-success);
+  --fynvi-state-success-bg: var(--state-success-bg);
+  --fynvi-state-warning: var(--state-warning);
+  --fynvi-state-warning-bg: var(--state-warning-bg);
+  --fynvi-state-danger: var(--state-danger);
+  --fynvi-state-danger-bg: var(--state-danger-bg);
+  --fynvi-state-info: var(--state-info);
+  --fynvi-state-info-bg: var(--state-info-bg);
+  --fynvi-shadow-sm: var(--shadow-sm);
+  --fynvi-shadow-md: var(--shadow-md);
+  --fynvi-shadow-lg: var(--shadow-lg);
+}
+
+/* Base Body Styles */
+body {
+  font-family: var(--font-sans);
+  background-color: var(--canvas);
+  color: var(--text-primary);
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom Clean Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-medium);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--border-strong);
+}
+
+/* Typography Utility Classes */
+.font-mono, .fynvi-mono {
+  font-family: var(--font-mono) !important;
+  letter-spacing: -0.01em;
+}
+
+/* Reduced Motion Override */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
