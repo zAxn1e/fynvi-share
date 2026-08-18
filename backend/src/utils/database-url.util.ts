@@ -10,7 +10,9 @@ type DatabaseUrlOptions = {
 };
 
 function sqliteUrl(databasePath: string): string {
-  return `file:${databasePath.replace(/\\/g, "/")}?connection_limit=1`;
+  const absolutePath = path.resolve(databasePath);
+
+  return `file:${absolutePath.replace(/\\/g, "/")}?connection_limit=1`;
 }
 
 export function resolveDatabaseUrl({
