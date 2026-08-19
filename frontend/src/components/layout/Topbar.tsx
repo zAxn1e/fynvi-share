@@ -96,10 +96,20 @@ export const Topbar: React.FC<TopbarProps> = ({
         [theme.fn.smallerThan("md")]: {
           padding: "0 16px",
         },
+        [theme.fn.smallerThan("xs")]: {
+          padding: "0 8px",
+        },
       }}
     >
       {/* Left: Mobile hamburger + Breadcrumbs / Title */}
-      <Group spacing={14}>
+      <Group
+        spacing={12}
+        noWrap
+        sx={{
+          minWidth: 0,
+          flexShrink: 1,
+        }}
+      >
         {/* Mobile Navigation Trigger */}
         <Box
           sx={{
@@ -107,7 +117,8 @@ export const Topbar: React.FC<TopbarProps> = ({
             [theme.fn.smallerThan("md")]: {
               display: "flex",
               alignItems: "center",
-              gap: 8,
+              gap: 6,
+              flexShrink: 0,
             },
           }}
         >
@@ -124,16 +135,22 @@ export const Topbar: React.FC<TopbarProps> = ({
                   ? "var(--surface-2, #1C2430)"
                   : "var(--surface-2, #E2E8F0)",
               },
+              [theme.fn.smallerThan("xs")]: {
+                width: 32,
+                height: 32,
+                minWidth: 32,
+                minHeight: 32,
+              },
             }}
           >
-            <TbMenu2 size={22} />
+            <TbMenu2 size={20} />
           </ActionIcon>
           <Box
             component={Link}
             href="/"
             sx={{ display: "flex", alignItems: "center", textDecoration: "none" }}
           >
-            <Logo height={28} width={28} />
+            <Logo height={26} width={26} />
           </Box>
         </Box>
 
@@ -146,6 +163,7 @@ export const Topbar: React.FC<TopbarProps> = ({
               display: "flex",
               alignItems: "center",
               textDecoration: "none",
+              flexShrink: 0,
               [theme.fn.smallerThan("md")]: {
                 display: "none",
               },
@@ -156,7 +174,7 @@ export const Topbar: React.FC<TopbarProps> = ({
         )}
 
         {/* Page Context Breadcrumb */}
-        <Group spacing={8} align="center">
+        <Group spacing={6} align="center" noWrap sx={{ minWidth: 0, flexShrink: 1 }}>
           <Text
             component={Link}
             href="/"
@@ -166,6 +184,7 @@ export const Topbar: React.FC<TopbarProps> = ({
               fontWeight: 500,
               textDecoration: "none",
               cursor: "pointer",
+              whiteSpace: "nowrap",
               "&:hover": {
                 color: isDark ? "#FFFFFF" : "#000000",
               },
@@ -189,11 +208,20 @@ export const Topbar: React.FC<TopbarProps> = ({
           </Text>
           <Text
             size="sm"
+            truncate
             sx={{
               fontWeight: 600,
               color: isDark
                 ? "var(--text-primary, #F8FAFC)"
                 : "var(--text-primary, #0F172A)",
+              minWidth: 0,
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+              maxWidth: 180,
+              [theme.fn.smallerThan("xs")]: {
+                maxWidth: 90,
+              },
             }}
           >
             {getPageTitle()}
@@ -202,7 +230,16 @@ export const Topbar: React.FC<TopbarProps> = ({
       </Group>
 
       {/* Right Controls: Actions, Search, Theme Toggle, User Profile */}
-      <Group spacing={12}>
+      <Group
+        spacing={8}
+        noWrap
+        sx={{
+          flexShrink: 0,
+          [theme.fn.smallerThan("xs")]: {
+            gap: 4,
+          },
+        }}
+      >
         {/* Quick Upload CTA (if handler provided) */}
         {onOpenUpload && (
           <Button
@@ -250,6 +287,12 @@ export const Topbar: React.FC<TopbarProps> = ({
                   ? "var(--text-primary, #F8FAFC)"
                   : "var(--text-primary, #0F172A)",
               },
+              [theme.fn.smallerThan("xs")]: {
+                width: 32,
+                height: 32,
+                minWidth: 32,
+                minHeight: 32,
+              },
             }}
           >
             {colorScheme === "dark" ? <TbSun size={18} /> : <TbMoon size={18} />}
@@ -279,12 +322,15 @@ export const Topbar: React.FC<TopbarProps> = ({
                       ? "var(--surface-1, #151B24)"
                       : "var(--surface-1, #F1F5F9)",
                   },
+                  [theme.fn.smallerThan("xs")]: {
+                    padding: "4px 4px",
+                  },
                 }}
               >
                 <Box
                   sx={{
-                    width: 30,
-                    height: 30,
+                    width: 28,
+                    height: 28,
                     borderRadius: "50%",
                     background: "var(--brand-gradient)",
                     display: "flex",
@@ -293,6 +339,7 @@ export const Topbar: React.FC<TopbarProps> = ({
                     color: "#FFFFFF",
                     fontWeight: 600,
                     fontSize: 12,
+                    flexShrink: 0,
                   }}
                 >
                   {user.username.charAt(0).toUpperCase()}
@@ -393,6 +440,12 @@ export const Topbar: React.FC<TopbarProps> = ({
             href="/auth/signIn"
             variant="secondary"
             size="xs"
+            sx={{
+              [theme.fn.smallerThan("xs")]: {
+                px: 8,
+                fontSize: 12,
+              },
+            }}
           >
             {t("navbar.signin") || "Sign In"}
           </Button>

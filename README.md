@@ -48,7 +48,7 @@ The fastest way to deploy Fynvi Share is using Docker Compose.
 services:
   fynvi-share:
     container_name: fynvi-share
-    image: fynvi-share:latest
+    image: libaxnie/fynvi-share:latest
     restart: unless-stopped
     ports:
       - "3000:3000"

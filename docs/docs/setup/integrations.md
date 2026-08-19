@@ -18,7 +18,7 @@ Add a ClamAV service to your `docker-compose.yml`:
 ```yaml
 services:
   fynvi-share:
-    image: fynvi-share:latest
+    image: libaxnie/fynvi-share:latest
     restart: unless-stopped
     ports:
       - "3000:3000"

@@ -117,6 +117,9 @@ export const AppShell: React.FC<AppShellProps> = ({
             [theme.fn.smallerThan("md")]: {
               padding: "16px",
             },
+            [theme.fn.smallerThan("xs")]: {
+              padding: "12px 10px",
+            },
           }}
         >
           {children}

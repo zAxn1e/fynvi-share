@@ -1,10 +1,7 @@
 services:
   fynvi-share:
     container_name: fynvi-share
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: fynvi-share:latest
+    image: libaxnie/fynvi-share:latest
     restart: unless-stopped
     ports:
       - "3000:3000"

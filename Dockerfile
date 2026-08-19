@@ -49,10 +49,10 @@ COPY --from=frontend-builder /opt/app/public/img /tmp/img
 WORKDIR /opt/app/backend
 COPY --from=backend-builder /opt/app/node_modules ./node_modules
 RUN rm -rf ./node_modules/typescript \
-           ./node_modules/esbuild \
-           ./node_modules/@esbuild \
-           ./node_modules/.bin/tsc \
-           ./node_modules/.bin/esbuild
+    ./node_modules/esbuild \
+    ./node_modules/@esbuild \
+    ./node_modules/.bin/tsc \
+    ./node_modules/.bin/esbuild
 COPY --from=backend-builder /opt/app/dist ./dist
 COPY --from=backend-builder /opt/app/prisma ./prisma
 COPY --from=backend-builder /opt/app/package.json ./
@@ -62,6 +62,10 @@ WORKDIR /opt/app
 
 COPY ./reverse-proxy  /opt/app/reverse-proxy
 COPY ./scripts/docker ./scripts/docker
+
+# Normalize line endings (strip CR) and make scripts executable
+RUN find ./scripts/docker -type f -name "*.sh" -exec sed -i 's/\r$//' {} + \
+    && chmod +x ./scripts/docker/*.sh
 
 EXPOSE 3000
 

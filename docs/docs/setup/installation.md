@@ -6,7 +6,24 @@ id: installation
 
 ### Installation with Docker (recommended)
 
-1. Download or create the `docker-compose.yml` file
+1. Create a `docker-compose.yml` file:
+
+```yaml
+services:
+  fynvi-share:
+    container_name: fynvi-share
+    image: libaxnie/fynvi-share:latest
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - APP_URL=http://localhost:3000
+      - TRUST_PROXY=false
+    volumes:
+      - "./data:/opt/app/backend/data:rw,z"
+      - "./data/images:/opt/app/frontend/public/img:rw,z"
+```
+
 2. Run `docker compose up -d`
 
 The website will be available on `http://localhost:3000`.
