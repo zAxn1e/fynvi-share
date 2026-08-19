@@ -259,7 +259,7 @@ const Admin = () => {
               </Text>
             </Group>
             <Text size="xs" color="dimmed" mt={4} className="font-mono">
-              Version v{process.env.VERSION || "1.22.1"}
+              Version v{process.env.VERSION || "0.1.0"}
             </Text>
           </Card>
         </Col>

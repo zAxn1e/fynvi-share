@@ -25,7 +25,18 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Check Crowdin credentials
+        id: check_credentials
+        run: |
+          if [ -z "${{ secrets.CROWDIN_PROJECT_ID }}" ] || [ -z "${{ secrets.CROWDIN_PERSONAL_TOKEN }}" ]; then
+            echo "configured=false" >> $GITHUB_OUTPUT
+            echo "::notice title=Crowdin Credentials::CROWDIN_PROJECT_ID or CROWDIN_PERSONAL_TOKEN secret is not configured. Skipping Crowdin synchronization."
+          else
+            echo "configured=true" >> $GITHUB_OUTPUT
+          fi
+
       - name: Synchronize source and translations
+        if: steps.check_credentials.outputs.configured == 'true'
         uses: crowdin/github-action@v2
         with:
           upload_sources: true
@@ -35,7 +46,6 @@ jobs:
           pull_request_title: "chore(translations): sync translations from Crowdin"
           pull_request_body: "Automated PR created by Crowdin Sync GitHub Action containing updated translations from https://crowdin.com/project/fynvi-share"
           pull_request_labels: "translations, crowdin"
-          pull_request_branch: "chore/crowdin-translations"
           localization_branch_name: "chore/crowdin-translations"
           commit_message: "chore(translations): update translations from Crowdin"
         env:

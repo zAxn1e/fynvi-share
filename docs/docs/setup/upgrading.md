@@ -21,14 +21,14 @@ git pull origin main
 
 # Update backend
 cd backend
-npm install
-npm run db:push
-npm run build
+bun install
+bun run db:push
+bun run build
 pm2 restart fynvi-share-backend
 
 # Update frontend
 cd ../frontend
-npm install
-npm run build
+bun install
+bun run build
 pm2 restart fynvi-share-frontend
 ```

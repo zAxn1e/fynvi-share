@@ -41,7 +41,7 @@ Your container will be listening on `http://localhost:<port>`.
 ### Stand-alone Installation
 
 Prerequisites:
-- [Node.js](https://nodejs.org/en/download/) >= 20
+- [Bun](https://bun.sh/) >= 1.3 (recommended) or [Node.js](https://nodejs.org/) >= 20
 - [Git](https://git-scm.com/downloads)
 - [pm2](https://pm2.keymetrics.io/) (optional, for background service management)
 
@@ -51,15 +51,15 @@ cd fynvi-share
 
 # Start the backend
 cd backend
-npm install
-npm run db:push
-npm run db:seed
-npm run build
-pm2 start npm --name="fynvi-share-backend" -- run prod
+bun install
+bun run db:push
+bun run db:seed
+bun run build
+pm2 start bun --name="fynvi-share-backend" -- run prod
 
 # Start the frontend
 cd ../frontend
-npm install
-npm run build
-API_URL=http://localhost:8080 pm2 start npm --name "fynvi-share-frontend" -- run start
+bun install
+bun run build
+API_URL=http://localhost:8080 pm2 start bun --name "fynvi-share-frontend" -- run start
 ```
