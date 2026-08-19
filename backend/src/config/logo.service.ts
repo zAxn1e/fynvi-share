@@ -1,6 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import * as fs from "fs";
-import * as sharp from "sharp";
+import * as _sharp from "sharp";
+const sharp = (_sharp as any).default || _sharp;
 
 const IMAGES_PATH = "../frontend/public/img";
 

@@ -10,7 +10,8 @@ import * as fsPromises from "fs/promises";
 import * as path from "path";
 import * as os from "os";
 import { spawn } from "child_process";
-import * as sharp from "sharp";
+import * as _sharp from "sharp";
+const sharp = (_sharp as any).default || _sharp;
 import { PrismaService } from "src/prisma/prisma.service";
 import { ConfigService } from "src/config/config.service";
 import { SHARE_DIRECTORY } from "../constants";
@@ -89,7 +90,7 @@ export class ThumbnailService implements OnModuleInit {
     private readonly config: ConfigService,
     @Inject(forwardRef(() => S3FileService))
     private readonly s3FileService: S3FileService,
-  ) {}
+  ) { }
 
   async onModuleInit() {
     this.hasFfmpeg = await this.checkFfmpegAvailable();
