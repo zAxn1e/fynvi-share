@@ -1,26 +1,26 @@
 # Stage 1: Frontend dependencies
-FROM oven/bun:1-alpine AS frontend-dependencies
+FROM oven/bun:1-slim AS frontend-dependencies
 WORKDIR /opt/app
 COPY frontend/package.json frontend/bun.lock* ./
-RUN bun install --frozen-lockfile
+RUN --mount=type=cache,target=/root/.bun/install/cache bun install --frozen-lockfile
 
 # Stage 2: Build frontend
-FROM oven/bun:1-alpine AS frontend-builder
+FROM oven/bun:1-slim AS frontend-builder
 WORKDIR /opt/app
 COPY ./frontend .
 COPY --from=frontend-dependencies /opt/app/node_modules ./node_modules
 RUN --mount=type=cache,target=/opt/app/.next/cache bun run build
 
 # Stage 3: Backend dependencies
-FROM oven/bun:1-alpine AS backend-dependencies
-RUN apk add --no-cache python3 make g++
+FROM oven/bun:1-slim AS backend-dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends python3 make g++ && rm -rf /var/lib/apt/lists/*
 WORKDIR /opt/app
 COPY backend/package.json backend/bun.lock* ./
-RUN bun install --frozen-lockfile
+RUN --mount=type=cache,target=/root/.bun/install/cache bun install --frozen-lockfile
 
 # Stage 4: Build backend
-FROM oven/bun:1-alpine AS backend-builder
-RUN apk add --no-cache openssl
+FROM oven/bun:1-slim AS backend-builder
+RUN apt-get update && apt-get install -y --no-install-recommends openssl && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /opt/app
 COPY ./backend .
@@ -31,12 +31,21 @@ RUN bunx prisma generate \
     && bun install --production
 
 # Stage 5: Final image
-FROM oven/bun:1-alpine AS runner
+FROM oven/bun:1-slim AS runner
 ENV NODE_ENV=docker
 
-RUN apk add --no-cache curl caddy su-exec openssl ffmpeg
+COPY --from=caddy:2 /usr/bin/caddy /usr/bin/caddy
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl \
+    gosu \
+    openssl \
+    ffmpeg \
+    ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /opt/app/frontend
+COPY --from=frontend-builder /opt/app/node_modules ./node_modules
 COPY --from=frontend-builder /opt/app/public ./public
 COPY --from=frontend-builder /opt/app/.next/standalone ./
 COPY --from=frontend-builder /opt/app/.next/static ./.next/static
@@ -60,7 +69,7 @@ RUN find ./scripts/docker -type f -name "*.sh" -exec sed -i 's/\r$//' {} + \
 
 EXPOSE 3000
 
-HEALTHCHECK --interval=10s --timeout=3s --start-period=90s CMD /bin/sh -c '(if [[ "$CADDY_DISABLED" = "true" ]]; then curl -fs http://localhost:${BACKEND_PORT:-8080}/api/health; else curl -fs http://localhost:3000/api/health; fi) || exit 1'
+HEALTHCHECK --interval=10s --timeout=3s --start-period=90s CMD /bin/sh -c '(if [ "$CADDY_DISABLED" = "true" ]; then curl -fs http://localhost:${BACKEND_PORT:-8080}/api/health; else curl -fs http://localhost:3000/api/health; fi) || exit 1'
 
 ENTRYPOINT ["sh", "./scripts/docker/create-user.sh"]
 CMD ["sh", "./scripts/docker/entrypoint.sh"]

@@ -10,13 +10,7 @@
   },
   "overrides": {
     "serialize-javascript": "^7.0.5",
-    "@next/eslint-plugin-next": {
-      "glob": "10.5.0"
-    },
-    "postcss": "8.5.15",
-    "minimatch@9": {
-      "brace-expansion": "^2.1.4"
-    }
+    "postcss": "8.5.15"
   },
   "dependencies": {
     "@emotion/react": "^11.13.3",
