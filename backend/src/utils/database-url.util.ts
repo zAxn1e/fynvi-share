@@ -22,7 +22,10 @@ export function resolveDatabaseUrl({
 }: DatabaseUrlOptions): string {
   if (explicitUrl) return explicitUrl;
 
-  const canonicalDatabase = path.join(dataDirectory, CANONICAL_DATABASE_FILENAME);
+  const canonicalDatabase = path.join(
+    dataDirectory,
+    CANONICAL_DATABASE_FILENAME,
+  );
   if (exists(canonicalDatabase)) {
     return sqliteUrl(canonicalDatabase);
   }

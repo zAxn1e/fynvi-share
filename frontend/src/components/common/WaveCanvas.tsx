@@ -90,7 +90,8 @@ export const WaveCanvas: React.FC<WaveCanvasProps> = ({
 
       // Dynamic primary color paletting from theme
       const themePrimaryHex =
-        theme.colors[theme.primaryColor]?.[6] || (isDark ? "#3B82F6" : "#2563EB");
+        theme.colors[theme.primaryColor]?.[6] ||
+        (isDark ? "#3B82F6" : "#2563EB");
       const hexToRgbStr = (hex: string) => {
         const h = hex.replace("#", "");
         if (h.length === 3) {
@@ -127,7 +128,7 @@ export const WaveCanvas: React.FC<WaveCanvasProps> = ({
         freqFactor: number,
         offset: number,
         colorPrefix: string,
-        yOffsetRatio: number = 0.5
+        yOffsetRatio: number = 0.5,
       ) => {
         ctx.beginPath();
         const baseHeight = height * yOffsetRatio;
@@ -148,7 +149,12 @@ export const WaveCanvas: React.FC<WaveCanvasProps> = ({
         ctx.lineTo(width, height);
         ctx.closePath();
 
-        const grad = ctx.createLinearGradient(0, baseHeight - 50, width, height);
+        const grad = ctx.createLinearGradient(
+          0,
+          baseHeight - 50,
+          width,
+          height,
+        );
         grad.addColorStop(0, `${colorPrefix}${opacity})`);
         grad.addColorStop(1, `${colorPrefix}0)`);
         ctx.fillStyle = grad;
@@ -159,7 +165,7 @@ export const WaveCanvas: React.FC<WaveCanvasProps> = ({
       const baseAlpha = isDark ? 0.07 : 0.05;
       drawWave(baseAlpha * 0.7, 0.8, 1.2, 0, primaryColor, 0.45);
       drawWave(baseAlpha * 0.9, 1.1, 0.9, 1.8, secondaryColor, 0.52);
-      drawWave(baseAlpha * 0.6, 0.7, 1.4, 3.4, accentColor, 0.60);
+      drawWave(baseAlpha * 0.6, 0.7, 1.4, 3.4, accentColor, 0.6);
 
       if (!prefersReducedMotion) {
         animationFrameId = requestAnimationFrame(render);

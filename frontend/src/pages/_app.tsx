@@ -261,29 +261,37 @@ function App({ Component, pageProps }: AppProps) {
 
   useEffect(() => {
     if (typeof document !== "undefined") {
-      document.documentElement.setAttribute("data-mantine-color-scheme", colorScheme);
+      document.documentElement.setAttribute(
+        "data-mantine-color-scheme",
+        colorScheme,
+      );
       document.documentElement.setAttribute("data-color-scheme", colorScheme);
       document.documentElement.style.colorScheme = colorScheme;
-      document.body.className = colorScheme === "dark" ? "fynvi-dark theme-dark" : "fynvi-light theme-light";
+      document.body.className =
+        colorScheme === "dark"
+          ? "fynvi-dark theme-dark"
+          : "fynvi-light theme-light";
     }
   }, [colorScheme]);
 
   const toggleColorScheme = (value?: ColorScheme) => {
     const nextScheme =
-      value !== undefined
-        ? value
-        : colorScheme === "dark"
-          ? "light"
-          : "dark";
+      value !== undefined ? value : colorScheme === "dark" ? "light" : "dark";
     setColorScheme(nextScheme);
     setCookie("mantine-color-scheme", nextScheme, {
       sameSite: "lax",
     });
     if (typeof document !== "undefined") {
-      document.documentElement.setAttribute("data-mantine-color-scheme", nextScheme);
+      document.documentElement.setAttribute(
+        "data-mantine-color-scheme",
+        nextScheme,
+      );
       document.documentElement.setAttribute("data-color-scheme", nextScheme);
       document.documentElement.style.colorScheme = nextScheme;
-      document.body.className = nextScheme === "dark" ? "fynvi-dark theme-dark" : "fynvi-light theme-light";
+      document.body.className =
+        nextScheme === "dark"
+          ? "fynvi-dark theme-dark"
+          : "fynvi-light theme-light";
     }
   };
 
@@ -455,15 +463,16 @@ App.getInitialProps = async ({ ctx }: { ctx: GetServerSidePropsContext }) => {
     )?.value;
 
     pageProps.language =
-      ctx.req.cookies["language"] || defaultLanguage || requestLanguage || "en-US";
+      ctx.req.cookies["language"] ||
+      defaultLanguage ||
+      requestLanguage ||
+      "en-US";
   } else {
     // Client-side navigation: resolve language from cookie or navigator
     const cookieLanguage = getCookie("language", ctx) as string;
     pageProps.language =
       cookieLanguage ||
-      (typeof navigator !== "undefined"
-        ? navigator.language
-        : "en-US");
+      (typeof navigator !== "undefined" ? navigator.language : "en-US");
   }
   return { pageProps };
 };

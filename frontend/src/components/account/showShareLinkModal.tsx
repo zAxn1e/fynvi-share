@@ -1,4 +1,13 @@
-import { ActionIcon, Box, CopyButton, Group, Stack, Text, TextInput, Tooltip } from "@mantine/core";
+import {
+  ActionIcon,
+  Box,
+  CopyButton,
+  Group,
+  Stack,
+  Text,
+  TextInput,
+  Tooltip,
+} from "@mantine/core";
 import { ModalsContextProps } from "@mantine/modals/lib/context";
 import { TbCheck, TbCopy, TbExternalLink, TbLink } from "react-icons/tb";
 import { translateOutsideContext } from "../../hooks/useTranslate.hook";
@@ -20,7 +29,8 @@ const showShareLinkModal = (
     children: (
       <Stack spacing={16} py={6}>
         <Text size="xs" color="dimmed">
-          Anyone with this link can view and download files from this share (unless password-protected).
+          Anyone with this link can view and download files from this share
+          (unless password-protected).
         </Text>
 
         <Group spacing={8} noWrap align="center">

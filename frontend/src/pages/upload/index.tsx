@@ -25,7 +25,10 @@ import shareService from "../../services/share.service";
 import pendingUploadService from "../../services/pendingUpload.service";
 import { FileUpload } from "../../types/File.type";
 import { CreateShare, Share } from "../../types/share.type";
-import { filterDuplicateFiles, getNormalizedFileName } from "../../utils/file.util";
+import {
+  filterDuplicateFiles,
+  getNormalizedFileName,
+} from "../../utils/file.util";
 import { byteToHumanSizeString } from "../../utils/fileSize.util";
 import toast from "../../utils/toast.util";
 
@@ -94,7 +97,9 @@ const Upload = ({
     setUploadItems((prevItems) => {
       return files.map((file, idx) => {
         const id = (file as any).id || `${file.name}-${file.size}-${idx}`;
-        const existing = prevItems.find((p) => p.name === file.name && p.size === file.size);
+        const existing = prevItems.find(
+          (p) => p.name === file.name && p.size === file.size,
+        );
         const progress = file.uploadingProgress ?? 0;
         let status: UploadItemState["status"] = "WAITING";
         if (progress === -1) status = "FAILED";
@@ -102,12 +107,18 @@ const Upload = ({
         else if (isUploading && progress > 0) status = "UPLOADING";
 
         let previewUrl = existing?.previewUrl;
-        if (!previewUrl && typeof window !== "undefined" && file instanceof File) {
+        if (
+          !previewUrl &&
+          typeof window !== "undefined" &&
+          file instanceof File
+        ) {
           const isImageOrMedia =
             file.type.startsWith("image/") ||
             file.type.startsWith("video/") ||
             file.type.startsWith("audio/") ||
-            file.name.match(/\.(png|jpg|jpeg|gif|webp|svg|bmp|mp4|webm|mov|mkv|avi|mp3|wav|ogg|flac|m4a|aac)$/i);
+            file.name.match(
+              /\.(png|jpg|jpeg|gif|webp|svg|bmp|mp4|webm|mov|mkv|avi|mp3|wav|ogg|flac|m4a|aac)$/i,
+            );
           if (isImageOrMedia) {
             try {
               previewUrl = URL.createObjectURL(file);
@@ -128,7 +139,8 @@ const Upload = ({
           previewUrl,
           file: file instanceof File ? file : undefined,
           status: existing?.status === "PAUSED" ? "PAUSED" : status,
-          errorMessage: progress === -1 ? "Chunk upload failed. Retrying..." : undefined,
+          errorMessage:
+            progress === -1 ? "Chunk upload failed. Retrying..." : undefined,
         };
       });
     });
@@ -149,7 +161,14 @@ const Upload = ({
         <Stack spacing={16}>
           {item.previewUrl ? (
             isAudio ? (
-              <Box sx={{ width: "100%", display: "flex", justifyContent: "center", py: 8 }}>
+              <Box
+                sx={{
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "center",
+                  py: 8,
+                }}
+              >
                 <AudioPlayer
                   src={item.previewUrl}
                   fileName={item.name}
@@ -235,7 +254,8 @@ const Upload = ({
                   File Size
                 </Text>
                 <Text size="xs" className="font-mono">
-                  {byteToHumanSizeString(item.size)} ({item.size.toLocaleString()} bytes)
+                  {byteToHumanSizeString(item.size)} (
+                  {item.size.toLocaleString()} bytes)
                 </Text>
               </Group>
 
@@ -254,7 +274,10 @@ const Upload = ({
     });
   };
 
-  const uploadFiles = async (share: CreateShare, filesToUpload: FileUpload[]) => {
+  const uploadFiles = async (
+    share: CreateShare,
+    filesToUpload: FileUpload[],
+  ) => {
     setIsUploading(true);
 
     try {
@@ -312,10 +335,13 @@ const Upload = ({
                 chunks,
                 (progressEvent) => {
                   if (progressEvent.total && file.size > 0) {
-                    const chunkProgress = progressEvent.loaded / progressEvent.total;
-                    const uploadedBytesBeforeThisChunk = chunkIndex * currentChunkSize;
+                    const chunkProgress =
+                      progressEvent.loaded / progressEvent.total;
+                    const uploadedBytesBeforeThisChunk =
+                      chunkIndex * currentChunkSize;
                     const uploadedBytesInThisChunk = blob.size * chunkProgress;
-                    const totalUploaded = uploadedBytesBeforeThisChunk + uploadedBytesInThisChunk;
+                    const totalUploaded =
+                      uploadedBytesBeforeThisChunk + uploadedBytesInThisChunk;
                     const overallPercent = (totalUploaded / file.size) * 100;
 
                     // Compute live speed
@@ -326,13 +352,21 @@ const Upload = ({
                       const speedBytesPerSec = bytesDiff / timeDiff;
                       const speedFormatted = `${byteToHumanSizeString(speedBytesPerSec)}/s`;
                       const remainingBytes = file.size - totalUploaded;
-                      const etaSec = speedBytesPerSec > 0 ? Math.ceil(remainingBytes / speedBytesPerSec) : 0;
-                      const etaFormatted = etaSec > 0 ? `~${etaSec}s remaining` : "";
+                      const etaSec =
+                        speedBytesPerSec > 0
+                          ? Math.ceil(remainingBytes / speedBytesPerSec)
+                          : 0;
+                      const etaFormatted =
+                        etaSec > 0 ? `~${etaSec}s remaining` : "";
 
                       setUploadItems((prev) =>
                         prev.map((item, idx) =>
                           idx === fileIndex
-                            ? { ...item, speed: speedFormatted, eta: etaFormatted }
+                            ? {
+                                ...item,
+                                speed: speedFormatted,
+                                eta: etaFormatted,
+                              }
                             : item,
                         ),
                       );
@@ -379,7 +413,9 @@ const Upload = ({
         isReverseShare,
         appUrl: config.get("general.appUrl"),
         defaultAppUrl: config.get("general.appUrl", true),
-        allowUnauthenticatedShares: config.get("share.allowUnauthenticatedShares"),
+        allowUnauthenticatedShares: config.get(
+          "share.allowUnauthenticatedShares",
+        ),
         enableEmailRecepients: config.get("email.enableShareEmailRecipients"),
         enableUserRecipients: config.get("share.enableUserRecipients"),
         maxExpiration: user?.isAdmin
@@ -433,10 +469,13 @@ const Upload = ({
         const fileUpload = file as FileUpload;
         fileUpload.uploadingProgress = 0;
 
-        const filtered = filterDuplicateFiles([fileUpload], files, (normalizedName) =>
-          toast.error(
-            t("upload.notify.duplicate-skipped", { name: normalizedName }),
-          ),
+        const filtered = filterDuplicateFiles(
+          [fileUpload],
+          files,
+          (normalizedName) =>
+            toast.error(
+              t("upload.notify.duplicate-skipped", { name: normalizedName }),
+            ),
         );
         if (filtered.length === 0) return;
 
@@ -454,14 +493,19 @@ const Upload = ({
   }, [autoOpenCreateUploadModal, modals.modals.length, files]);
 
   useEffect(() => {
-    const fileErrorCount = files.filter((file) => file.uploadingProgress === -1).length;
+    const fileErrorCount = files.filter(
+      (file) => file.uploadingProgress === -1,
+    ).length;
 
     if (fileErrorCount > 0) {
       if (!errorToastShown) {
-        toast.error(t("upload.notify.count-failed", { count: fileErrorCount }), {
-          withCloseButton: false,
-          autoClose: false,
-        });
+        toast.error(
+          t("upload.notify.count-failed", { count: fileErrorCount }),
+          {
+            withCloseButton: false,
+            autoClose: false,
+          },
+        );
       }
       errorToastShown = true;
     } else {

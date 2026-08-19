@@ -111,19 +111,27 @@ const SignInForm = ({ redirectPath }: { redirectPath: string }) => {
                   {t("signin.input.password") || "Password"}
                 </Text>
                 {config.get("smtp.enabled") && (
-                  <Anchor component={Link} href="/auth/resetPassword" size="xs" color="dimmed">
-                    <FormattedMessage id="signin.button.forgot-password" defaultMessage="Forgot password?" />
+                  <Anchor
+                    component={Link}
+                    href="/auth/resetPassword"
+                    size="xs"
+                    color="dimmed"
+                  >
+                    <FormattedMessage
+                      id="signin.button.forgot-password"
+                      defaultMessage="Forgot password?"
+                    />
                   </Anchor>
                 )}
               </Group>
-              <PasswordInput
-                size="sm"
-                {...form.getInputProps("password")}
-              />
+              <PasswordInput size="sm" {...form.getInputProps("password")} />
             </Box>
 
             <Button variant="primary" size="sm" type="submit" mt={8}>
-              <FormattedMessage id="signin.button.submit" defaultMessage="Sign in" />
+              <FormattedMessage
+                id="signin.button.submit"
+                defaultMessage="Sign in"
+              />
             </Button>
           </Stack>
         </form>
@@ -140,7 +148,8 @@ const SignInForm = ({ redirectPath }: { redirectPath: string }) => {
                   component="a"
                   leftIcon={getOAuthIcon(provider)}
                   href={getOAuthUrl(
-                    config.get("general.appUrl") !== config.get("general.appUrl", true)
+                    config.get("general.appUrl") !==
+                      config.get("general.appUrl", true)
                       ? config.get("general.appUrl")
                       : window.location.origin,
                     provider,
@@ -150,7 +159,11 @@ const SignInForm = ({ redirectPath }: { redirectPath: string }) => {
                   {isRedirectingToOauthProvider ? (
                     <Loader size="xs" />
                   ) : (
-                    t(`signIn.oauth.${provider.toLowerCase()}`, { provider }, provider)
+                    t(
+                      `signIn.oauth.${provider.toLowerCase()}`,
+                      { provider },
+                      provider,
+                    )
                   )}
                 </Button>
               ))}

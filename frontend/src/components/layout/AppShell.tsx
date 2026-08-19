@@ -38,8 +38,12 @@ export const AppShell: React.FC<AppShellProps> = ({
         display: "flex",
         minHeight: "100vh",
         alignItems: "stretch",
-        backgroundColor: isDark ? "var(--surface-0, #090B0E)" : "var(--surface-0, #F8FAFC)",
-        color: isDark ? "var(--text-primary, #F8FAFC)" : "var(--text-primary, #0F172A)",
+        backgroundColor: isDark
+          ? "var(--surface-0, #090B0E)"
+          : "var(--surface-0, #F8FAFC)",
+        color: isDark
+          ? "var(--text-primary, #F8FAFC)"
+          : "var(--text-primary, #0F172A)",
         position: "relative",
       }}
     >
@@ -92,7 +96,8 @@ export const AppShell: React.FC<AppShellProps> = ({
           position: "relative",
           zIndex: 1,
           marginLeft: isHomePage ? 0 : sidebarCollapsed ? 76 : 260,
-          transition: "margin-left var(--transition-normal, 250ms cubic-bezier(0.16, 1, 0.3, 1))",
+          transition:
+            "margin-left var(--transition-normal, 250ms cubic-bezier(0.16, 1, 0.3, 1))",
           [theme.fn.smallerThan("md")]: {
             marginLeft: 0,
           },

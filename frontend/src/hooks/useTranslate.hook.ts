@@ -6,9 +6,16 @@ import i18nUtil from "../utils/i18n.util";
 const englishFallback = LOCALES.ENGLISH.messages as Record<string, string>;
 
 const KEY_ALIASES: Record<string, string[]> = {
-  "signup.input.password": ["signin.input.password", "resetPassword.input.password"],
+  "signup.input.password": [
+    "signin.input.password",
+    "resetPassword.input.password",
+  ],
   "signup.input.password.placeholder": ["signin.input.password.placeholder"],
-  "signin.button.signin": ["signin.button.submit", "common.button.signIn", "navbar.signin"],
+  "signin.button.signin": [
+    "signin.button.submit",
+    "common.button.signIn",
+    "navbar.signin",
+  ],
   "signin.button.forgot-password": ["resetPassword.title"],
   "common.cancel": ["common.button.cancel"],
   "common.save": ["common.button.save"],
@@ -71,7 +78,10 @@ const useTranslate = () => {
     values?: Parameters<typeof intl.formatMessage>[1],
     defaultMessage?: string,
   ) => {
-    const currentMsg = findMessage(id, intl?.messages as Record<string, string>);
+    const currentMsg = findMessage(
+      id,
+      intl?.messages as Record<string, string>,
+    );
     const enMsg = findMessage(id, englishFallback);
 
     const fallbackText =
@@ -144,4 +154,3 @@ export const translateOutsideContext = () => {
 };
 
 export default useTranslate;
-

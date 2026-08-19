@@ -5,9 +5,16 @@ import * as fs from "fs/promises";
 import * as path from "path";
 import { Readable } from "stream";
 import { DATA_DIRECTORY, SHARE_DIRECTORY } from "../../constants";
-import { FileChecksumResult, StorageProvider } from "./storage-provider.interface";
+import {
+  FileChecksumResult,
+  StorageProvider,
+} from "./storage-provider.interface";
 
-export const TEMP_UPLOAD_DIRECTORY = path.join(DATA_DIRECTORY, "temp", "uploads");
+export const TEMP_UPLOAD_DIRECTORY = path.join(
+  DATA_DIRECTORY,
+  "temp",
+  "uploads",
+);
 
 @Injectable()
 export class LocalStorageProvider implements StorageProvider {

@@ -4,16 +4,17 @@
   "scripts": {
     "build": "nest build",
     "dev": "cross-env NODE_ENV=development nest start --watch",
-    "prod": "ts-node src/scripts/run-with-database-url.ts npx prisma migrate deploy && ts-node src/scripts/run-with-database-url.ts npx prisma db seed && node dist/src/main",
-    "db:push": "ts-node src/scripts/run-with-database-url.ts npx prisma db push",
-    "db:seed": "ts-node src/scripts/run-with-database-url.ts npx prisma db seed",
-    "migrate:pingvin": "ts-node scripts/migrate-pingvin.ts",
+    "prod": "bun src/scripts/run-with-database-url.ts bunx prisma migrate deploy && bun src/scripts/run-with-database-url.ts bun prisma/seed/config.seed.ts && bun dist/src/main.js",
+    "db:push": "bun src/scripts/run-with-database-url.ts bunx prisma db push",
+    "db:seed": "bun src/scripts/run-with-database-url.ts bun prisma/seed/config.seed.ts",
+    "migrate:pingvin": "bun scripts/migrate-pingvin.ts",
+    "migrate": "bun scripts/migrate-pingvin.ts",
     "lint": "eslint \"src/**/*.ts\"",
     "format": "prettier --end-of-line=auto --write \"src/**/*.ts\"",
-    "test:system": "prisma migrate reset -f && nest start & wait-on http://localhost:8080/api/configs && npx newman run ./test/newman-system-tests.json"
+    "test:system": "bunx prisma migrate reset -f && nest start & wait-on http://localhost:8080/api/configs && bunx newman run ./test/newman-system-tests.json"
   },
   "prisma": {
-    "seed": "ts-node prisma/seed/config.seed.ts"
+    "seed": "bun prisma/seed/config.seed.ts"
   },
   "overrides": {
     "handlebars": "^4.7.9",
@@ -88,6 +89,7 @@
     "@types/uuid": "^10.0.0",
     "@typescript-eslint/eslint-plugin": "^8.29.1",
     "@typescript-eslint/parser": "^8.29.1",
+    "ajv": "^8.20.0",
     "cross-env": "^7.0.3",
     "eslint": "^9.24.0",
     "eslint-config-prettier": "^10.1.2",

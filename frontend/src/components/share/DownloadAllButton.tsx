@@ -53,13 +53,19 @@ const DownloadAllButton = ({
       leftIcon={<TbArchive size={16} />}
       onClick={() => {
         if (!isZipReady) {
-          toast.error(t("share.notify.download-all-preparing") || "Archive is still preparing...");
+          toast.error(
+            t("share.notify.download-all-preparing") ||
+              "Archive is still preparing...",
+          );
         } else {
           downloadAll();
         }
       }}
     >
-      <FormattedMessage id="share.button.download-all" defaultMessage="Download All (.zip)" />
+      <FormattedMessage
+        id="share.button.download-all"
+        defaultMessage="Download All (.zip)"
+      />
     </Button>
   );
 };

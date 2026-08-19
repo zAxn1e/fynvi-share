@@ -22,19 +22,28 @@ export const Card: React.FC<CardProps> = ({
         (theme): CSSObject => {
           const isDark = theme.colorScheme === "dark";
 
-          let surfaceBg = isDark ? "var(--surface-1, #151B24)" : "var(--surface-0, #FFFFFF)";
-          let borderVal = "1px solid var(--border-subtle, rgba(255, 255, 255, 0.07))";
+          let surfaceBg = isDark
+            ? "var(--surface-1, #151B24)"
+            : "var(--surface-0, #FFFFFF)";
+          let borderVal =
+            "1px solid var(--border-subtle, rgba(255, 255, 255, 0.07))";
           let backdropVal = "none";
 
           if (level === 0) {
-            surfaceBg = isDark ? "var(--surface-0, #0F1319)" : "var(--surface-0, #FFFFFF)";
+            surfaceBg = isDark
+              ? "var(--surface-0, #0F1319)"
+              : "var(--surface-0, #FFFFFF)";
           } else if (level === 2) {
-            surfaceBg = isDark ? "var(--surface-2, #1C2430)" : "var(--surface-1, #F1F5F9)";
-            borderVal = "1px solid var(--border-medium, rgba(255, 255, 255, 0.13))";
+            surfaceBg = isDark
+              ? "var(--surface-2, #1C2430)"
+              : "var(--surface-1, #F1F5F9)";
+            borderVal =
+              "1px solid var(--border-medium, rgba(255, 255, 255, 0.13))";
           } else if (level === "glass") {
             surfaceBg = "var(--glass-bg, rgba(15, 19, 25, 0.75))";
             backdropVal = "blur(var(--glass-blur, 16px))";
-            borderVal = "1px solid var(--glass-border, rgba(255, 255, 255, 0.09))";
+            borderVal =
+              "1px solid var(--glass-border, rgba(255, 255, 255, 0.09))";
           }
 
           return {
@@ -50,7 +59,8 @@ export const Card: React.FC<CardProps> = ({
             boxShadow: isDark
               ? "var(--shadow-sm, 0 1px 2px rgba(0, 0, 0, 0.3)), inset 0 1px 0 rgba(255, 255, 255, 0.04)"
               : "var(--shadow-sm, 0 1px 3px rgba(15, 23, 42, 0.06))",
-            transition: "all var(--transition-fast, 150ms cubic-bezier(0.16, 1, 0.3, 1))",
+            transition:
+              "all var(--transition-fast, 150ms cubic-bezier(0.16, 1, 0.3, 1))",
             ...(interactive && {
               cursor: "pointer",
               "&:hover": {

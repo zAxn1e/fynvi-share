@@ -110,7 +110,7 @@ export class ConfigController {
             new Error(this.i18n.t("config.redisConnectionFailed")),
         },
       } as any,
-      { namespace: "pingvin" },
+      { namespace: "fynvi" },
     );
     const testKey = `connection-test:${Date.now()}`;
 

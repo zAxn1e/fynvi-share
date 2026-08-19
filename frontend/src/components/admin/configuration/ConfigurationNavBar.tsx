@@ -61,7 +61,8 @@ const ConfigurationNavBar = ({
       width={{ sm: 220, lg: 260 }}
       sx={{
         backgroundColor: "var(--surface-0, #0F1319)",
-        borderRight: "1px solid var(--border-subtle, rgba(255, 255, 255, 0.07))",
+        borderRight:
+          "1px solid var(--border-subtle, rgba(255, 255, 255, 0.07))",
         [theme.fn.smallerThan("sm")]: {
           height: "calc(100dvh - 64px)",
           maxHeight: "calc(100dvh - 64px)",
@@ -70,12 +71,20 @@ const ConfigurationNavBar = ({
       }}
     >
       <Navbar.Section grow component={ScrollArea}>
-        <Text size="xs" color="dimmed" px={10} mb={10} weight={600} sx={{ textTransform: "uppercase", letterSpacing: "0.06em" }}>
+        <Text
+          size="xs"
+          color="dimmed"
+          px={10}
+          mb={10}
+          weight={600}
+          sx={{ textTransform: "uppercase", letterSpacing: "0.06em" }}
+        >
           <FormattedMessage id="admin.config.title" />
         </Text>
         <Stack spacing={4}>
           {categories.map((category) => {
-            const isActive = categoryId.toLowerCase() === category.name.toLowerCase();
+            const isActive =
+              categoryId.toLowerCase() === category.name.toLowerCase();
 
             return (
               <UnstyledButton

@@ -159,7 +159,8 @@ const Account = () => {
           {t("account.title") || "Settings"}
         </Title>
         <Text size="sm" color="dimmed">
-          Manage your profile credentials, authentication methods, API keys, and workspace preferences.
+          Manage your profile credentials, authentication methods, API keys, and
+          workspace preferences.
         </Text>
       </Stack>
 
@@ -194,7 +195,8 @@ const Account = () => {
                     Personal Information
                   </Text>
                   <Text size="xs" color="dimmed">
-                    Update your display name and email address for system notifications.
+                    Update your display name and email address for system
+                    notifications.
                   </Text>
                 </Stack>
                 {user?.isLdap && <Badge variant="info">LDAP Account</Badge>}
@@ -227,7 +229,10 @@ const Account = () => {
                   {!user?.isLdap && (
                     <Group position="right" mt={8}>
                       <Button variant="primary" size="sm" type="submit">
-                        <FormattedMessage id="common.button.save" defaultMessage="Save Changes" />
+                        <FormattedMessage
+                          id="common.button.save"
+                          defaultMessage="Save Changes"
+                        />
                       </Button>
                     </Group>
                   )}
@@ -248,7 +253,8 @@ const Account = () => {
                       {t("account.card.password.title") || "Change Password"}
                     </Text>
                     <Text size="xs" color="dimmed">
-                      Ensure your account uses a strong, unique password with at least 8 characters.
+                      Ensure your account uses a strong, unique password with at
+                      least 8 characters.
                     </Text>
                   </Stack>
 
@@ -267,13 +273,18 @@ const Account = () => {
                     <Stack spacing={12}>
                       {user?.hasPassword ? (
                         <PasswordInput
-                          label={t("account.card.password.old") || "Current Password"}
+                          label={
+                            t("account.card.password.old") || "Current Password"
+                          }
                           size="sm"
                           {...passwordForm.getInputProps("oldPassword")}
                         />
                       ) : (
                         <Text size="xs" color="dimmed">
-                          <FormattedMessage id="account.card.password.noPasswordSet" defaultMessage="No password is set currently." />
+                          <FormattedMessage
+                            id="account.card.password.noPasswordSet"
+                            defaultMessage="No password is set currently."
+                          />
                         </Text>
                       )}
                       <PasswordInput
@@ -283,7 +294,10 @@ const Account = () => {
                       />
                       <Group position="right" mt={8}>
                         <Button variant="primary" size="sm" type="submit">
-                          <FormattedMessage id="common.button.save" defaultMessage="Update Password" />
+                          <FormattedMessage
+                            id="common.button.save"
+                            defaultMessage="Update Password"
+                          />
                         </Button>
                       </Group>
                     </Stack>
@@ -301,10 +315,14 @@ const Account = () => {
                       Two-Factor Authentication (2FA)
                     </Text>
                     <Text size="xs" color="dimmed">
-                      Protect your account with Time-based One-Time Passwords (TOTP) from apps like Google Authenticator or 1Password.
+                      Protect your account with Time-based One-Time Passwords
+                      (TOTP) from apps like Google Authenticator or 1Password.
                     </Text>
                   </Stack>
-                  <Badge variant={user?.totpVerified ? "success" : "default"} dot>
+                  <Badge
+                    variant={user?.totpVerified ? "success" : "default"}
+                    dot
+                  >
                     {user?.totpVerified ? "Enabled" : "Disabled"}
                   </Badge>
                 </Group>
@@ -330,7 +348,10 @@ const Account = () => {
                         {...disableTotpForm.getInputProps("password")}
                       />
                       <TextInput
-                        label={t("account.modal.totp.code") || "Current 6-Digit TOTP Code"}
+                        label={
+                          t("account.modal.totp.code") ||
+                          "Current 6-Digit TOTP Code"
+                        }
                         placeholder="123456"
                         size="sm"
                         {...disableTotpForm.getInputProps("code")}
@@ -360,12 +381,20 @@ const Account = () => {
                   >
                     <Stack spacing={12}>
                       <PasswordInput
-                        label={t("account.card.password.title") || "Confirm Password to setup 2FA"}
+                        label={
+                          t("account.card.password.title") ||
+                          "Confirm Password to setup 2FA"
+                        }
                         size="sm"
                         {...enableTotpForm.getInputProps("password")}
                       />
                       <Group position="right" mt={8}>
-                        <Button variant="primary" size="sm" type="submit" leftIcon={<TbShieldCheck size={16} />}>
+                        <Button
+                          variant="primary"
+                          size="sm"
+                          type="submit"
+                          leftIcon={<TbShieldCheck size={16} />}
+                        >
                           Setup 2FA
                         </Button>
                       </Group>
@@ -387,17 +416,31 @@ const Account = () => {
                     Connected OAuth Providers
                   </Text>
                   <Text size="xs" color="dimmed">
-                    Link external authentication accounts for 1-click single sign-on.
+                    Link external authentication accounts for 1-click single
+                    sign-on.
                   </Text>
                 </Stack>
 
                 <Stack spacing={12}>
                   {oauth.map((provider) => (
-                    <Group key={provider} position="apart" p="12px 16px" sx={{ borderRadius: 8, backgroundColor: "rgba(255, 255, 255, 0.03)", border: "1px solid rgba(255, 255, 255, 0.06)" }}>
+                    <Group
+                      key={provider}
+                      position="apart"
+                      p="12px 16px"
+                      sx={{
+                        borderRadius: 8,
+                        backgroundColor: "rgba(255, 255, 255, 0.03)",
+                        border: "1px solid rgba(255, 255, 255, 0.06)",
+                      }}
+                    >
                       <Group spacing={10}>
                         {getOAuthIcon(provider)}
                         <Stack spacing={0}>
-                          <Text size="sm" weight={500} sx={{ textTransform: "capitalize" }}>
+                          <Text
+                            size="sm"
+                            weight={500}
+                            sx={{ textTransform: "capitalize" }}
+                          >
                             {provider}
                           </Text>
                           <Text size="xs" color="dimmed">
@@ -415,13 +458,24 @@ const Account = () => {
                           onClick={() => {
                             modals.openConfirmModal({
                               title: t("account.modal.unlink.title"),
-                              children: <Text size="sm">{t("account.modal.unlink.description")}</Text>,
-                              labels: { confirm: t("account.card.oauth.unlink"), cancel: t("common.button.cancel") },
+                              children: (
+                                <Text size="sm">
+                                  {t("account.modal.unlink.description")}
+                                </Text>
+                              ),
+                              labels: {
+                                confirm: t("account.card.oauth.unlink"),
+                                cancel: t("common.button.cancel"),
+                              },
                               confirmProps: { color: "red" },
                               onConfirm: () => {
                                 unlinkOAuth(provider)
                                   .then(() => {
-                                    toast.success(t("account.notify.oauth.unlinked.success"));
+                                    toast.success(
+                                      t(
+                                        "account.notify.oauth.unlinked.success",
+                                      ),
+                                    );
                                     refreshOAuthStatus();
                                   })
                                   .catch(toast.axiosError);
@@ -437,7 +491,8 @@ const Account = () => {
                           size="xs"
                           component="a"
                           href={getOAuthUrl(
-                            config.get("general.appUrl") !== config.get("general.appUrl", true)
+                            config.get("general.appUrl") !==
+                              config.get("general.appUrl", true)
                               ? config.get("general.appUrl")
                               : window.location.origin,
                             provider,
@@ -465,7 +520,10 @@ const Account = () => {
             <Card padded>
               <Stack spacing={12}>
                 <Text size="sm" weight={600}>
-                  <FormattedMessage id="account.card.language.title" defaultMessage="Language" />
+                  <FormattedMessage
+                    id="account.card.language.title"
+                    defaultMessage="Language"
+                  />
                 </Text>
                 <LanguagePicker />
               </Stack>
@@ -474,7 +532,10 @@ const Account = () => {
             <Card padded>
               <Stack spacing={12}>
                 <Text size="sm" weight={600}>
-                  <FormattedMessage id="account.card.color.title" defaultMessage="Appearance & Theme" />
+                  <FormattedMessage
+                    id="account.card.color.title"
+                    defaultMessage="Appearance & Theme"
+                  />
                 </Text>
                 <ThemeSwitcher />
               </Stack>
@@ -491,7 +552,8 @@ const Account = () => {
                     </Text>
                   </Group>
                   <Text size="xs" color="dimmed">
-                    Permanently delete your account and all associated file shares.
+                    Permanently delete your account and all associated file
+                    shares.
                   </Text>
                 </Stack>
 
@@ -507,7 +569,10 @@ const Account = () => {
                           <FormattedMessage id="account.modal.delete.description" />
                         </Text>
                       ),
-                      labels: { confirm: t("common.button.delete"), cancel: t("common.button.cancel") },
+                      labels: {
+                        confirm: t("common.button.delete"),
+                        cancel: t("common.button.cancel"),
+                      },
                       confirmProps: { color: "red" },
                       onConfirm: async () => {
                         await userService
@@ -518,7 +583,10 @@ const Account = () => {
                     })
                   }
                 >
-                  <FormattedMessage id="account.button.delete" defaultMessage="Delete Account" />
+                  <FormattedMessage
+                    id="account.button.delete"
+                    defaultMessage="Delete Account"
+                  />
                 </Button>
               </Group>
             </Card>

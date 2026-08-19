@@ -90,7 +90,7 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({
 
     if (audioRef.current.buffered.length > 0) {
       const end = audioRef.current.buffered.end(
-        audioRef.current.buffered.length - 1
+        audioRef.current.buffered.length - 1,
       );
       if (audioRef.current.duration > 0) {
         setBuffered((end / audioRef.current.duration) * 100);
@@ -106,19 +106,25 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({
   const seekTrackRef = useRef<HTMLDivElement>(null);
   const isScrubbingRef = useRef(false);
 
-  const calculateSeekPos = useCallback((clientX: number) => {
-    if (!seekTrackRef.current || duration === 0) return 0;
-    const rect = seekTrackRef.current.getBoundingClientRect();
-    const pos = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
-    return pos;
-  }, [duration]);
+  const calculateSeekPos = useCallback(
+    (clientX: number) => {
+      if (!seekTrackRef.current || duration === 0) return 0;
+      const rect = seekTrackRef.current.getBoundingClientRect();
+      const pos = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+      return pos;
+    },
+    [duration],
+  );
 
-  const applySeek = useCallback((pos: number) => {
-    if (!audioRef.current || duration === 0) return;
-    const target = pos * duration;
-    audioRef.current.currentTime = target;
-    setCurrentTime(target);
-  }, [duration]);
+  const applySeek = useCallback(
+    (pos: number) => {
+      if (!audioRef.current || duration === 0) return;
+      const target = pos * duration;
+      audioRef.current.currentTime = target;
+      setCurrentTime(target);
+    },
+    [duration],
+  );
 
   const handleSeekMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -224,7 +230,7 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({
     if (!audioRef.current) return;
     audioRef.current.currentTime = Math.max(
       0,
-      Math.min(duration, audioRef.current.currentTime + secs)
+      Math.min(duration, audioRef.current.currentTime + secs),
     );
   };
 
@@ -302,7 +308,8 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({
             width: 68,
             height: 68,
             borderRadius: "50%",
-            backgroundColor: "var(--brand-primary-subtle, rgba(37, 99, 235, 0.15))",
+            backgroundColor:
+              "var(--brand-primary-subtle, rgba(37, 99, 235, 0.15))",
             border: "2px solid var(--brand-primary, #3B82F6)",
             display: "flex",
             alignItems: "center",
@@ -351,7 +358,9 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({
                 {byteToHumanSizeString(fileSize)}
               </Text>
             ) : null}
-            <Text size="xs" color="dimmed">•</Text>
+            <Text size="xs" color="dimmed">
+              •
+            </Text>
             <Text size="xs" color="dimmed" className="font-mono">
               {formatTime(currentTime)} / {formatTime(duration)}
             </Text>
@@ -600,9 +609,17 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({
         </Group>
 
         {/* Right: Repeat Toggle & Speed Menu */}
-        <Group spacing={6} noWrap align="center" sx={{ width: 140, justifyContent: "flex-end" }}>
+        <Group
+          spacing={6}
+          noWrap
+          align="center"
+          sx={{ width: 140, justifyContent: "flex-end" }}
+        >
           {/* Loop / Repeat Toggle */}
-          <Tooltip label={isLooping ? "Repeat On (r)" : "Repeat Off (r)"} withArrow>
+          <Tooltip
+            label={isLooping ? "Repeat On (r)" : "Repeat Off (r)"}
+            withArrow
+          >
             <ActionIcon
               variant="subtle"
               size="md"
@@ -639,9 +656,7 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({
                     fontSize: 12,
                     fontFamily: "monospace",
                     fontWeight: 600,
-                    color: isDark
-                      ? "rgba(255,255,255,0.7)"
-                      : "rgba(0,0,0,0.7)",
+                    color: isDark ? "rgba(255,255,255,0.7)" : "rgba(0,0,0,0.7)",
                     "&:hover": {
                       color: "var(--brand-primary, #3B82F6)",
                       backgroundColor: isDark

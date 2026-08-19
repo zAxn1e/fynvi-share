@@ -245,7 +245,9 @@ const Body = ({
               variant="outline"
               color={security.passwordProtected ? "blue" : "gray"}
             >
-              {security.passwordProtected ? "Password Protected" : "Open Access"}
+              {security.passwordProtected
+                ? "Password Protected"
+                : "Open Access"}
             </Badge>
             {showSecurityDetails ? (
               <TbChevronDown size={16} />
@@ -256,7 +258,15 @@ const Body = ({
         </UnstyledButton>
 
         <Collapse in={showSecurityDetails}>
-          <Stack spacing={8} mt={12} pt={10} sx={{ borderTop: "1px solid var(--border-subtle, rgba(255, 255, 255, 0.07))" }}>
+          <Stack
+            spacing={8}
+            mt={12}
+            pt={10}
+            sx={{
+              borderTop:
+                "1px solid var(--border-subtle, rgba(255, 255, 255, 0.07))",
+            }}
+          >
             <Group position="apart">
               <Group spacing={6}>
                 {security.passwordProtected ? (
@@ -302,7 +312,8 @@ const Body = ({
           <FormattedMessage id="account.shares.table.size" />:
         </Text>
         <Text size="sm" weight={600} className="font-mono">
-          {formattedShareSize} / {formattedMaxShareSize} ({shareSizeProgress.toFixed(1)}%)
+          {formattedShareSize} / {formattedMaxShareSize} (
+          {shareSizeProgress.toFixed(1)}%)
         </Text>
       </Group>
 
@@ -384,7 +395,9 @@ const EditShareBody = ({
     initialValues: {
       name: share.name || "",
       description: share.description || "",
-      expiration: isPermanentShare ? "never" : moment(share.expiration).toISOString(),
+      expiration: isPermanentShare
+        ? "never"
+        : moment(share.expiration).toISOString(),
       never_expires: isPermanentShare,
       password: "",
       removePassword: false,
@@ -408,7 +421,10 @@ const EditShareBody = ({
       }
 
       if (!expMoment.isValid()) {
-        form.setFieldError("expiration", t("common.error.field-required") || "Invalid date");
+        form.setFieldError(
+          "expiration",
+          t("common.error.field-required") || "Invalid date",
+        );
         return;
       }
 
@@ -448,7 +464,9 @@ const EditShareBody = ({
     setIsSubmitting(true);
     try {
       const updatedShare = await shareService.update(share.id, updateShare);
-      toast.success(t("share.edit.notify.save-success") || "Share updated successfully");
+      toast.success(
+        t("share.edit.notify.save-success") || "Share updated successfully",
+      );
       onShareUpdated(updatedShare);
     } catch (e) {
       toast.axiosError(e);
@@ -464,18 +482,21 @@ const EditShareBody = ({
         <TextInput
           variant="filled"
           label={t("account.shares.table.name") || "Share Title"}
-          placeholder={t(
-            "upload.modal.accordion.name-and-description.name.placeholder",
-          ) || "Enter a name for this share"}
+          placeholder={
+            t("upload.modal.accordion.name-and-description.name.placeholder") ||
+            "Enter a name for this share"
+          }
           {...form.getInputProps("name")}
         />
 
         <Textarea
           variant="filled"
           label={t("account.shares.table.description") || "Description"}
-          placeholder={t(
-            "upload.modal.accordion.name-and-description.description.placeholder",
-          ) || "Add notes or a description for recipients"}
+          placeholder={
+            t(
+              "upload.modal.accordion.name-and-description.description.placeholder",
+            ) || "Add notes or a description for recipients"
+          }
           minRows={2}
           {...form.getInputProps("description")}
         />
@@ -537,16 +558,30 @@ const EditShareBody = ({
           </UnstyledButton>
 
           <Collapse in={showSecuritySection}>
-            <Stack spacing={12} mt={12} pt={10} sx={{ borderTop: "1px solid var(--border-subtle, rgba(255, 255, 255, 0.07))" }}>
+            <Stack
+              spacing={12}
+              mt={12}
+              pt={10}
+              sx={{
+                borderTop:
+                  "1px solid var(--border-subtle, rgba(255, 255, 255, 0.07))",
+              }}
+            >
               {/* Password Protection */}
               <Box>
                 <PasswordInput
                   variant="filled"
-                  label={t("upload.modal.accordion.security.password.label") || "Password Protection"}
+                  label={
+                    t("upload.modal.accordion.security.password.label") ||
+                    "Password Protection"
+                  }
                   placeholder={
                     security.passwordProtected
-                      ? t("account.shares.modal.edit.password.keep") || "Keep current password (leave blank)"
-                      : t("upload.modal.accordion.security.password.placeholder") || "Set an optional password"
+                      ? t("account.shares.modal.edit.password.keep") ||
+                        "Keep current password (leave blank)"
+                      : t(
+                          "upload.modal.accordion.security.password.placeholder",
+                        ) || "Set an optional password"
                   }
                   autoComplete="new-password"
                   disabled={form.values.removePassword}
@@ -556,8 +591,13 @@ const EditShareBody = ({
                 {security.passwordProtected && (
                   <Checkbox
                     mt={8}
-                    label={t("account.shares.modal.edit.password.remove") || "Remove password protection"}
-                    {...form.getInputProps("removePassword", { type: "checkbox" })}
+                    label={
+                      t("account.shares.modal.edit.password.remove") ||
+                      "Remove password protection"
+                    }
+                    {...form.getInputProps("removePassword", {
+                      type: "checkbox",
+                    })}
                   />
                 )}
               </Box>

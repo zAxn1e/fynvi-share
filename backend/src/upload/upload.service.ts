@@ -61,7 +61,8 @@ export class UploadService {
 
     const reservedUploadBytes = activeSessions._sum.fileSize || 0n;
     const physicalFreeSpace = await this.storageProvider.getPhysicalFreeSpace();
-    const actualStorageUsage = await this.storageProvider.getPhysicalStorageUsage();
+    const actualStorageUsage =
+      await this.storageProvider.getPhysicalStorageUsage();
 
     if (
       physicalFreeSpace <
@@ -139,7 +140,9 @@ export class UploadService {
     }
 
     if (!["PENDING", "UPLOADING", "PAUSED"].includes(session.status)) {
-      throw new BadRequestException(`Cannot upload chunks in ${session.status} status`);
+      throw new BadRequestException(
+        `Cannot upload chunks in ${session.status} status`,
+      );
     }
 
     if (chunkIndex < 0 || chunkIndex >= session.totalChunks) {
@@ -149,13 +152,18 @@ export class UploadService {
     }
 
     // Integrity Verification
-    const computedHash = crypto.createHash("sha256").update(buffer).digest("hex");
+    const computedHash = crypto
+      .createHash("sha256")
+      .update(buffer)
+      .digest("hex");
     if (chunkSha256 && chunkSha256.toLowerCase() !== computedHash) {
       throw new BadRequestException("Chunk SHA-256 hash mismatch");
     }
 
     // Idempotency & Conflict Check (Decision 1)
-    const existingChunk = session.chunks.find((c) => c.chunkIndex === chunkIndex);
+    const existingChunk = session.chunks.find(
+      (c) => c.chunkIndex === chunkIndex,
+    );
     if (existingChunk) {
       if (
         existingChunk.sha256 === computedHash &&
@@ -231,15 +239,24 @@ export class UploadService {
     if (assembledSize !== session.fileSize) {
       await this.prisma.uploadSession.update({
         where: { id: sessionId },
-        data: { status: "FAILED", errorMessage: "Assembled file size mismatch" },
+        data: {
+          status: "FAILED",
+          errorMessage: "Assembled file size mismatch",
+        },
       });
       throw new BadRequestException("Assembled file size mismatch");
     }
 
-    if (session.fileHash && session.fileHash.toLowerCase() !== computedFileHash) {
+    if (
+      session.fileHash &&
+      session.fileHash.toLowerCase() !== computedFileHash
+    ) {
       await this.prisma.uploadSession.update({
         where: { id: sessionId },
-        data: { status: "FAILED", errorMessage: "Assembled file SHA-256 hash mismatch" },
+        data: {
+          status: "FAILED",
+          errorMessage: "Assembled file SHA-256 hash mismatch",
+        },
       });
       throw new BadRequestException("Assembled file SHA-256 hash mismatch");
     }
@@ -313,7 +330,9 @@ export class UploadService {
       status: session.status,
       processingStep: session.processingStep,
       expiresAt: session.expiresAt,
-      receivedChunks: session.chunks.map((c) => c.chunkIndex).sort((a, b) => a - b),
+      receivedChunks: session.chunks
+        .map((c) => c.chunkIndex)
+        .sort((a, b) => a - b),
     };
   }
 }

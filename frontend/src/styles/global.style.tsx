@@ -11,11 +11,10 @@ const GlobalStyle = () => {
           overflowX: "hidden",
         },
         body: {
-          backgroundColor:
-            theme.colorScheme === "dark" ? "#0B0D11" : "#F8FAFC",
+          backgroundColor: theme.colorScheme === "dark" ? "#0B0D11" : "#F8FAFC",
           color: theme.colorScheme === "dark" ? "#F3F4F6" : "#0F172A",
           fontFamily:
-            "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+            '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
           margin: 0,
           padding: 0,
           overflowX: "hidden",

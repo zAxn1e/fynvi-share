@@ -1,11 +1,4 @@
-import {
-  Button,
-  Center,
-  Container,
-  Stack,
-  Text,
-  Title,
-} from "@mantine/core";
+import { Button, Center, Container, Stack, Text, Title } from "@mantine/core";
 import Link from "next/link";
 import Logo from "../../components/Logo";
 import Meta from "../../components/Meta";
@@ -23,7 +16,8 @@ const Intro = () => {
             <Title order={2}>Welcome to Fynvi Share</Title>
           </Center>
           <Text align="center" color="dimmed">
-            A modern, self-hosted file sharing platform with local-first storage and a polished sharing experience.
+            A modern, self-hosted file sharing platform with local-first storage
+            and a polished sharing experience.
           </Text>
           <Text mt="lg" weight={600}>
             How would you like to continue?

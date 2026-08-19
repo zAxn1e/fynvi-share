@@ -23,7 +23,9 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
     <Group spacing={6} align="center" sx={{ userSelect: "none" }}>
       {/* Root Breadcrumb */}
       <UnstyledButton
-        onClick={() => onNavigate({ id: "root", name: rootLabel, path: "/" }, -1)}
+        onClick={() =>
+          onNavigate({ id: "root", name: rootLabel, path: "/" }, -1)
+        }
         sx={(theme) => ({
           display: "flex",
           alignItems: "center",

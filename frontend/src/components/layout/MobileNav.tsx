@@ -69,8 +69,11 @@ export const MobileNav: React.FC<MobileNavProps> = ({
       withCloseButton={false}
       styles={{
         content: {
-          backgroundColor: isDark ? "var(--surface-0, #0F1319)" : "var(--surface-0, #FFFFFF)",
-          borderRight: "1px solid var(--border-subtle, rgba(255, 255, 255, 0.07))",
+          backgroundColor: isDark
+            ? "var(--surface-0, #0F1319)"
+            : "var(--surface-0, #FFFFFF)",
+          borderRight:
+            "1px solid var(--border-subtle, rgba(255, 255, 255, 0.07))",
         },
       }}
     >
@@ -257,7 +260,9 @@ export const MobileNav: React.FC<MobileNavProps> = ({
                   }}
                 >
                   <TbSettings size={18} />
-                  <span>{t("navbar.avatar.account") || "Account Settings"}</span>
+                  <span>
+                    {t("navbar.avatar.account") || "Account Settings"}
+                  </span>
                 </UnstyledButton>
               </>
             )}
@@ -312,10 +317,15 @@ export const MobileNav: React.FC<MobileNavProps> = ({
                 color: isDark ? "#F8FAFC" : "#0F172A",
                 fontSize: 12,
                 fontWeight: 500,
-                border: "1px solid var(--border-subtle, rgba(255, 255, 255, 0.08))",
+                border:
+                  "1px solid var(--border-subtle, rgba(255, 255, 255, 0.08))",
               }}
             >
-              {colorScheme === "dark" ? <TbSun size={15} /> : <TbMoon size={15} />}
+              {colorScheme === "dark" ? (
+                <TbSun size={15} />
+              ) : (
+                <TbMoon size={15} />
+              )}
               <span>{colorScheme === "dark" ? "Light" : "Dark"}</span>
             </UnstyledButton>
           </Group>

@@ -13,7 +13,12 @@ import {
 import { useMediaQuery } from "@mantine/hooks";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { TbCheck, TbDeviceFloppy, TbInfoCircle, TbSettings } from "react-icons/tb";
+import {
+  TbCheck,
+  TbDeviceFloppy,
+  TbInfoCircle,
+  TbSettings,
+} from "react-icons/tb";
 import { FormattedMessage } from "react-intl";
 import AdminConfigInput from "../../../components/admin/configuration/AdminConfigInput";
 import ConfigurationHeader from "../../../components/admin/configuration/ConfigurationHeader";
@@ -87,7 +92,9 @@ export default function AppShellDemo() {
           .changeLogo(logo)
           .then(() => {
             setLogo(null);
-            toast.success(t("admin.config.notify.logo-success") || "Logo updated");
+            toast.success(
+              t("admin.config.notify.logo-success") || "Logo updated",
+            );
           })
           .catch(toast.axiosError);
       }
@@ -97,7 +104,9 @@ export default function AppShellDemo() {
           .changeDarkLogo(darkLogo)
           .then(() => {
             setDarkLogo(null);
-            toast.success(t("admin.config.notify.logo-success") || "Dark logo updated");
+            toast.success(
+              t("admin.config.notify.logo-success") || "Dark logo updated",
+            );
           })
           .catch(toast.axiosError);
       }
@@ -115,12 +124,17 @@ export default function AppShellDemo() {
               }),
             );
             setUpdatedConfigVariables([]);
-            toast.success(t("admin.config.notify.success") || "Configuration saved successfully");
+            toast.success(
+              t("admin.config.notify.success") ||
+                "Configuration saved successfully",
+            );
           })
           .catch(toast.axiosError);
         void config.refresh();
       } else {
-        toast.success(t("admin.config.notify.no-changes") || "No changes to save");
+        toast.success(
+          t("admin.config.notify.no-changes") || "No changes to save",
+        );
       }
     } finally {
       setIsSaving(false);
@@ -175,7 +189,9 @@ export default function AppShellDemo() {
       <AppShell
         styles={{
           main: {
-            background: isDark ? "var(--surface-0, #090B0E)" : "var(--surface-0, #F8FAFC)",
+            background: isDark
+              ? "var(--surface-0, #090B0E)"
+              : "var(--surface-0, #F8FAFC)",
             color: isDark ? "#F8FAFC" : "#0F172A",
             paddingTop: "calc(var(--mantine-header-height, 64px) + 24px)",
             paddingBottom: 48,
@@ -203,8 +219,12 @@ export default function AppShellDemo() {
               {/* Header Title Banner */}
               <Group position="apart" align="center" mb={24}>
                 <Group spacing={10}>
-                  <Title order={2} sx={{ fontWeight: 800, letterSpacing: "-0.02em" }}>
-                    {t("admin.config.category." + categoryId.toLowerCase()) || categoryId}
+                  <Title
+                    order={2}
+                    sx={{ fontWeight: 800, letterSpacing: "-0.02em" }}
+                  >
+                    {t("admin.config.category." + categoryId.toLowerCase()) ||
+                      categoryId}
                   </Title>
                   <Badge variant="primary" size="sm">
                     Configuration
@@ -213,7 +233,8 @@ export default function AppShellDemo() {
 
                 {updatedConfigVariables.length > 0 && (
                   <Badge variant="warning" size="sm">
-                    {updatedConfigVariables.length} unsaved change{updatedConfigVariables.length > 1 ? "s" : ""}
+                    {updatedConfigVariables.length} unsaved change
+                    {updatedConfigVariables.length > 1 ? "s" : ""}
                   </Badge>
                 )}
               </Group>
@@ -223,7 +244,10 @@ export default function AppShellDemo() {
                   mb="lg"
                   variant="light"
                   color="yellow"
-                  title={t("admin.config.config-file-warning.title") || "Read-Only Settings"}
+                  title={
+                    t("admin.config.config-file-warning.title") ||
+                    "Read-Only Settings"
+                  }
                   icon={<TbInfoCircle />}
                   radius="md"
                 >
@@ -310,7 +334,9 @@ export default function AppShellDemo() {
                                   configVariable={configVariable}
                                   updateConfigVariable={updateConfigVariable}
                                   allConfigVariables={configVariables}
-                                  updatedConfigVariables={updatedConfigVariables}
+                                  updatedConfigVariables={
+                                    updatedConfigVariables
+                                  }
                                   optionalConfigVariables={
                                     optionalConfigVariables
                                   }
@@ -373,7 +399,9 @@ export default function AppShellDemo() {
                                   configVariable={customCssConfigVariable}
                                   updateConfigVariable={updateConfigVariable}
                                   allConfigVariables={configVariables}
-                                  updatedConfigVariables={updatedConfigVariables}
+                                  updatedConfigVariables={
+                                    updatedConfigVariables
+                                  }
                                   optionalConfigVariables={
                                     optionalConfigVariables
                                   }

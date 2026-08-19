@@ -31,7 +31,9 @@ const Meta = ({
       <meta name="twitter:title" content={metaTitle} />
       <meta
         name="twitter:description"
-        content={description ?? "Fast, secure and self-hosted file sharing platform."}
+        content={
+          description ?? "Fast, secure and self-hosted file sharing platform."
+        }
       />
     </Head>
   );

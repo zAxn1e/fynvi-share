@@ -177,11 +177,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
         left: 0,
         bottom: 0,
         backgroundColor: "var(--surface-0, #0F1319)",
-        borderRight: "1px solid var(--border-subtle, rgba(255, 255, 255, 0.07))",
+        borderRight:
+          "1px solid var(--border-subtle, rgba(255, 255, 255, 0.07))",
         display: "flex",
         flexDirection: "column",
         padding: collapsed ? "20px 10px" : "20px 16px",
-        transition: "width var(--transition-normal, 250ms cubic-bezier(0.16, 1, 0.3, 1))",
+        transition:
+          "width var(--transition-normal, 250ms cubic-bezier(0.16, 1, 0.3, 1))",
         zIndex: 100,
         userSelect: "none",
         overflow: "hidden",
@@ -199,7 +201,15 @@ export const Sidebar: React.FC<SidebarProps> = ({
           mb={collapsed ? 16 : 20}
           px={collapsed ? 0 : 6}
         >
-          <Link href="/" style={{ textDecoration: "none", color: "inherit", display: "flex", alignItems: "center" }}>
+          <Link
+            href="/"
+            style={{
+              textDecoration: "none",
+              color: "inherit",
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
             <Logo height={32} />
           </Link>
         </Group>
@@ -259,7 +269,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
                         : "var(--text-secondary, #475569)",
                     fontWeight: active ? 600 : 500,
                     fontSize: 14,
-                    transition: "all var(--transition-fast, 150ms cubic-bezier(0.16, 1, 0.3, 1))",
+                    transition:
+                      "all var(--transition-fast, 150ms cubic-bezier(0.16, 1, 0.3, 1))",
                     border: active
                       ? "1px solid var(--border-focus, rgba(59, 130, 246, 0.3))"
                       : "1px solid transparent",
@@ -313,7 +324,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   letterSpacing: "0.06em",
                 }}
               >
-                <span>{t("navbar.avatar.admin") || "System Administration"}</span>
+                <span>
+                  {t("navbar.avatar.admin") || "System Administration"}
+                </span>
                 {adminMenuOpen ? (
                   <TbChevronDown size={14} />
                 ) : (
@@ -383,7 +396,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 ? "var(--surface-1, #151B24)"
                 : "var(--surface-1, #F1F5F9)",
               borderRadius: "var(--radius-md, 10px)",
-              border: "1px solid var(--border-subtle, rgba(255, 255, 255, 0.07))",
+              border:
+                "1px solid var(--border-subtle, rgba(255, 255, 255, 0.07))",
             }}
           >
             <Group position="apart" mb={6}>
@@ -430,7 +444,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
         >
           {collapsed ? (
             <Tooltip
-              label={colorScheme === "dark" ? "Switch to Light mode" : "Switch to Dark mode"}
+              label={
+                colorScheme === "dark"
+                  ? "Switch to Light mode"
+                  : "Switch to Dark mode"
+              }
               position="right"
               withArrow
             >
@@ -443,7 +461,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   color: isDark ? "#F8FAFC" : "#0F172A",
                 }}
               >
-                {colorScheme === "dark" ? <TbSun size={18} /> : <TbMoon size={18} />}
+                {colorScheme === "dark" ? (
+                  <TbSun size={18} />
+                ) : (
+                  <TbMoon size={18} />
+                )}
               </ActionIcon>
             </Tooltip>
           ) : (
@@ -459,7 +481,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 backgroundColor: isDark
                   ? "var(--surface-1, #151B24)"
                   : "var(--surface-1, #F1F5F9)",
-                border: "1px solid var(--border-subtle, rgba(255, 255, 255, 0.07))",
+                border:
+                  "1px solid var(--border-subtle, rgba(255, 255, 255, 0.07))",
                 color: isDark ? "#F8FAFC" : "#0F172A",
                 fontSize: 12,
                 fontWeight: 500,
@@ -469,7 +492,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 },
               }}
             >
-              {colorScheme === "dark" ? <TbSun size={16} /> : <TbMoon size={16} />}
+              {colorScheme === "dark" ? (
+                <TbSun size={16} />
+              ) : (
+                <TbMoon size={16} />
+              )}
               <span>{colorScheme === "dark" ? "Light Mode" : "Dark Mode"}</span>
             </UnstyledButton>
           )}
@@ -487,7 +514,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
               backgroundColor: isDark
                 ? "var(--surface-1, #151B24)"
                 : "var(--surface-1, #F1F5F9)",
-              border: "1px solid var(--border-subtle, rgba(255, 255, 255, 0.07))",
+              border:
+                "1px solid var(--border-subtle, rgba(255, 255, 255, 0.07))",
             }}
           >
             <Group spacing={10} noWrap>

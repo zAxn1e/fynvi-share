@@ -11,7 +11,14 @@ import {
 } from "@mantine/core";
 import { useClipboard } from "@mantine/hooks";
 import React, { useEffect, useState } from "react";
-import { TbCheck, TbCopy, TbDownload, TbKey, TbPlus, TbTrash } from "react-icons/tb";
+import {
+  TbCheck,
+  TbCopy,
+  TbDownload,
+  TbKey,
+  TbPlus,
+  TbTrash,
+} from "react-icons/tb";
 import api from "../../services/api.service";
 import toast from "../../utils/toast.util";
 import { Button } from "../common/Button";
@@ -132,7 +139,8 @@ export const ApiKeyManager: React.FC = () => {
 
       {keys.length === 0 ? (
         <Text size="sm" color="dimmed" py={12}>
-          No active API keys found. Click &quot;Generate Key&quot; to create one.
+          No active API keys found. Click &quot;Generate Key&quot; to create
+          one.
         </Text>
       ) : (
         <Table highlightOnHover>
@@ -208,10 +216,19 @@ export const ApiKeyManager: React.FC = () => {
                 autoFocus
               />
               <Group position="right">
-                <Button variant="secondary" size="xs" onClick={() => setIsModalOpen(false)}>
+                <Button
+                  variant="secondary"
+                  size="xs"
+                  onClick={() => setIsModalOpen(false)}
+                >
                   Cancel
                 </Button>
-                <Button variant="primary" size="xs" loading={loading} onClick={handleCreateKey}>
+                <Button
+                  variant="primary"
+                  size="xs"
+                  loading={loading}
+                  onClick={handleCreateKey}
+                >
                   Generate
                 </Button>
               </Group>
@@ -219,7 +236,8 @@ export const ApiKeyManager: React.FC = () => {
           ) : (
             <>
               <Text size="sm" color="dimmed">
-                Please copy your API key now. You will not be able to see it again!
+                Please copy your API key now. You will not be able to see it
+                again!
               </Text>
               <TextInput
                 readOnly
@@ -231,7 +249,11 @@ export const ApiKeyManager: React.FC = () => {
                       toast.success("API key copied to clipboard");
                     }}
                   >
-                    {clipboard.copied ? <TbCheck size={16} color="#10B981" /> : <TbCopy size={16} />}
+                    {clipboard.copied ? (
+                      <TbCheck size={16} color="#10B981" />
+                    ) : (
+                      <TbCopy size={16} />
+                    )}
                   </ActionIcon>
                 }
               />

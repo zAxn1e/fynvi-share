@@ -136,7 +136,9 @@ export const ResumableUploadHub: React.FC<ResumableUploadHubProps> = ({
               speedStr = `${formatSize(bytesPerSec)}/s`;
 
               const remainingBytes = item.file.size - totalUploadedBytes;
-              const remainingSec = Math.ceil(remainingBytes / (bytesPerSec || 1));
+              const remainingSec = Math.ceil(
+                remainingBytes / (bytesPerSec || 1),
+              );
               etaStr = `${remainingSec}s`;
             }
 
@@ -201,7 +203,11 @@ export const ResumableUploadHub: React.FC<ResumableUploadHubProps> = ({
           if (nextPaused) {
             return { ...item, status: "PAUSED", isPaused: true };
           } else {
-            const updated = { ...item, status: "UPLOADING" as const, isPaused: false };
+            const updated = {
+              ...item,
+              status: "UPLOADING" as const,
+              isPaused: false,
+            };
             startUpload(updated);
             return updated;
           }
@@ -219,15 +225,15 @@ export const ResumableUploadHub: React.FC<ResumableUploadHubProps> = ({
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
       {/* Drag and Drop Zone */}
-      <Dropzone
-        onDrop={handleDrop}
-        radius="md"
-        padding="xl"
-      >
+      <Dropzone onDrop={handleDrop} radius="md" padding="xl">
         <Group position="center" spacing="md" style={{ pointerEvents: "none" }}>
           <TbCloudUpload size={48} color="var(--brand-primary, #3B82F6)" />
           <div>
-            <Text size="lg" weight={700} style={{ color: "var(--text-primary, #F8FAFC)" }}>
+            <Text
+              size="lg"
+              weight={700}
+              style={{ color: "var(--text-primary, #F8FAFC)" }}
+            >
               Drag & drop files here to upload
             </Text>
             <Text size="sm" style={{ color: "var(--text-secondary, #94A3B8)" }}>
@@ -239,7 +245,9 @@ export const ResumableUploadHub: React.FC<ResumableUploadHubProps> = ({
 
       {/* Upload Queue Queue List */}
       {queue.length > 0 && (
-        <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+        <div
+          style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}
+        >
           <Text weight={600} size="sm" sx={{ color: "var(--text-muted)" }}>
             UPLOAD QUEUE ({queue.length})
           </Text>
@@ -255,7 +263,8 @@ export const ResumableUploadHub: React.FC<ResumableUploadHubProps> = ({
                     ? "var(--surface-1, #151B24)"
                     : "var(--surface-1, #F1F5F9)",
                 borderRadius: "var(--radius-md, 10px)",
-                border: "1px solid var(--border-subtle, rgba(255, 255, 255, 0.07))",
+                border:
+                  "1px solid var(--border-subtle, rgba(255, 255, 255, 0.07))",
               })}
             >
               <div
@@ -267,38 +276,59 @@ export const ResumableUploadHub: React.FC<ResumableUploadHubProps> = ({
                 }}
               >
                 <div>
-                  <Text weight={600} size="sm" sx={{ color: "var(--text-primary)" }}>
+                  <Text
+                    weight={600}
+                    size="sm"
+                    sx={{ color: "var(--text-primary)" }}
+                  >
                     {item.file.name}
                   </Text>
                   <Text size="xs" color="dimmed">
-                    {formatSize(item.file.size)} • {item.speed} • ETA: {item.eta}
+                    {formatSize(item.file.size)} • {item.speed} • ETA:{" "}
+                    {item.eta}
                   </Text>
                 </div>
 
                 <Group spacing="xs">
                   {item.status === "UPLOADING" && (
-                    <Badge color="blue" variant="light">Uploading</Badge>
+                    <Badge color="blue" variant="light">
+                      Uploading
+                    </Badge>
                   )}
                   {item.status === "PAUSED" && (
-                    <Badge color="yellow" variant="light">Paused</Badge>
+                    <Badge color="yellow" variant="light">
+                      Paused
+                    </Badge>
                   )}
                   {item.status === "COMPLETED" && (
-                    <Badge color="green" variant="light">Completed</Badge>
+                    <Badge color="green" variant="light">
+                      Completed
+                    </Badge>
                   )}
                   {item.status === "FAILED" && (
-                    <Badge color="red" variant="light">Failed</Badge>
+                    <Badge color="red" variant="light">
+                      Failed
+                    </Badge>
                   )}
 
-                  {(item.status === "UPLOADING" || item.status === "PAUSED") && (
+                  {(item.status === "UPLOADING" ||
+                    item.status === "PAUSED") && (
                     <ActionIcon
                       variant="subtle"
                       onClick={() => togglePause(item.id)}
-                      title={item.status === "PAUSED" ? "Resume Upload" : "Pause Upload"}
+                      title={
+                        item.status === "PAUSED"
+                          ? "Resume Upload"
+                          : "Pause Upload"
+                      }
                     >
                       {item.status === "PAUSED" ? (
                         <TbPlayerPlay size={18} color="var(--brand-primary)" />
                       ) : (
-                        <TbPlayerPause size={18} color="var(--state-warning, #F59E0B)" />
+                        <TbPlayerPause
+                          size={18}
+                          color="var(--state-warning, #F59E0B)"
+                        />
                       )}
                     </ActionIcon>
                   )}
@@ -344,7 +374,12 @@ export const ResumableUploadHub: React.FC<ResumableUploadHubProps> = ({
                 <Text
                   size="xs"
                   color="red"
-                  style={{ marginTop: "0.375rem", display: "flex", alignItems: "center", gap: "0.25rem" }}
+                  style={{
+                    marginTop: "0.375rem",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.25rem",
+                  }}
                 >
                   <TbAlertCircle size={14} /> {item.errorMessage}
                 </Text>

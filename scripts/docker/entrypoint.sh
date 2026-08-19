@@ -16,17 +16,17 @@ else
 fi
 
 # Run the frontend server
-PORT=3333 HOSTNAME=0.0.0.0 node frontend/server.js &
+PORT=3333 HOSTNAME=0.0.0.0 bun frontend/server.js &
 
 # Run the backend server
 cd backend
-export DATABASE_URL="$(node dist/src/scripts/resolve-database-url.js)"
-./node_modules/.bin/prisma migrate resolve --applied 20260818000000_fynvi_share 2>/dev/null || true
-./node_modules/.bin/prisma migrate resolve --rolled-back 20260818000000_fynvi_share 2>/dev/null || true
-./node_modules/.bin/prisma migrate deploy 2>/dev/null || true
-./node_modules/.bin/prisma db push --accept-data-loss
-node dist/prisma/seed/config.seed.js
-node dist/src/main
+export DATABASE_URL="$(bun dist/src/scripts/resolve-database-url.js)"
+bunx prisma migrate resolve --applied 20260818000000_fynvi_share 2>/dev/null || true
+bunx prisma migrate resolve --rolled-back 20260818000000_fynvi_share 2>/dev/null || true
+bunx prisma migrate deploy 2>/dev/null || true
+bunx prisma db push --accept-data-loss
+bun dist/prisma/seed/config.seed.js
+bun dist/src/main.js
 
 # Wait for all processes to finish
 wait -n

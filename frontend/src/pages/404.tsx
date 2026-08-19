@@ -27,12 +27,15 @@ const ErrorNotFound = () => {
           </Text>
 
           <Title order={2} sx={{ fontWeight: 700, letterSpacing: "-0.02em" }}>
-            <FormattedMessage id="404.description" defaultMessage="Page not found" />
+            <FormattedMessage
+              id="404.description"
+              defaultMessage="Page not found"
+            />
           </Title>
 
           <Text size="sm" color="dimmed" sx={{ maxWidth: 400 }}>
-            The resource, share, or page you are looking for might have been removed,
-            expired, or is temporarily unavailable.
+            The resource, share, or page you are looking for might have been
+            removed, expired, or is temporarily unavailable.
           </Text>
 
           <Group position="center" mt={24}>
@@ -42,7 +45,10 @@ const ErrorNotFound = () => {
               variant="primary"
               leftIcon={<TbHome size={16} />}
             >
-              <FormattedMessage id="404.button.home" defaultMessage="Back to Overview" />
+              <FormattedMessage
+                id="404.button.home"
+                defaultMessage="Back to Overview"
+              />
             </Button>
           </Group>
         </Stack>

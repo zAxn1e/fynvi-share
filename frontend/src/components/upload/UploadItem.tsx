@@ -147,11 +147,16 @@ export const UploadItem: React.FC<UploadItemProps> = ({
         return {
           padding: "10px 14px",
           borderRadius: "var(--radius-md, 10px)",
-          backgroundColor: isDark ? "var(--surface-1, #151B24)" : "var(--surface-0, #FFFFFF)",
+          backgroundColor: isDark
+            ? "var(--surface-1, #151B24)"
+            : "var(--surface-0, #FFFFFF)",
           border: "1px solid var(--border-subtle, rgba(255, 255, 255, 0.07))",
-          transition: "all var(--transition-fast, 150ms cubic-bezier(0.16, 1, 0.3, 1))",
+          transition:
+            "all var(--transition-fast, 150ms cubic-bezier(0.16, 1, 0.3, 1))",
           "&:hover": {
-            backgroundColor: isDark ? "var(--surface-2, #1C2430)" : "var(--surface-1, #F1F5F9)",
+            backgroundColor: isDark
+              ? "var(--surface-2, #1C2430)"
+              : "var(--surface-1, #F1F5F9)",
           },
         };
       }}
@@ -166,7 +171,8 @@ export const UploadItem: React.FC<UploadItemProps> = ({
                 borderRadius: 6,
                 overflow: "hidden",
                 flexShrink: 0,
-                border: "1px solid var(--border-subtle, rgba(255, 255, 255, 0.07))",
+                border:
+                  "1px solid var(--border-subtle, rgba(255, 255, 255, 0.07))",
                 position: "relative",
               }}
             >
@@ -220,7 +226,12 @@ export const UploadItem: React.FC<UploadItemProps> = ({
               {item.name}
             </Text>
             <Group spacing={6}>
-              <Text size="xs" color="dimmed" className="font-mono" sx={{ fontSize: 11 }}>
+              <Text
+                size="xs"
+                color="dimmed"
+                className="font-mono"
+                sx={{ fontSize: 11 }}
+              >
                 {transferred} / {byteToHumanSizeString(item.size)}
               </Text>
               {item.speed && (
@@ -228,7 +239,12 @@ export const UploadItem: React.FC<UploadItemProps> = ({
                   <Text size="xs" color="dimmed">
                     •
                   </Text>
-                  <Text size="xs" color="blue" className="font-mono" sx={{ fontSize: 11 }}>
+                  <Text
+                    size="xs"
+                    color="blue"
+                    className="font-mono"
+                    sx={{ fontSize: 11 }}
+                  >
                     {item.speed}
                   </Text>
                 </>
@@ -238,7 +254,12 @@ export const UploadItem: React.FC<UploadItemProps> = ({
                   <Text size="xs" color="dimmed">
                     •
                   </Text>
-                  <Text size="xs" color="dimmed" className="font-mono" sx={{ fontSize: 11 }}>
+                  <Text
+                    size="xs"
+                    color="dimmed"
+                    className="font-mono"
+                    sx={{ fontSize: 11 }}
+                  >
                     ETA {item.eta}
                   </Text>
                 </>

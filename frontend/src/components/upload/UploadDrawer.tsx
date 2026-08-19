@@ -69,10 +69,13 @@ export const UploadDrawer: React.FC<UploadDrawerProps> = ({
   const totalBytes = items.reduce((sum, item) => sum + item.size, 0);
   const uploadedBytes = items.reduce((sum, item) => {
     if (item.status === "COMPLETED") return sum + item.size;
-    return sum + (item.uploadedBytes || (item.size * (item.progress || 0)) / 100);
+    return (
+      sum + (item.uploadedBytes || (item.size * (item.progress || 0)) / 100)
+    );
   }, 0);
 
-  const overallProgress = totalBytes > 0 ? Math.round((uploadedBytes / totalBytes) * 100) : 0;
+  const overallProgress =
+    totalBytes > 0 ? Math.round((uploadedBytes / totalBytes) * 100) : 0;
   const isAllComplete = completedFiles === totalFiles;
   const hasFailed = failedFiles > 0;
   const isAnyUploading = uploadingFiles > 0;
@@ -96,7 +99,8 @@ export const UploadDrawer: React.FC<UploadDrawerProps> = ({
           : "var(--shadow-lg, 0 12px 32px rgba(15, 23, 42, 0.12))",
         zIndex: 1000,
         overflow: "hidden",
-        transition: "all var(--transition-normal, 250ms cubic-bezier(0.16, 1, 0.3, 1))",
+        transition:
+          "all var(--transition-normal, 250ms cubic-bezier(0.16, 1, 0.3, 1))",
         [theme.fn.smallerThan("xs")]: {
           bottom: 12,
           right: 12,
@@ -185,7 +189,11 @@ export const UploadDrawer: React.FC<UploadDrawerProps> = ({
               onClick={() => setExpanded(!expanded)}
               aria-label="Toggle drawer expansion"
             >
-              {expanded ? <TbChevronDown size={15} /> : <TbChevronUp size={15} />}
+              {expanded ? (
+                <TbChevronDown size={15} />
+              ) : (
+                <TbChevronUp size={15} />
+              )}
             </ActionIcon>
 
             {onClose && (
@@ -218,10 +226,21 @@ export const UploadDrawer: React.FC<UploadDrawerProps> = ({
             }}
           />
           <Group position="apart" mt={4}>
-            <Text size="xs" color="dimmed" className="font-mono" sx={{ fontSize: 11 }}>
-              {byteToHumanSizeString(uploadedBytes)} of {byteToHumanSizeString(totalBytes)}
+            <Text
+              size="xs"
+              color="dimmed"
+              className="font-mono"
+              sx={{ fontSize: 11 }}
+            >
+              {byteToHumanSizeString(uploadedBytes)} of{" "}
+              {byteToHumanSizeString(totalBytes)}
             </Text>
-            <Text size="xs" color="dimmed" className="font-mono" sx={{ fontSize: 11 }}>
+            <Text
+              size="xs"
+              color="dimmed"
+              className="font-mono"
+              sx={{ fontSize: 11 }}
+            >
               {overallProgress}%
             </Text>
           </Group>
@@ -238,7 +257,8 @@ export const UploadDrawer: React.FC<UploadDrawerProps> = ({
             backgroundColor: isDark
               ? "rgba(15, 19, 25, 0.4)"
               : "rgba(241, 245, 249, 0.5)",
-            borderBottom: "1px solid var(--border-subtle, rgba(255, 255, 255, 0.07))",
+            borderBottom:
+              "1px solid var(--border-subtle, rgba(255, 255, 255, 0.07))",
           }}
         >
           <Group position="apart">

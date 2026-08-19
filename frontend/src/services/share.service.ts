@@ -203,10 +203,15 @@ const getUploadSessionStatus = async (sessionId: string) => {
   return (await api.get(`upload/session/${sessionId}/status`)).data;
 };
 
-const isReverseShareTokenAvailable = async (token: string): Promise<boolean> => {
+const isReverseShareTokenAvailable = async (
+  token: string,
+): Promise<boolean> => {
   if (!isValidId(token))
-    throw new Error(translateOutsideContext()("upload.modal.link.error.invalid"));
-  return (await api.get(`/reverseShares/isReverseShareTokenAvailable/${token}`)).data.isAvailable;
+    throw new Error(
+      translateOutsideContext()("upload.modal.link.error.invalid"),
+    );
+  return (await api.get(`/reverseShares/isReverseShareTokenAvailable/${token}`))
+    .data.isAvailable;
 };
 
 const createReverseShare = async (
@@ -237,7 +242,9 @@ const getMyReverseShares = async (): Promise<MyReverseShare[]> => {
 
 const setReverseShare = async (reverseShareToken: string) => {
   if (!isValidId(reverseShareToken))
-    throw new Error(translateOutsideContext()("upload.modal.link.error.invalid"));
+    throw new Error(
+      translateOutsideContext()("upload.modal.link.error.invalid"),
+    );
   const { data } = await api.get(`/reverseShares/${reverseShareToken}`);
   setCookie("reverse_share_token", reverseShareToken);
   return data;

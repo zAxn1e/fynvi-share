@@ -49,7 +49,9 @@ const get = (
   let configVariable = vars.find((variable) => variable.key === key);
 
   if (!configVariable) {
-    configVariable = getDefaultConfig().find((variable) => variable.key === key);
+    configVariable = getDefaultConfig().find(
+      (variable) => variable.key === key,
+    );
   }
 
   if (!configVariable) {

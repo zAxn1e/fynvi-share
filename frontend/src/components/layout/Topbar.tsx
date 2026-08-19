@@ -89,7 +89,8 @@ export const Topbar: React.FC<TopbarProps> = ({
         backgroundColor: "var(--glass-bg, rgba(15, 19, 25, 0.75))",
         backdropFilter: "blur(var(--glass-blur, 16px))",
         WebkitBackdropFilter: "blur(var(--glass-blur, 16px))",
-        borderBottom: "1px solid var(--border-subtle, rgba(255, 255, 255, 0.07))",
+        borderBottom:
+          "1px solid var(--border-subtle, rgba(255, 255, 255, 0.07))",
         position: "sticky",
         top: 0,
         zIndex: 90,
@@ -129,7 +130,9 @@ export const Topbar: React.FC<TopbarProps> = ({
             aria-label="Open Navigation Drawer"
             sx={{
               borderRadius: "var(--radius-md, 10px)",
-              color: isDark ? "var(--text-primary, #F8FAFC)" : "var(--text-primary, #0F172A)",
+              color: isDark
+                ? "var(--text-primary, #F8FAFC)"
+                : "var(--text-primary, #0F172A)",
               "&:hover": {
                 backgroundColor: isDark
                   ? "var(--surface-2, #1C2430)"
@@ -148,7 +151,11 @@ export const Topbar: React.FC<TopbarProps> = ({
           <Box
             component={Link}
             href="/"
-            sx={{ display: "flex", alignItems: "center", textDecoration: "none" }}
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              textDecoration: "none",
+            }}
           >
             <Logo height={26} width={26} />
           </Box>
@@ -174,7 +181,12 @@ export const Topbar: React.FC<TopbarProps> = ({
         )}
 
         {/* Page Context Breadcrumb */}
-        <Group spacing={6} align="center" noWrap sx={{ minWidth: 0, flexShrink: 1 }}>
+        <Group
+          spacing={6}
+          align="center"
+          noWrap
+          sx={{ minWidth: 0, flexShrink: 1 }}
+        >
           <Text
             component={Link}
             href="/"
@@ -295,7 +307,11 @@ export const Topbar: React.FC<TopbarProps> = ({
               },
             }}
           >
-            {colorScheme === "dark" ? <TbSun size={18} /> : <TbMoon size={18} />}
+            {colorScheme === "dark" ? (
+              <TbSun size={18} />
+            ) : (
+              <TbMoon size={18} />
+            )}
           </ActionIcon>
         </Tooltip>
 
@@ -316,7 +332,8 @@ export const Topbar: React.FC<TopbarProps> = ({
                   gap: 8,
                   padding: "4px 8px",
                   borderRadius: "var(--radius-md, 10px)",
-                  transition: "background var(--transition-fast, 150ms cubic-bezier(0.16, 1, 0.3, 1))",
+                  transition:
+                    "background var(--transition-fast, 150ms cubic-bezier(0.16, 1, 0.3, 1))",
                   "&:hover": {
                     backgroundColor: isDark
                       ? "var(--surface-1, #151B24)"
@@ -361,7 +378,8 @@ export const Topbar: React.FC<TopbarProps> = ({
             <Menu.Dropdown
               sx={{
                 backgroundColor: "var(--surface-1, #151B24)",
-                border: "1px solid var(--border-subtle, rgba(255, 255, 255, 0.07))",
+                border:
+                  "1px solid var(--border-subtle, rgba(255, 255, 255, 0.07))",
               }}
             >
               <Box p={8}>

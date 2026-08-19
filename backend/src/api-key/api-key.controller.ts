@@ -41,6 +41,9 @@ export class ApiKeyController {
     const host = req.headers.host;
     const appUrl = `${protocol}://${host}`;
 
-    return this.apiKeyService.generateShareXConfig(appUrl, "YOUR_FYNVI_API_KEY");
+    return this.apiKeyService.generateShareXConfig(
+      appUrl,
+      "YOUR_FYNVI_API_KEY",
+    );
   }
 }

@@ -2,7 +2,10 @@ import { Injectable, Logger } from "@nestjs/common";
 import { Cron } from "@nestjs/schedule";
 import * as fs from "fs/promises";
 import { PrismaService } from "../prisma/prisma.service";
-import { LocalStorageProvider, TEMP_UPLOAD_DIRECTORY } from "./storage/local-storage.provider";
+import {
+  LocalStorageProvider,
+  TEMP_UPLOAD_DIRECTORY,
+} from "./storage/local-storage.provider";
 
 @Injectable()
 export class CleanupWorker {
@@ -15,11 +18,16 @@ export class CleanupWorker {
 
   @Cron("0 */30 * * * *")
   async handleScheduledCleanup() {
-    this.logger.log("Starting scheduled upload session cleanup & temp dir reconciliation...");
+    this.logger.log(
+      "Starting scheduled upload session cleanup & temp dir reconciliation...",
+    );
     await this.runCleanup();
   }
 
-  async runCleanup(): Promise<{ cleanedSessions: number; removedOrphanDirs: number }> {
+  async runCleanup(): Promise<{
+    cleanedSessions: number;
+    removedOrphanDirs: number;
+  }> {
     let cleanedSessions = 0;
     let removedOrphanDirs = 0;
 
@@ -33,7 +41,9 @@ export class CleanupWorker {
               status: { in: ["PENDING", "UPLOADING", "PAUSED"] },
             },
             {
-              status: { in: ["FAILED", "CANCELLED", "EXPIRED", "CLEANUP_PENDING"] },
+              status: {
+                in: ["FAILED", "CANCELLED", "EXPIRED", "CLEANUP_PENDING"],
+              },
             },
           ],
         },
@@ -44,13 +54,17 @@ export class CleanupWorker {
         await this.storageProvider.deleteSession(session.id);
 
         // Delete session record from DB
-        await this.prisma.uploadSession.delete({ where: { id: session.id } }).catch(() => {});
+        await this.prisma.uploadSession
+          .delete({ where: { id: session.id } })
+          .catch(() => {});
         cleanedSessions++;
       }
 
       // 2. Temp Directory Reconciliation (Remove unindexed temp directories)
       try {
-        const tempEntries = await fs.readdir(TEMP_UPLOAD_DIRECTORY, { withFileTypes: true });
+        const tempEntries = await fs.readdir(TEMP_UPLOAD_DIRECTORY, {
+          withFileTypes: true,
+        });
         for (const entry of tempEntries) {
           if (entry.isDirectory()) {
             const sessionId = entry.name;
@@ -61,12 +75,16 @@ export class CleanupWorker {
             if (!sessionExists) {
               await this.storageProvider.deleteSession(sessionId);
               removedOrphanDirs++;
-              this.logger.warn(`Removed unindexed orphaned temp dir: ${sessionId}`);
+              this.logger.warn(
+                `Removed unindexed orphaned temp dir: ${sessionId}`,
+              );
             }
           }
         }
       } catch (e) {
-        this.logger.debug(`Temp directory reconciliation skipped or unreadable: ${e}`);
+        this.logger.debug(
+          `Temp directory reconciliation skipped or unreadable: ${e}`,
+        );
       }
 
       if (cleanedSessions > 0 || removedOrphanDirs > 0) {

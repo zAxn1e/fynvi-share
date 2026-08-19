@@ -109,7 +109,10 @@ const SignUpForm = () => {
             />
 
             <Button variant="primary" size="sm" type="submit" mt={8}>
-              <FormattedMessage id="signup.button.submit" defaultMessage="Let's get started" />
+              <FormattedMessage
+                id="signup.button.submit"
+                defaultMessage="Let's get started"
+              />
             </Button>
           </Stack>
         </form>
@@ -117,9 +120,15 @@ const SignUpForm = () => {
 
       <Center mt={20}>
         <Text size="xs" color="dimmed">
-          <FormattedMessage id="signup.description" defaultMessage="Already have an account?" />{" "}
+          <FormattedMessage
+            id="signup.description"
+            defaultMessage="Already have an account?"
+          />{" "}
           <Anchor component={Link} href="/auth/signIn" size="xs" weight={500}>
-            <FormattedMessage id="signup.button.signin" defaultMessage="Sign in" />
+            <FormattedMessage
+              id="signup.button.signin"
+              defaultMessage="Sign in"
+            />
           </Anchor>
         </Text>
       </Center>

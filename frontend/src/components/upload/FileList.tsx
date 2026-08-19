@@ -1,4 +1,12 @@
-import { ActionIcon, Box, Center, Group, Stack, Table, Text } from "@mantine/core";
+import {
+  ActionIcon,
+  Box,
+  Center,
+  Group,
+  Stack,
+  Table,
+  Text,
+} from "@mantine/core";
 import { useModals } from "@mantine/modals";
 import React from "react";
 import { GrUndo } from "react-icons/gr";
@@ -170,7 +178,9 @@ const FileList = <T extends FileListItem = FileListItem>({
     if ("id" in file && shareId) {
       showFilePreviewModal(shareId, file as unknown as FileMetaData, modals);
     } else if (file instanceof File || "type" in file) {
-      const isImage = (file as File).type?.startsWith("image/") || file.name.match(/\.(png|jpg|jpeg|gif|webp|svg)$/i);
+      const isImage =
+        (file as File).type?.startsWith("image/") ||
+        file.name.match(/\.(png|jpg|jpeg|gif|webp|svg)$/i);
       if (isImage && file instanceof File) {
         const objectUrl = URL.createObjectURL(file);
         modals.openModal({
@@ -182,7 +192,12 @@ const FileList = <T extends FileListItem = FileListItem>({
               <img
                 src={objectUrl}
                 alt={file.name}
-                style={{ maxWidth: "100%", maxHeight: "60vh", objectFit: "contain", borderRadius: 8 }}
+                style={{
+                  maxWidth: "100%",
+                  maxHeight: "60vh",
+                  objectFit: "contain",
+                  borderRadius: 8,
+                }}
               />
             </Center>
           ),

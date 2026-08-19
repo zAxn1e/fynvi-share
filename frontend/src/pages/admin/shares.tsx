@@ -43,9 +43,10 @@ const Shares = () => {
 
   const deleteShare = (share: MyShare) => {
     modals.openConfirmModal({
-      title: t("admin.shares.edit.delete.title", {
-        id: share.id,
-      }) || `Delete share ${share.id}?`,
+      title:
+        t("admin.shares.edit.delete.title", {
+          id: share.id,
+        }) || `Delete share ${share.id}?`,
       children: (
         <Text size="sm">
           <FormattedMessage id="admin.shares.edit.delete.description" />
@@ -59,7 +60,9 @@ const Shares = () => {
       onConfirm: async () => {
         shareService
           .remove(share.id)
-          .then(() => setShares((prev) => prev.filter((v) => v.id !== share.id)))
+          .then(() =>
+            setShares((prev) => prev.filter((v) => v.id !== share.id)),
+          )
           .catch(toast.axiosError);
       },
     });
@@ -97,7 +100,9 @@ const Shares = () => {
             </Badge>
           </Group>
           <Text size="sm" color="dimmed">
-            Inspect all active files, view access counts, manage expirations, and remove shares across the platform ({byteToHumanSizeString(totalSize)} total).
+            Inspect all active files, view access counts, manage expirations,
+            and remove shares across the platform (
+            {byteToHumanSizeString(totalSize)} total).
           </Text>
         </Stack>
 

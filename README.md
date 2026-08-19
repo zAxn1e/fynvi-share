@@ -91,8 +91,7 @@ Key environment variables:
 ## Development & Local Setup
 
 ### Prerequisites
-- Node.js 20+ (Node.js 22 or 24 recommended)
-- npm 10+
+- Bun 1.1+ (Bun 1.3+ recommended)
 - Git
 
 ### 1. Clone & Install Dependencies
@@ -106,37 +105,37 @@ cd fynvi-share
 
 ```bash
 cd backend
-npm install
-npm run db:push
-npm run db:seed
-npm run dev
+bun install
+bun run db:push
+bun run db:seed
+bun run dev
 ```
 
 ### 3. Start Frontend
 
 ```bash
 cd frontend
-npm install
-npm run dev
+bun install
+bun run dev
 ```
 
 The frontend development server starts on `http://localhost:3000` with API proxying to backend `http://localhost:8080`.
 
 ---
 
-## Migration from Pingvin Share
+## Migration from Legacy Pingvin Share
 
-Fynvi Share provides database reconciliation and slug generation scripts for installations migrating from Pingvin Share X:
+Fynvi Share provides database reconciliation and slug generation scripts for installations migrating from legacy Pingvin Share X:
 
 Existing installations that contain only `pingvin-share.db` continue to use that database. New installations use `fynvi-share.db`; no database files are renamed or copied automatically.
 
 ```bash
 cd backend
 # Dry-run audit
-npm run migrate:pingvin
+bun run migrate
 
 # Apply database updates and backups
-npm run migrate:pingvin -- --apply
+bun run migrate -- --apply
 ```
 
 ---

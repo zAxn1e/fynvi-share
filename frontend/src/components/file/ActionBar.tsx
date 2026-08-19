@@ -63,7 +63,8 @@ export const ActionBar: React.FC<ActionBarProps> = ({
           ? "0 8px 30px rgba(0, 0, 0, 0.45)"
           : "0 8px 30px rgba(15, 23, 42, 0.15)",
         zIndex: 900,
-        transition: "all var(--transition-normal, 250ms cubic-bezier(0.16, 1, 0.3, 1))",
+        transition:
+          "all var(--transition-normal, 250ms cubic-bezier(0.16, 1, 0.3, 1))",
         animation: "slideUp 200ms cubic-bezier(0.16, 1, 0.3, 1)",
         "@keyframes slideUp": {
           "0%": {
@@ -83,7 +84,12 @@ export const ActionBar: React.FC<ActionBarProps> = ({
           {selectedCount} selected
         </Badge>
         {totalSize > 0 && (
-          <Text size="xs" color="dimmed" className="font-mono" sx={{ fontSize: 11 }}>
+          <Text
+            size="xs"
+            color="dimmed"
+            className="font-mono"
+            sx={{ fontSize: 11 }}
+          >
             ({byteToHumanSizeString(totalSize)})
           </Text>
         )}

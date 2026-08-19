@@ -79,7 +79,8 @@ const ReverseShares = () => {
             {t("account.reverseShares.title") || "Reverse Shares"}
           </Title>
           <Text size="sm" color="dimmed">
-            Create unique, secure upload links that allow external people to send files directly to your account.
+            Create unique, secure upload links that allow external people to
+            send files directly to your account.
           </Text>
         </Stack>
 
@@ -112,7 +113,9 @@ const ReverseShares = () => {
       {reverseShares.length === 0 ? (
         <EmptyState
           icon={TbArrowsExchange}
-          title={t("account.reverseShares.title.empty") || "No upload links yet"}
+          title={
+            t("account.reverseShares.title.empty") || "No upload links yet"
+          }
           description={
             t("account.reverseShares.description.empty") ||
             "Create a reverse share link so clients and friends can send files directly to you."
@@ -196,7 +199,8 @@ const ReverseShares = () => {
 
                       <td>
                         <Text size="sm" weight={500}>
-                          {reverseShare.shares.length} upload{reverseShare.shares.length === 1 ? "" : "s"}
+                          {reverseShare.shares.length} upload
+                          {reverseShare.shares.length === 1 ? "" : "s"}
                         </Text>
                       </td>
 
@@ -208,7 +212,9 @@ const ReverseShares = () => {
 
                       <td>
                         <Text size="xs" color="dimmed" className="font-mono">
-                          {byteToHumanSizeString(parseInt(reverseShare.maxShareSize))}
+                          {byteToHumanSizeString(
+                            parseInt(reverseShare.maxShareSize),
+                          )}
                         </Text>
                       </td>
 
@@ -264,14 +270,20 @@ const ReverseShares = () => {
                                   title: "Delete Upload Link",
                                   children: (
                                     <Text size="sm">
-                                      Are you sure you want to delete this reverse share upload link?
+                                      Are you sure you want to delete this
+                                      reverse share upload link?
                                     </Text>
                                   ),
-                                  labels: { confirm: "Delete", cancel: "Cancel" },
+                                  labels: {
+                                    confirm: "Delete",
+                                    cancel: "Cancel",
+                                  },
                                   confirmProps: { color: "red" },
                                   onConfirm: async () => {
                                     try {
-                                      await shareService.removeReverseShare(reverseShare.id);
+                                      await shareService.removeReverseShare(
+                                        reverseShare.id,
+                                      );
                                       toast.success("Upload link deleted");
                                       getReverseShares();
                                     } catch (e) {

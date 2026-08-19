@@ -74,7 +74,10 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
   useEffect(() => {
     if (typeof document !== "undefined") {
       setIsPipSupported(
-        Boolean(document.pictureInPictureEnabled && videoRef.current?.requestPictureInPicture)
+        Boolean(
+          document.pictureInPictureEnabled &&
+          videoRef.current?.requestPictureInPicture,
+        ),
       );
     }
   }, []);
@@ -110,7 +113,7 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
     // Buffer percentage
     if (videoRef.current.buffered.length > 0) {
       const end = videoRef.current.buffered.end(
-        videoRef.current.buffered.length - 1
+        videoRef.current.buffered.length - 1,
       );
       if (videoRef.current.duration > 0) {
         setBuffered((end / videoRef.current.duration) * 100);
@@ -126,19 +129,25 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
   const seekTrackRef = useRef<HTMLDivElement>(null);
   const isScrubbingRef = useRef(false);
 
-  const calculateSeekPos = useCallback((clientX: number) => {
-    if (!seekTrackRef.current || duration === 0) return 0;
-    const rect = seekTrackRef.current.getBoundingClientRect();
-    const pos = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
-    return pos;
-  }, [duration]);
+  const calculateSeekPos = useCallback(
+    (clientX: number) => {
+      if (!seekTrackRef.current || duration === 0) return 0;
+      const rect = seekTrackRef.current.getBoundingClientRect();
+      const pos = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+      return pos;
+    },
+    [duration],
+  );
 
-  const applySeek = useCallback((pos: number) => {
-    if (!videoRef.current || duration === 0) return;
-    const target = pos * duration;
-    videoRef.current.currentTime = target;
-    setCurrentTime(target);
-  }, [duration]);
+  const applySeek = useCallback(
+    (pos: number) => {
+      if (!videoRef.current || duration === 0) return;
+      const target = pos * duration;
+      videoRef.current.currentTime = target;
+      setCurrentTime(target);
+    },
+    [duration],
+  );
 
   const handleSeekMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -272,14 +281,17 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
       } else if (e.key === "ArrowLeft" || e.key === "j") {
         e.preventDefault();
         if (videoRef.current) {
-          videoRef.current.currentTime = Math.max(0, videoRef.current.currentTime - 5);
+          videoRef.current.currentTime = Math.max(
+            0,
+            videoRef.current.currentTime - 5,
+          );
         }
       } else if (e.key === "ArrowRight" || e.key === "l") {
         e.preventDefault();
         if (videoRef.current) {
           videoRef.current.currentTime = Math.min(
             duration,
-            videoRef.current.currentTime + 5
+            videoRef.current.currentTime + 5,
           );
         }
       } else if (e.key === "m") {
@@ -509,27 +521,45 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
         <Group position="apart" align="center" noWrap>
           {/* Left: Play/Pause, Volume, Time */}
           <Group spacing={8} noWrap align="center">
-            <Tooltip label={isPlaying ? "Pause (k/space)" : "Play (k/space)"} withArrow>
+            <Tooltip
+              label={isPlaying ? "Pause (k/space)" : "Play (k/space)"}
+              withArrow
+            >
               <ActionIcon
                 variant="subtle"
                 color="gray"
                 onClick={togglePlay}
                 size="md"
-                sx={{ color: "#FFFFFF", "&:hover": { backgroundColor: "rgba(255,255,255,0.15)" } }}
+                sx={{
+                  color: "#FFFFFF",
+                  "&:hover": { backgroundColor: "rgba(255,255,255,0.15)" },
+                }}
               >
-                {isPlaying ? <TbPlayerPause size={18} /> : <TbPlayerPlay size={18} />}
+                {isPlaying ? (
+                  <TbPlayerPause size={18} />
+                ) : (
+                  <TbPlayerPlay size={18} />
+                )}
               </ActionIcon>
             </Tooltip>
 
             {/* Volume Control */}
-            <Group spacing={4} noWrap align="center" sx={{ position: "relative" }}>
+            <Group
+              spacing={4}
+              noWrap
+              align="center"
+              sx={{ position: "relative" }}
+            >
               <Tooltip label={isMuted ? "Unmute (m)" : "Mute (m)"} withArrow>
                 <ActionIcon
                   variant="subtle"
                   color="gray"
                   onClick={toggleMute}
                   size="md"
-                  sx={{ color: "#FFFFFF", "&:hover": { backgroundColor: "rgba(255,255,255,0.15)" } }}
+                  sx={{
+                    color: "#FFFFFF",
+                    "&:hover": { backgroundColor: "rgba(255,255,255,0.15)" },
+                  }}
                 >
                   {renderVolumeIcon()}
                 </ActionIcon>
@@ -543,14 +573,25 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
                   styles={{
                     track: { backgroundColor: "rgba(255,255,255,0.2)" },
                     bar: { backgroundColor: "var(--brand-primary, #3B82F6)" },
-                    thumb: { borderColor: "var(--brand-primary, #3B82F6)", backgroundColor: "#FFFFFF" },
+                    thumb: {
+                      borderColor: "var(--brand-primary, #3B82F6)",
+                      backgroundColor: "#FFFFFF",
+                    },
                   }}
                 />
               </Box>
             </Group>
 
             {/* Time Stamp */}
-            <Text size="xs" color="dimmed" sx={{ color: "rgba(255, 255, 255, 0.8)", fontFamily: "monospace", marginLeft: 4 }}>
+            <Text
+              size="xs"
+              color="dimmed"
+              sx={{
+                color: "rgba(255, 255, 255, 0.8)",
+                fontFamily: "monospace",
+                marginLeft: 4,
+              }}
+            >
               {formatTime(currentTime)} / {formatTime(duration)}
             </Text>
           </Group>
@@ -585,7 +626,10 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
                     onClick={() => handleSpeedChange(rate)}
                     sx={{
                       fontWeight: playbackRate === rate ? 700 : 400,
-                      color: playbackRate === rate ? "var(--brand-primary, #3B82F6)" : undefined,
+                      color:
+                        playbackRate === rate
+                          ? "var(--brand-primary, #3B82F6)"
+                          : undefined,
                     }}
                   >
                     {rate}x {rate === 1 && "(Normal)"}
@@ -601,7 +645,10 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
                   variant="subtle"
                   onClick={togglePiP}
                   size="md"
-                  sx={{ color: "#FFFFFF", "&:hover": { backgroundColor: "rgba(255,255,255,0.15)" } }}
+                  sx={{
+                    color: "#FFFFFF",
+                    "&:hover": { backgroundColor: "rgba(255,255,255,0.15)" },
+                  }}
                 >
                   <TbPictureInPicture size={18} />
                 </ActionIcon>
@@ -609,14 +656,24 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
             )}
 
             {/* Fullscreen */}
-            <Tooltip label={isFullscreen ? "Exit Fullscreen (f)" : "Fullscreen (f)"} withArrow>
+            <Tooltip
+              label={isFullscreen ? "Exit Fullscreen (f)" : "Fullscreen (f)"}
+              withArrow
+            >
               <ActionIcon
                 variant="subtle"
                 onClick={toggleFullscreen}
                 size="md"
-                sx={{ color: "#FFFFFF", "&:hover": { backgroundColor: "rgba(255,255,255,0.15)" } }}
+                sx={{
+                  color: "#FFFFFF",
+                  "&:hover": { backgroundColor: "rgba(255,255,255,0.15)" },
+                }}
               >
-                {isFullscreen ? <TbArrowsMinimize size={18} /> : <TbArrowsMaximize size={18} />}
+                {isFullscreen ? (
+                  <TbArrowsMinimize size={18} />
+                ) : (
+                  <TbArrowsMaximize size={18} />
+                )}
               </ActionIcon>
             </Tooltip>
           </Group>

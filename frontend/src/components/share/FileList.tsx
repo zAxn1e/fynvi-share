@@ -19,7 +19,13 @@ import {
 import { useClipboard } from "@mantine/hooks";
 import { useModals } from "@mantine/modals";
 import mime from "mime-types";
-import React, { Dispatch, SetStateAction, useEffect, useMemo, useState } from "react";
+import React, {
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import {
   TbArchive,
   TbCheck,
@@ -207,12 +213,16 @@ const FileList = ({
         mimeType.startsWith("image/") ||
         mimeType.startsWith("video/") ||
         mimeType.startsWith("audio/") ||
-        f.name.match(/\.(png|jpg|jpeg|gif|webp|svg|bmp|mp4|webm|mov|mkv|mp3|wav)$/i)
+        f.name.match(
+          /\.(png|jpg|jpeg|gif|webp|svg|bmp|mp4|webm|mov|mkv|mp3|wav)$/i,
+        )
       );
     });
   }, [files]);
 
-  const [viewMode, setViewMode] = useState<"list" | "grid">(hasMedia ? "grid" : "list");
+  const [viewMode, setViewMode] = useState<"list" | "grid">(
+    hasMedia ? "grid" : "list",
+  );
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [selectedFileIds, setSelectedFileIds] = useState<string[]>([]);
@@ -240,10 +250,12 @@ const FileList = ({
       const cat = getFileCategory(mimeType, file.name).label.toLowerCase();
 
       if (selectedCategory === "images") return cat.includes("image");
-      if (selectedCategory === "documents") return cat.includes("document") || cat.includes("pdf");
+      if (selectedCategory === "documents")
+        return cat.includes("document") || cat.includes("pdf");
       if (selectedCategory === "media")
         return cat.includes("video") || cat.includes("audio");
-      if (selectedCategory === "code") return cat.includes("code") || cat.includes("text");
+      if (selectedCategory === "code")
+        return cat.includes("code") || cat.includes("text");
       if (selectedCategory === "archives") return cat.includes("archive");
 
       return true;
@@ -329,11 +341,21 @@ const FileList = ({
 
   const skeletonRows = Array.from({ length: 4 }).map((_, idx) => (
     <tr key={idx}>
-      <td style={{ width: 40 }}><Skeleton height={16} width={16} radius="xs" /></td>
-      <td><Skeleton height={16} width="65%" radius="sm" /></td>
-      <td><Skeleton height={16} width={60} radius="sm" /></td>
-      <td><Skeleton height={16} width={50} radius="sm" /></td>
-      <td style={{ textAlign: "right" }}><Skeleton height={24} width={80} radius="sm" /></td>
+      <td style={{ width: 40 }}>
+        <Skeleton height={16} width={16} radius="xs" />
+      </td>
+      <td>
+        <Skeleton height={16} width="65%" radius="sm" />
+      </td>
+      <td>
+        <Skeleton height={16} width={60} radius="sm" />
+      </td>
+      <td>
+        <Skeleton height={16} width={50} radius="sm" />
+      </td>
+      <td style={{ textAlign: "right" }}>
+        <Skeleton height={24} width={80} radius="sm" />
+      </td>
     </tr>
   ));
 
@@ -344,7 +366,8 @@ const FileList = ({
         <Box
           p="12px 16px"
           sx={{
-            borderBottom: "1px solid var(--border-subtle, rgba(255, 255, 255, 0.08))",
+            borderBottom:
+              "1px solid var(--border-subtle, rgba(255, 255, 255, 0.08))",
             display: "flex",
             flexDirection: "row",
             gap: 10,
@@ -452,7 +475,9 @@ const FileList = ({
                       <Checkbox
                         size="xs"
                         checked={allSelected}
-                        indeterminate={selectedFileIds.length > 0 && !allSelected}
+                        indeterminate={
+                          selectedFileIds.length > 0 && !allSelected
+                        }
                         onChange={toggleSelectAll}
                       />
                     </th>
@@ -467,7 +492,10 @@ const FileList = ({
                     skeletonRows
                   ) : filteredFiles.length === 0 ? (
                     <tr>
-                      <td colSpan={5} style={{ textAlign: "center", padding: "32px 0" }}>
+                      <td
+                        colSpan={5}
+                        style={{ textAlign: "center", padding: "32px 0" }}
+                      >
                         <Text size="sm" color="dimmed">
                           No matching files found
                         </Text>
@@ -475,7 +503,9 @@ const FileList = ({
                     </tr>
                   ) : (
                     filteredFiles.map((file) => {
-                      const mimeType = (mime.contentType(file.name) || "").split(";")[0];
+                      const mimeType = (
+                        mime.contentType(file.name) || ""
+                      ).split(";")[0];
                       const category = getFileCategory(mimeType, file.name);
                       const isSelected = selectedFileIds.includes(file.id);
 
@@ -497,7 +527,12 @@ const FileList = ({
                           </td>
                           <td>
                             <Group spacing={8} noWrap>
-                              <Box sx={{ display: "flex", color: "var(--brand-primary, #3B82F6)" }}>
+                              <Box
+                                sx={{
+                                  display: "flex",
+                                  color: "var(--brand-primary, #3B82F6)",
+                                }}
+                              >
                                 {getCategoryIcon(category.label, 17)}
                               </Box>
                               <Text
@@ -506,7 +541,12 @@ const FileList = ({
                                 truncate
                                 sx={{ maxWidth: 360, cursor: "pointer" }}
                                 onClick={() =>
-                                  showFilePreviewModal(share.id, file, modals, recipientId)
+                                  showFilePreviewModal(
+                                    share.id,
+                                    file,
+                                    modals,
+                                    recipientId,
+                                  )
                                 }
                               >
                                 {renderFileName(file.name)}
@@ -521,7 +561,11 @@ const FileList = ({
                           </td>
 
                           <td>
-                            <Text size="xs" color="dimmed" className="font-mono">
+                            <Text
+                              size="xs"
+                              color="dimmed"
+                              className="font-mono"
+                            >
                               {byteToHumanSizeString(parseInt(file.size, 10))}
                             </Text>
                           </td>
@@ -543,9 +587,15 @@ const FileList = ({
                                             clipboard.copy(
                                               typeof res.data === "string"
                                                 ? res.data
-                                                : JSON.stringify(res.data, null, 2),
+                                                : JSON.stringify(
+                                                    res.data,
+                                                    null,
+                                                    2,
+                                                  ),
                                             );
-                                            toast.success("Text copied to clipboard");
+                                            toast.success(
+                                              "Text copied to clipboard",
+                                            );
                                           }
                                         });
                                     }}
@@ -560,7 +610,12 @@ const FileList = ({
                                   size="sm"
                                   variant="subtle"
                                   onClick={() =>
-                                    showFilePreviewModal(share.id, file, modals, recipientId)
+                                    showFilePreviewModal(
+                                      share.id,
+                                      file,
+                                      modals,
+                                      recipientId,
+                                    )
                                   }
                                 >
                                   <TbEye size={15} />
@@ -617,18 +672,29 @@ const FileList = ({
               <Stack spacing={8}>
                 {isLoading ? (
                   Array.from({ length: 3 }).map((_, i) => (
-                    <Box key={i} p={12} sx={{ borderRadius: 10, border: "1px solid rgba(255,255,255,0.06)" }}>
+                    <Box
+                      key={i}
+                      p={12}
+                      sx={{
+                        borderRadius: 10,
+                        border: "1px solid rgba(255,255,255,0.06)",
+                      }}
+                    >
                       <Skeleton height={20} width="70%" mb={8} />
                       <Skeleton height={14} width="40%" />
                     </Box>
                   ))
                 ) : filteredFiles.length === 0 ? (
                   <Box py={24} sx={{ textAlign: "center" }}>
-                    <Text size="sm" color="dimmed">No matching files found</Text>
+                    <Text size="sm" color="dimmed">
+                      No matching files found
+                    </Text>
                   </Box>
                 ) : (
                   filteredFiles.map((file) => {
-                    const mimeType = (mime.contentType(file.name) || "").split(";")[0];
+                    const mimeType = (mime.contentType(file.name) || "").split(
+                      ";",
+                    )[0];
                     const category = getFileCategory(mimeType, file.name);
                     const isSelected = selectedFileIds.includes(file.id);
 
@@ -649,13 +715,22 @@ const FileList = ({
                         }}
                       >
                         <Group position="apart" align="center" mb={6} noWrap>
-                          <Group spacing={8} noWrap sx={{ overflow: "hidden", flex: 1 }}>
+                          <Group
+                            spacing={8}
+                            noWrap
+                            sx={{ overflow: "hidden", flex: 1 }}
+                          >
                             <Checkbox
                               size="xs"
                               checked={isSelected}
                               onChange={() => toggleSelectFile(file.id)}
                             />
-                            <Box sx={{ color: "var(--brand-primary)", display: "flex" }}>
+                            <Box
+                              sx={{
+                                color: "var(--brand-primary)",
+                                display: "flex",
+                              }}
+                            >
                               {getCategoryIcon(category.label, 16)}
                             </Box>
                             <Text
@@ -663,7 +738,14 @@ const FileList = ({
                               weight={600}
                               truncate
                               sx={{ cursor: "pointer" }}
-                              onClick={() => showFilePreviewModal(share.id, file, modals, recipientId)}
+                              onClick={() =>
+                                showFilePreviewModal(
+                                  share.id,
+                                  file,
+                                  modals,
+                                  recipientId,
+                                )
+                              }
                             >
                               {file.name}
                             </Text>
@@ -682,7 +764,14 @@ const FileList = ({
                             <ActionIcon
                               size="sm"
                               variant="light"
-                              onClick={() => showFilePreviewModal(share.id, file, modals, recipientId)}
+                              onClick={() =>
+                                showFilePreviewModal(
+                                  share.id,
+                                  file,
+                                  modals,
+                                  recipientId,
+                                )
+                              }
                               title="Preview"
                             >
                               <TbEye size={15} />
@@ -704,7 +793,11 @@ const FileList = ({
                               variant="light"
                               color="blue"
                               onClick={async () => {
-                                await shareService.downloadFile(share.id, file.id, recipientId);
+                                await shareService.downloadFile(
+                                  share.id,
+                                  file.id,
+                                  recipientId,
+                                );
                               }}
                               title="Download"
                             >
@@ -726,7 +819,9 @@ const FileList = ({
           <Box p={16}>
             <Grid gutter="md">
               {filteredFiles.map((file) => {
-                const mimeType = (mime.contentType(file.name) || "").split(";")[0];
+                const mimeType = (mime.contentType(file.name) || "").split(
+                  ";",
+                )[0];
                 const category = getFileCategory(mimeType, file.name);
                 const isSelected = selectedFileIds.includes(file.id);
                 const isImage = mimeType.startsWith("image/");
@@ -764,11 +859,18 @@ const FileList = ({
                       {/* Card Thumbnail / Preview Box */}
                       <Box
                         onClick={() =>
-                          showFilePreviewModal(share.id, file, modals, recipientId)
+                          showFilePreviewModal(
+                            share.id,
+                            file,
+                            modals,
+                            recipientId,
+                          )
                         }
                         sx={{
                           height: 160,
-                          backgroundColor: isDark ? "rgba(0, 0, 0, 0.3)" : "rgba(0, 0, 0, 0.04)",
+                          backgroundColor: isDark
+                            ? "rgba(0, 0, 0, 0.3)"
+                            : "rgba(0, 0, 0, 0.04)",
                           display: "flex",
                           alignItems: "center",
                           justifyContent: "center",
@@ -777,7 +879,8 @@ const FileList = ({
                           position: "relative",
                         }}
                       >
-                        {category.type === "image" || category.type === "video" ? (
+                        {category.type === "image" ||
+                        category.type === "video" ? (
                           <MediaThumbnail
                             shareId={share.id}
                             file={file}
@@ -794,7 +897,12 @@ const FileList = ({
                             }}
                           >
                             {getCategoryIcon(category.label, 44)}
-                            <Text size="xs" color="dimmed" weight={600} className="font-mono">
+                            <Text
+                              size="xs"
+                              color="dimmed"
+                              weight={600}
+                              className="font-mono"
+                            >
                               {file.name.split(".").pop()?.toUpperCase()}
                             </Text>
                           </Box>
@@ -811,7 +919,12 @@ const FileList = ({
                             sx={{ maxWidth: 170, cursor: "pointer" }}
                             title={file.name}
                             onClick={() =>
-                              showFilePreviewModal(share.id, file, modals, recipientId)
+                              showFilePreviewModal(
+                                share.id,
+                                file,
+                                modals,
+                                recipientId,
+                              )
                             }
                           >
                             {file.name}
@@ -894,7 +1007,8 @@ const FileList = ({
             title: "Delete selected files?",
             children: (
               <Text size="sm">
-                Are you sure you want to delete {selectedFileIds.length} files from this share? This action cannot be undone.
+                Are you sure you want to delete {selectedFileIds.length} files
+                from this share? This action cannot be undone.
               </Text>
             ),
             labels: { confirm: "Delete", cancel: "Cancel" },

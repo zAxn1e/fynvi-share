@@ -73,7 +73,8 @@ const MyShares = () => {
       // Search
       const matchesSearch =
         share.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        (share.name && share.name.toLowerCase().includes(searchQuery.toLowerCase()));
+        (share.name &&
+          share.name.toLowerCase().includes(searchQuery.toLowerCase()));
       if (!matchesSearch) return false;
 
       // Status filter
@@ -88,7 +89,8 @@ const MyShares = () => {
       if (statusFilter === "active") return !isExpired;
       if (statusFilter === "expiring") return isExpiringSoon;
       if (statusFilter === "expired") return isExpired;
-      if (statusFilter === "password") return !!share.security?.passwordProtected;
+      if (statusFilter === "password")
+        return !!share.security?.passwordProtected;
 
       return true;
     });
@@ -107,7 +109,8 @@ const MyShares = () => {
             {t("account.shares.title") || "My Shares"}
           </Title>
           <Text size="sm" color="dimmed">
-            Manage your active shares, view access metrics, or update share settings.
+            Manage your active shares, view access metrics, or update share
+            settings.
           </Text>
         </Stack>
 
@@ -228,7 +231,9 @@ const MyShares = () => {
                   const isExpiringSoon =
                     !isExpired &&
                     moment(share.expiration).unix() !== 0 &&
-                    moment(share.expiration).isBefore(moment().add(24, "hours"));
+                    moment(share.expiration).isBefore(
+                      moment().add(24, "hours"),
+                    );
 
                   return (
                     <tr key={share.id}>
@@ -259,7 +264,10 @@ const MyShares = () => {
                               </Tooltip>
                             )}
                             {share.security?.restrictToRecipients && (
-                              <Tooltip label="Restricted to recipients" withArrow>
+                              <Tooltip
+                                label="Restricted to recipients"
+                                withArrow
+                              >
                                 <Box sx={{ display: "flex", color: "#60A5FA" }}>
                                   <FaUserLock size={12} />
                                 </Box>
@@ -276,7 +284,8 @@ const MyShares = () => {
                       <td>
                         <Stack spacing={2}>
                           <Text size="sm" weight={500}>
-                            {share.files?.length || 0} file{share.files?.length === 1 ? "" : "s"}
+                            {share.files?.length || 0} file
+                            {share.files?.length === 1 ? "" : "s"}
                           </Text>
                           <Text size="xs" color="dimmed" className="font-mono">
                             {byteToHumanSizeString(share.size || 0)}
@@ -290,7 +299,9 @@ const MyShares = () => {
                           <TbEye size={14} color="#9CA3AF" />
                           <Text size="sm" className="font-mono">
                             {share.views}
-                            {share.security?.maxViews ? ` / ${share.security.maxViews}` : ""}
+                            {share.security?.maxViews
+                              ? ` / ${share.security.maxViews}`
+                              : ""}
                           </Text>
                         </Group>
                       </td>
@@ -299,7 +310,16 @@ const MyShares = () => {
                       <td>
                         <Group spacing={6}>
                           <TbClock size={14} color="#9CA3AF" />
-                          <Text size="xs" color={isExpired ? "red" : isExpiringSoon ? "yellow" : "dimmed"}>
+                          <Text
+                            size="xs"
+                            color={
+                              isExpired
+                                ? "red"
+                                : isExpiringSoon
+                                  ? "yellow"
+                                  : "dimmed"
+                            }
+                          >
                             {moment(share.expiration).unix() === 0
                               ? "Never"
                               : moment(share.expiration).fromNow()}
@@ -399,15 +419,21 @@ const MyShares = () => {
                                   title: "Delete Share",
                                   children: (
                                     <Text size="sm">
-                                      Are you sure you want to permanently delete this share and all its files?
+                                      Are you sure you want to permanently
+                                      delete this share and all its files?
                                     </Text>
                                   ),
-                                  labels: { confirm: "Delete", cancel: "Cancel" },
+                                  labels: {
+                                    confirm: "Delete",
+                                    cancel: "Cancel",
+                                  },
                                   confirmProps: { color: "red" },
                                   onConfirm: async () => {
                                     try {
                                       await shareService.remove(share.id);
-                                      toast.success("Share deleted successfully");
+                                      toast.success(
+                                        "Share deleted successfully",
+                                      );
                                       refreshShares();
                                     } catch (e) {
                                       toast.axiosError(e);

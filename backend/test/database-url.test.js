@@ -14,6 +14,9 @@ const urlFor = (paths, explicitUrl) =>
       paths.map((item) => path.normalize(item)).includes(path.normalize(candidate)),
   });
 
+const expectedUrl = (p) =>
+  `file:${path.resolve(p).replace(/\\/g, "/")}?connection_limit=1`;
+
 test("uses an explicitly configured database URL", () => {
   assert.equal(
     urlFor(["/data/pingvin-share.db"], "file:/custom/database.db"),
@@ -24,20 +27,20 @@ test("uses an explicitly configured database URL", () => {
 test("uses the canonical database when it exists", () => {
   assert.equal(
     urlFor(["/data/pingvin-share.db", "/data/fynvi-share.db"]),
-    "file:/data/fynvi-share.db?connection_limit=1",
+    expectedUrl("/data/fynvi-share.db"),
   );
 });
 
 test("keeps using the legacy database on upgrade", () => {
   assert.equal(
     urlFor(["/data/pingvin-share.db"]),
-    "file:/data/pingvin-share.db?connection_limit=1",
+    expectedUrl("/data/pingvin-share.db"),
   );
 });
 
 test("selects the canonical database for a fresh installation", () => {
   assert.equal(
     urlFor([]),
-    "file:/data/fynvi-share.db?connection_limit=1",
+    expectedUrl("/data/fynvi-share.db"),
   );
 });

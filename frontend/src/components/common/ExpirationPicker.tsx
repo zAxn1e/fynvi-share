@@ -74,7 +74,10 @@ export const ExpirationPicker: React.FC<ExpirationPickerProps> = ({
   const allowedPresets = presets.filter((preset) => {
     if (preset.isNever) return isUnlimitedAllowed;
     if (!maxExpiration || maxExpiration.value === 0) return true;
-    const maxDuration = moment.duration(maxExpiration.value, maxExpiration.unit);
+    const maxDuration = moment.duration(
+      maxExpiration.value,
+      maxExpiration.unit,
+    );
     const presetDuration = moment.duration(preset.duration, preset.unit);
     return presetDuration.asMilliseconds() <= maxDuration.asMilliseconds();
   });
@@ -102,7 +105,9 @@ export const ExpirationPicker: React.FC<ExpirationPickerProps> = ({
     return moment().add(7, "days").format("YYYY-MM-DDTHH:mm");
   };
 
-  const [customDateTime, setCustomDateTime] = useState<string>(getInitialCustomDateTime());
+  const [customDateTime, setCustomDateTime] = useState<string>(
+    getInitialCustomDateTime(),
+  );
 
   const handleSelectPreset = (preset: PresetOption) => {
     setCustomMode(false);

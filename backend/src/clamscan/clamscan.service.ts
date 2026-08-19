@@ -101,12 +101,10 @@ export class ClamScanService {
       const filePath = `${SHARE_DIRECTORY}/${shareId}/${f.id}`;
       if (!fs.existsSync(filePath)) continue;
 
-      const { isInfected } = await clamScan
-        .isInfected(filePath)
-        .catch(() => {
-          this.logger.log("ClamAV is not active");
-          return { isInfected: false };
-        });
+      const { isInfected } = await clamScan.isInfected(filePath).catch(() => {
+        this.logger.log("ClamAV is not active");
+        return { isInfected: false };
+      });
 
       if (isInfected) {
         infectedFiles.push({ id: f.id, name: f.name });

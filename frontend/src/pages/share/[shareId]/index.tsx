@@ -184,7 +184,10 @@ const Share = ({ shareId }: { shareId: string }) => {
       <Center style={{ height: "60vh" }}>
         <Stack align="center" spacing="md" sx={{ textAlign: "center" }}>
           <Title order={3}>
-            <FormattedMessage id="share.error.restricted.title" defaultMessage="Access Restricted" />
+            <FormattedMessage
+              id="share.error.restricted.title"
+              defaultMessage="Access Restricted"
+            />
           </Title>
           <Text color="dimmed" size="sm" sx={{ maxWidth: 400 }}>
             <FormattedMessage
@@ -198,7 +201,10 @@ const Share = ({ shareId }: { shareId: string }) => {
             variant="primary"
             size="sm"
           >
-            <FormattedMessage id="share.error.restricted.button" defaultMessage="Sign In to Access" />
+            <FormattedMessage
+              id="share.error.restricted.button"
+              defaultMessage="Sign In to Access"
+            />
           </Button>
         </Stack>
       </Center>
@@ -250,7 +256,9 @@ const Share = ({ shareId }: { shareId: string }) => {
               <Group spacing={4}>
                 <TbFiles size={15} color="#9CA3AF" />
                 <Text size="xs" color="dimmed" className="font-mono">
-                  {share?.files?.length || 0} file{share?.files?.length === 1 ? "" : "s"} • {byteToHumanSizeString(totalSize)}
+                  {share?.files?.length || 0} file
+                  {share?.files?.length === 1 ? "" : "s"} •{" "}
+                  {byteToHumanSizeString(totalSize)}
                 </Text>
               </Group>
 

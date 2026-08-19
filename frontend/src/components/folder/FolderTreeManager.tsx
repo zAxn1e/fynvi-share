@@ -29,7 +29,9 @@ export const FolderTreeManager: React.FC<FolderTreeManagerProps> = ({
   onSelectFolder,
 }) => {
   const [folders, setFolders] = useState<FolderItem[]>([]);
-  const [currentFolderId, setCurrentFolderId] = useState<string | undefined>(undefined);
+  const [currentFolderId, setCurrentFolderId] = useState<string | undefined>(
+    undefined,
+  );
   const [folderPath, setFolderPath] = useState<FolderItem[]>([]);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -113,7 +115,9 @@ export const FolderTreeManager: React.FC<FolderTreeManagerProps> = ({
               display: "inline-flex",
               alignItems: "center",
               gap: "0.25rem",
-              color: currentFolderId ? "var(--text-secondary)" : "var(--brand-primary)",
+              color: currentFolderId
+                ? "var(--text-secondary)"
+                : "var(--brand-primary)",
               fontWeight: 600,
             }}
           >
@@ -174,7 +178,8 @@ export const FolderTreeManager: React.FC<FolderTreeManagerProps> = ({
                     ? "var(--surface-1, #151B24)"
                     : "var(--surface-1, #F1F5F9)",
                 borderRadius: "var(--radius-md, 10px)",
-                border: "1px solid var(--border-subtle, rgba(255, 255, 255, 0.07))",
+                border:
+                  "1px solid var(--border-subtle, rgba(255, 255, 255, 0.07))",
                 transition: "all 150ms ease",
                 "&:hover": {
                   backgroundColor:
@@ -186,7 +191,11 @@ export const FolderTreeManager: React.FC<FolderTreeManagerProps> = ({
             >
               <TbFolder size={24} color="var(--brand-primary)" />
               <div>
-                <Text weight={600} size="sm" sx={{ color: "var(--text-primary)" }}>
+                <Text
+                  weight={600}
+                  size="sm"
+                  sx={{ color: "var(--text-primary)" }}
+                >
                   {folder.name}
                 </Text>
                 <Text size="xs" color="dimmed">

@@ -74,7 +74,8 @@ export default function Home() {
 
   const appName = config.get("general.appName") || "Fynvi Share";
   const allowRegistration = config.get("share.allowRegistration");
-  const primaryColor = theme.colors[theme.primaryColor]?.[6] || "var(--brand-primary)";
+  const primaryColor =
+    theme.colors[theme.primaryColor]?.[6] || "var(--brand-primary)";
   const isDark = theme.colorScheme === "dark";
 
   useEffect(() => {
@@ -186,7 +187,8 @@ export default function Home() {
               display: "inline-flex",
               padding: "4px 14px",
               borderRadius: 20,
-              backgroundColor: "var(--brand-primary-subtle, rgba(37, 99, 235, 0.12))",
+              backgroundColor:
+                "var(--brand-primary-subtle, rgba(37, 99, 235, 0.12))",
               border: "1px solid var(--border-focus, rgba(59, 130, 246, 0.3))",
               color: "var(--brand-primary)",
               fontSize: 13,
@@ -220,7 +222,8 @@ export default function Home() {
               color="dimmed"
               sx={{ maxWidth: 580, lineHeight: 1.6 }}
             >
-              End-to-end resumable chunk transfers, instant in-browser media previews, password protection, and custom link expirations.
+              End-to-end resumable chunk transfers, instant in-browser media
+              previews, password protection, and custom link expirations.
             </Text>
           </Stack>
 
@@ -248,7 +251,14 @@ export default function Home() {
         </Stack>
 
         {/* Direct In-Landing Dropzone */}
-        <Box sx={{ maxWidth: 800, margin: "0 auto 48px", position: "relative", zIndex: 1 }}>
+        <Box
+          sx={{
+            maxWidth: 800,
+            margin: "0 auto 48px",
+            position: "relative",
+            zIndex: 1,
+          }}
+        >
           <Dropzone
             onFilesChanged={handleFilesAddedFromHome}
             title="Drop files or click here to upload immediately"
@@ -256,7 +266,14 @@ export default function Home() {
         </Box>
 
         {/* Feature Highlights Grid */}
-        <Box sx={{ maxWidth: 960, margin: "0 auto", position: "relative", zIndex: 1 }}>
+        <Box
+          sx={{
+            maxWidth: 960,
+            margin: "0 auto",
+            position: "relative",
+            zIndex: 1,
+          }}
+        >
           <Grid gutter="lg">
             <Col xs={12} sm={4}>
               <Card padded>
@@ -281,7 +298,8 @@ export default function Home() {
                     Resumable Chunk Engine
                   </Text>
                   <Text size="xs" color="dimmed" sx={{ lineHeight: 1.5 }}>
-                    Upload large files and full directories reliably with automatic chunk retries and live speed metrics.
+                    Upload large files and full directories reliably with
+                    automatic chunk retries and live speed metrics.
                   </Text>
                 </Stack>
               </Card>
@@ -310,7 +328,8 @@ export default function Home() {
                     Privacy & Password Locks
                   </Text>
                   <Text size="xs" color="dimmed" sx={{ lineHeight: 1.5 }}>
-                    Set custom expiration timers, view limits, and bcrypt password protection for every shared link.
+                    Set custom expiration timers, view limits, and bcrypt
+                    password protection for every shared link.
                   </Text>
                 </Stack>
               </Card>
@@ -339,7 +358,8 @@ export default function Home() {
                     Rich In-Browser Inspector
                   </Text>
                   <Text size="xs" color="dimmed" sx={{ lineHeight: 1.5 }}>
-                    Preview images, HTML5 video, audio, PDFs, and code directly with detailed metadata inspection.
+                    Preview images, HTML5 video, audio, PDFs, and code directly
+                    with detailed metadata inspection.
                   </Text>
                 </Stack>
               </Card>
@@ -377,7 +397,12 @@ export default function Home() {
       />
 
       {/* Header Banner */}
-      <Group position="apart" mb={24} noWrap sx={{ overflow: "hidden", position: "relative", zIndex: 1 }}>
+      <Group
+        position="apart"
+        mb={24}
+        noWrap
+        sx={{ overflow: "hidden", position: "relative", zIndex: 1 }}
+      >
         <Group spacing={14} noWrap sx={{ overflow: "hidden" }}>
           <Avatar
             radius="md"
@@ -399,7 +424,8 @@ export default function Home() {
               )}
             </Group>
             <Text size="xs" color="dimmed">
-              Manage your active shares, inspect files, or drop files below to upload immediately.
+              Manage your active shares, inspect files, or drop files below to
+              upload immediately.
             </Text>
           </Stack>
         </Group>
@@ -511,7 +537,9 @@ export default function Home() {
                   {byteToHumanSizeString(totalUploadedBytes)}
                 </Text>
                 <Text size="xs" color="dimmed">
-                  {totalBytes > 0 ? `${usedPercent}% quota used` : "Unlimited quota"}
+                  {totalBytes > 0
+                    ? `${usedPercent}% quota used`
+                    : "Unlimited quota"}
                 </Text>
               </Stack>
               <Box
@@ -612,11 +640,7 @@ export default function Home() {
                             </Tooltip>
                           )}
                         </Group>
-                        <Text
-                          size="xs"
-                          color="dimmed"
-                          className="font-mono"
-                        >
+                        <Text size="xs" color="dimmed" className="font-mono">
                           {share.files?.length || 0} file
                           {share.files?.length === 1 ? "" : "s"} •{" "}
                           {byteToHumanSizeString(share.size || 0)}

@@ -45,7 +45,7 @@ export default function Error() {
             <FormattedMessage
               id={`error.msg.${router.query.error || "default"}`}
               values={Object.fromEntries(
-                params.map((value, key) => [key.toString(), value])
+                params.map((value, key) => [key.toString(), value]),
               )}
             />
           </Text>

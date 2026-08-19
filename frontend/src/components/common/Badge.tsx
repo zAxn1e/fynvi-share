@@ -66,7 +66,8 @@ export const Badge: React.FC<BadgeProps> = ({
                   ? "var(--brand-primary-subtle, rgba(59, 130, 246, 0.15))"
                   : "var(--brand-primary-subtle, rgba(37, 99, 235, 0.10))",
                 color: "var(--brand-primary)",
-                border: "1px solid var(--border-focus, rgba(59, 130, 246, 0.3))",
+                border:
+                  "1px solid var(--border-focus, rgba(59, 130, 246, 0.3))",
               };
               dotColor = "var(--brand-primary)";
               break;
@@ -115,25 +116,36 @@ export const Badge: React.FC<BadgeProps> = ({
                 backgroundColor: "var(--glass-bg, rgba(15, 19, 25, 0.75))",
                 backdropFilter: "blur(var(--glass-blur, 16px))",
                 WebkitBackdropFilter: "blur(var(--glass-blur, 16px))",
-                color: isDark ? "var(--text-primary, #F8FAFC)" : "var(--text-primary, #0F172A)",
-                border: "1px solid var(--glass-border, rgba(255, 255, 255, 0.09))",
+                color: isDark
+                  ? "var(--text-primary, #F8FAFC)"
+                  : "var(--text-primary, #0F172A)",
+                border:
+                  "1px solid var(--glass-border, rgba(255, 255, 255, 0.09))",
               };
               dotColor = isDark ? "#F8FAFC" : "#0F172A";
               break;
             case "outline":
               variantStyles = {
                 backgroundColor: "transparent",
-                color: isDark ? "var(--text-primary, #F8FAFC)" : "var(--text-primary, #0F172A)",
-                border: "1px solid var(--border-medium, rgba(255, 255, 255, 0.18))",
+                color: isDark
+                  ? "var(--text-primary, #F8FAFC)"
+                  : "var(--text-primary, #0F172A)",
+                border:
+                  "1px solid var(--border-medium, rgba(255, 255, 255, 0.18))",
               };
               dotColor = isDark ? "#F8FAFC" : "#0F172A";
               break;
             case "default":
             default:
               variantStyles = {
-                backgroundColor: isDark ? "var(--surface-2, #1C2430)" : "var(--surface-2, #E2E8F0)",
-                color: isDark ? "var(--text-secondary, #94A3B8)" : "var(--text-secondary, #475569)",
-                border: "1px solid var(--border-subtle, rgba(255, 255, 255, 0.07))",
+                backgroundColor: isDark
+                  ? "var(--surface-2, #1C2430)"
+                  : "var(--surface-2, #E2E8F0)",
+                color: isDark
+                  ? "var(--text-secondary, #94A3B8)"
+                  : "var(--text-secondary, #475569)",
+                border:
+                  "1px solid var(--border-subtle, rgba(255, 255, 255, 0.07))",
               };
               dotColor = isDark ? "#94A3B8" : "#64748B";
               break;
@@ -151,7 +163,7 @@ export const Badge: React.FC<BadgeProps> = ({
             ...variantStyles,
             ...(dot && {
               "&::before": {
-                content: "\"\"",
+                content: '""',
                 display: "inline-block",
                 width: size === "xs" ? 5 : 6,
                 height: size === "xs" ? 5 : 6,

@@ -44,9 +44,10 @@ const Users = () => {
 
   const deleteUser = (user: User) => {
     modals.openConfirmModal({
-      title: t("admin.users.edit.delete.title", {
-        username: user.username,
-      }) || `Delete user @${user.username}?`,
+      title:
+        t("admin.users.edit.delete.title", {
+          username: user.username,
+        }) || `Delete user @${user.username}?`,
       children: (
         <Text size="sm">
           <FormattedMessage id="admin.users.edit.delete.description" />
@@ -97,7 +98,8 @@ const Users = () => {
             </Badge>
           </Group>
           <Text size="sm" color="dimmed">
-            Manage registered accounts, grant administrator rights, customize upload quota limits, or reset credentials.
+            Manage registered accounts, grant administrator rights, customize
+            upload quota limits, or reset credentials.
           </Text>
         </Stack>
 

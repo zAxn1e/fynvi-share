@@ -59,7 +59,9 @@ const ReceivedShares = () => {
       {receivedShares.length === 0 ? (
         <EmptyState
           icon={TbInbox}
-          title={t("account.received-shares.title.empty") || "No received shares"}
+          title={
+            t("account.received-shares.title.empty") || "No received shares"
+          }
           description={
             t("account.received-shares.description.empty") ||
             "You haven't received any files from other users yet."
@@ -122,7 +124,8 @@ const ReceivedShares = () => {
                       <td>
                         <Stack spacing={2}>
                           <Text size="sm" weight={500}>
-                            {share.files?.length || 0} file{share.files?.length === 1 ? "" : "s"}
+                            {share.files?.length || 0} file
+                            {share.files?.length === 1 ? "" : "s"}
                           </Text>
                           <Text size="xs" color="dimmed" className="font-mono">
                             {byteToHumanSizeString(share.size || 0)}

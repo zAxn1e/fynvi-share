@@ -2,9 +2,9 @@ import { MantineThemeOverride } from "@mantine/core";
 
 const mantineTheme: MantineThemeOverride = {
   fontFamily:
-    "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+    '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
   fontFamilyMonospace:
-    "ui-monospace, SFMono-Regular, \"JetBrains Mono\", Menlo, Monaco, Consolas, monospace",
+    'ui-monospace, SFMono-Regular, "JetBrains Mono", Menlo, Monaco, Consolas, monospace',
   defaultRadius: "sm",
   colors: {
     // Primary blue color scale
@@ -38,8 +38,7 @@ const mantineTheme: MantineThemeOverride = {
     Modal: {
       styles: (theme) => ({
         content: {
-          backgroundColor:
-            theme.colorScheme === "dark" ? "#0F1319" : "#FFFFFF",
+          backgroundColor: theme.colorScheme === "dark" ? "#0F1319" : "#FFFFFF",
           border:
             theme.colorScheme === "dark"
               ? "1px solid rgba(255, 255, 255, 0.09)"
@@ -50,7 +49,7 @@ const mantineTheme: MantineThemeOverride = {
             theme.colorScheme === "dark"
               ? "0 24px 48px -12px rgba(0, 0, 0, 0.75)"
               : "0 24px 48px -12px rgba(15, 23, 42, 0.14)",
-          overflow: "hidden",
+          overflowY: "auto",
         },
         header: {
           backgroundColor: "transparent",
@@ -76,8 +75,7 @@ const mantineTheme: MantineThemeOverride = {
     Paper: {
       styles: (theme) => ({
         root: {
-          backgroundColor:
-            theme.colorScheme === "dark" ? "#11141A" : "#FFFFFF",
+          backgroundColor: theme.colorScheme === "dark" ? "#11141A" : "#FFFFFF",
           borderColor:
             theme.colorScheme === "dark"
               ? "rgba(255, 255, 255, 0.08)"
@@ -96,8 +94,7 @@ const mantineTheme: MantineThemeOverride = {
     TextInput: {
       styles: (theme) => ({
         input: {
-          backgroundColor:
-            theme.colorScheme === "dark" ? "#161A22" : "#F8FAFC",
+          backgroundColor: theme.colorScheme === "dark" ? "#161A22" : "#F8FAFC",
           borderColor:
             theme.colorScheme === "dark"
               ? "rgba(255, 255, 255, 0.08)"
@@ -111,8 +108,7 @@ const mantineTheme: MantineThemeOverride = {
     PasswordInput: {
       styles: (theme) => ({
         input: {
-          backgroundColor:
-            theme.colorScheme === "dark" ? "#161A22" : "#F8FAFC",
+          backgroundColor: theme.colorScheme === "dark" ? "#161A22" : "#F8FAFC",
           borderColor:
             theme.colorScheme === "dark"
               ? "rgba(255, 255, 255, 0.08)"

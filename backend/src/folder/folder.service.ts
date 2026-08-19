@@ -38,7 +38,9 @@ export class FolderService {
     });
 
     if (existingFolder) {
-      throw new BadRequestException("Folder with this name already exists in target directory");
+      throw new BadRequestException(
+        "Folder with this name already exists in target directory",
+      );
     }
 
     return await this.prisma.folder.create({
@@ -89,7 +91,9 @@ export class FolderService {
     });
 
     if (conflict) {
-      throw new BadRequestException("Another folder with this name already exists");
+      throw new BadRequestException(
+        "Another folder with this name already exists",
+      );
     }
 
     return await this.prisma.folder.update({

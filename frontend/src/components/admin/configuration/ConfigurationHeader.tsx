@@ -35,17 +35,31 @@ const ConfigurationHeader = ({
         backgroundColor: "var(--glass-bg, rgba(15, 19, 25, 0.75))",
         backdropFilter: "blur(var(--glass-blur, 16px))",
         WebkitBackdropFilter: "blur(var(--glass-blur, 16px))",
-        borderBottom: "1px solid var(--border-subtle, rgba(255, 255, 255, 0.07))",
+        borderBottom:
+          "1px solid var(--border-subtle, rgba(255, 255, 255, 0.07))",
         display: "flex",
         alignItems: "center",
       }}
     >
       <Group position="apart" w="100%">
         <Group spacing={14}>
-          <Link href="/" passHref style={{ textDecoration: "none", color: "inherit", display: "flex", alignItems: "center" }}>
+          <Link
+            href="/"
+            passHref
+            style={{
+              textDecoration: "none",
+              color: "inherit",
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
             <Logo height={30} width={30} />
           </Link>
-          <Text size="sm" weight={600} sx={{ [theme.fn.smallerThan("xs")]: { display: "none" } }}>
+          <Text
+            size="sm"
+            weight={600}
+            sx={{ [theme.fn.smallerThan("xs")]: { display: "none" } }}
+          >
             {config.get("general.appName") || "Fynvi Share"}
           </Text>
           <Text size="sm" color="dimmed">

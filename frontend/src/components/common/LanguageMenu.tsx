@@ -80,7 +80,8 @@ export const LanguageMenu: React.FC<LanguageMenuProps> = ({
               color: isDark ? "#F8FAFC" : "#0F172A",
               fontSize: 13,
               fontWeight: 500,
-              border: "1px solid var(--border-subtle, rgba(255, 255, 255, 0.08))",
+              border:
+                "1px solid var(--border-subtle, rgba(255, 255, 255, 0.08))",
               transition: "all var(--transition-fast, 150ms ease)",
               "&:hover": {
                 backgroundColor: isDark
@@ -100,7 +101,9 @@ export const LanguageMenu: React.FC<LanguageMenuProps> = ({
             aria-label="Switch Language"
             sx={{
               borderRadius: "var(--radius-md, 10px)",
-              color: isDark ? "var(--text-secondary, #94A3B8)" : "var(--text-secondary, #475569)",
+              color: isDark
+                ? "var(--text-secondary, #94A3B8)"
+                : "var(--text-secondary, #475569)",
               "&:hover": {
                 color: isDark ? "#FFFFFF" : "#0F172A",
                 backgroundColor: isDark
@@ -148,7 +151,9 @@ export const LanguageMenu: React.FC<LanguageMenuProps> = ({
                       : "#0F172A",
                 }}
                 rightSection={
-                  isSelected ? <TbCheck size={16} color="var(--brand-primary)" /> : null
+                  isSelected ? (
+                    <TbCheck size={16} color="var(--brand-primary)" />
+                  ) : null
                 }
               >
                 <Group spacing={8}>

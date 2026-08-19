@@ -1,16 +1,12 @@
-import {
-  Box,
-  Group,
-  Stack,
-  Text,
-  useMantineTheme,
-} from "@mantine/core";
-import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
-import {
-  TbCloudUpload,
-  TbFilePlus,
-  TbFolderPlus,
-} from "react-icons/tb";
+import { Box, Group, Stack, Text, useMantineTheme } from "@mantine/core";
+import React, {
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from "react";
+import { TbCloudUpload, TbFilePlus, TbFolderPlus } from "react-icons/tb";
 import useTranslate from "../../hooks/useTranslate.hook";
 import { FileUpload } from "../../types/File.type";
 import { byteToHumanSizeString } from "../../utils/fileSize.util";
@@ -49,7 +45,7 @@ const traverseDirectory = async (entry: any, path = ""): Promise<File[]> => {
       return new Promise((resolve) => {
         dirReader.readEntries(
           (entries: any[]) => resolve(entries),
-          () => resolve([])
+          () => resolve([]),
         );
       });
     };
@@ -65,7 +61,7 @@ const traverseDirectory = async (entry: any, path = ""): Promise<File[]> => {
     for (const childEntry of entries) {
       const childFiles = await traverseDirectory(
         childEntry,
-        path ? `${path}/${entry.name}` : entry.name
+        path ? `${path}/${entry.name}` : entry.name,
       );
       files.push(...childFiles);
     }
@@ -83,7 +79,7 @@ export const Dropzone = forwardRef<DropzoneRef, DropzoneProps>(
       isUploading = false,
       title,
     },
-    ref
+    ref,
   ) => {
     const theme = useMantineTheme();
     const isDark = theme.colorScheme === "dark";
@@ -110,12 +106,15 @@ export const Dropzone = forwardRef<DropzoneRef, DropzoneProps>(
           toast.error(
             t("upload.notify.max-size-limit", {
               size: byteToHumanSizeString(maxShareSize),
-            }) || `Total files size exceeds maximum limit of ${byteToHumanSizeString(maxShareSize)}`
+            }) ||
+              `Total files size exceeds maximum limit of ${byteToHumanSizeString(maxShareSize)}`,
           );
           break;
         }
         newFilesSize += file.size;
-        const fileUpload = Object.assign(file, { uploadingProgress: 0 }) as FileUpload;
+        const fileUpload = Object.assign(file, {
+          uploadingProgress: 0,
+        }) as FileUpload;
         mappedFiles.push(fileUpload);
       }
 
@@ -188,7 +187,7 @@ export const Dropzone = forwardRef<DropzoneRef, DropzoneProps>(
           const files = Array.from(e.clipboardData.files);
           processFiles(files);
           toast.info(
-            `Pasted ${files.length} file${files.length > 1 ? "s" : ""} from clipboard.`
+            `Pasted ${files.length} file${files.length > 1 ? "s" : ""} from clipboard.`,
           );
         }
       };
@@ -234,7 +233,8 @@ export const Dropzone = forwardRef<DropzoneRef, DropzoneProps>(
             boxShadow: isDragOver
               ? "0 0 28px var(--brand-primary-subtle, rgba(59, 130, 246, 0.3)), inset 0 0 20px var(--brand-primary-subtle, rgba(59, 130, 246, 0.1))"
               : "var(--shadow-sm, 0 1px 3px rgba(15, 23, 42, 0.06)), inset 0 1px 0 rgba(255, 255, 255, 0.03)",
-            transition: "all var(--transition-normal, 250ms cubic-bezier(0.16, 1, 0.3, 1))",
+            transition:
+              "all var(--transition-normal, 250ms cubic-bezier(0.16, 1, 0.3, 1))",
             cursor: isUploading ? "not-allowed" : "pointer",
             overflow: "hidden",
           };
@@ -289,7 +289,8 @@ export const Dropzone = forwardRef<DropzoneRef, DropzoneProps>(
                 : "var(--brand-primary-subtle, rgba(37, 99, 235, 0.10))",
             color: isDragOver ? "#FFFFFF" : "var(--brand-primary)",
             marginBottom: 16,
-            transition: "all var(--transition-fast, 150ms cubic-bezier(0.16, 1, 0.3, 1))",
+            transition:
+              "all var(--transition-fast, 150ms cubic-bezier(0.16, 1, 0.3, 1))",
             transform: isDragOver ? "scale(1.08)" : "scale(1)",
           })}
         >
@@ -297,7 +298,11 @@ export const Dropzone = forwardRef<DropzoneRef, DropzoneProps>(
         </Box>
 
         {/* Primary Message */}
-        <Stack align="center" spacing={4} sx={{ textAlign: "center", marginBottom: 20 }}>
+        <Stack
+          align="center"
+          spacing={4}
+          sx={{ textAlign: "center", marginBottom: 20 }}
+        >
           <Text
             sx={{
               fontSize: 16,
@@ -307,7 +312,9 @@ export const Dropzone = forwardRef<DropzoneRef, DropzoneProps>(
                 : "var(--text-primary, #0F172A)",
             }}
           >
-            {title || t("upload.dropzone.title") || "Drop files here or click to browse"}
+            {title ||
+              t("upload.dropzone.title") ||
+              "Drop files here or click to browse"}
           </Text>
           <Text
             size="sm"
@@ -362,7 +369,7 @@ export const Dropzone = forwardRef<DropzoneRef, DropzoneProps>(
         )}
       </Box>
     );
-  }
+  },
 );
 
 Dropzone.displayName = "Dropzone";

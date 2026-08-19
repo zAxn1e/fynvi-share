@@ -27,7 +27,9 @@ const getLocaleByCode = (code?: string): Locale => {
 const getLanguageFromAcceptHeader = (acceptLanguage?: string): string => {
   if (!acceptLanguage) return "en-US";
 
-  const languages = acceptLanguage.split(",").map((l) => l.split(";")[0].trim());
+  const languages = acceptLanguage
+    .split(",")
+    .map((l) => l.split(";")[0].trim());
 
   for (const language of languages) {
     const matched = getLocaleByCode(language);

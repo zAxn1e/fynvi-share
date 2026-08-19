@@ -95,7 +95,8 @@ const Admin = () => {
             </Badge>
           </Group>
           <Text size="sm" color="dimmed">
-            Manage system instances, global user accounts, file shares, security policies, and server configurations.
+            Manage system instances, global user accounts, file shares, security
+            policies, and server configurations.
           </Text>
         </Stack>
 
@@ -215,7 +216,8 @@ const Admin = () => {
               {usedPercent}%
             </Text>
             <Text size="xs" color="dimmed" mt={4}>
-              {byteToHumanSizeString(usedBytes)} of {byteToHumanSizeString(totalBytes)}
+              {byteToHumanSizeString(usedBytes)} of{" "}
+              {byteToHumanSizeString(totalBytes)}
             </Text>
           </Card>
         </Col>
@@ -273,7 +275,8 @@ const Admin = () => {
                   width: 38,
                   height: 38,
                   borderRadius: "var(--radius-md, 10px)",
-                  backgroundColor: "var(--brand-primary-subtle, rgba(59, 130, 246, 0.12))",
+                  backgroundColor:
+                    "var(--brand-primary-subtle, rgba(59, 130, 246, 0.12))",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
@@ -287,13 +290,16 @@ const Admin = () => {
                   Host Disk Space Capacity
                 </Text>
                 <Text size="xs" color="dimmed">
-                  {byteToHumanSizeString(usedBytes)} used ({usedPercent}%) • {byteToHumanSizeString(Math.max(0, totalBytes - usedBytes))} free space remaining
+                  {byteToHumanSizeString(usedBytes)} used ({usedPercent}%) •{" "}
+                  {byteToHumanSizeString(Math.max(0, totalBytes - usedBytes))}{" "}
+                  free space remaining
                 </Text>
               </Stack>
             </Group>
 
             <Text size="sm" weight={700} className="font-mono">
-              {byteToHumanSizeString(usedBytes)} / {byteToHumanSizeString(totalBytes)}
+              {byteToHumanSizeString(usedBytes)} /{" "}
+              {byteToHumanSizeString(totalBytes)}
             </Text>
           </Group>
 
@@ -322,7 +328,16 @@ const Admin = () => {
         {/* Users Management */}
         <Col xs={12} sm={6} md={4}>
           <Card interactive padded sx={{ height: "100%" }}>
-            <Link href="/admin/users" style={{ textDecoration: "none", color: "inherit", display: "flex", flexDirection: "column", height: "100%" }}>
+            <Link
+              href="/admin/users"
+              style={{
+                textDecoration: "none",
+                color: "inherit",
+                display: "flex",
+                flexDirection: "column",
+                height: "100%",
+              }}
+            >
               <Stack spacing={14} justify="space-between" sx={{ flex: 1 }}>
                 <Box>
                   <Group position="apart" mb={12}>
@@ -348,11 +363,19 @@ const Admin = () => {
                     {t("admin.button.users") || "User Management"}
                   </Text>
                   <Text size="xs" color="dimmed" sx={{ lineHeight: 1.5 }}>
-                    Create accounts, modify storage limits, reset passwords, or manage administrator permissions.
+                    Create accounts, modify storage limits, reset passwords, or
+                    manage administrator permissions.
                   </Text>
                 </Box>
 
-                <Group spacing={6} sx={{ color: "var(--brand-primary, #3B82F6)", fontSize: 13, fontWeight: 600 }}>
+                <Group
+                  spacing={6}
+                  sx={{
+                    color: "var(--brand-primary, #3B82F6)",
+                    fontSize: 13,
+                    fontWeight: 600,
+                  }}
+                >
                   <span>Open Users Panel</span>
                   <TbArrowRight size={15} />
                 </Group>
@@ -364,7 +387,16 @@ const Admin = () => {
         {/* Global Shares */}
         <Col xs={12} sm={6} md={4}>
           <Card interactive padded sx={{ height: "100%" }}>
-            <Link href="/admin/shares" style={{ textDecoration: "none", color: "inherit", display: "flex", flexDirection: "column", height: "100%" }}>
+            <Link
+              href="/admin/shares"
+              style={{
+                textDecoration: "none",
+                color: "inherit",
+                display: "flex",
+                flexDirection: "column",
+                height: "100%",
+              }}
+            >
               <Stack spacing={14} justify="space-between" sx={{ flex: 1 }}>
                 <Box>
                   <Group position="apart" mb={12}>
@@ -390,11 +422,15 @@ const Admin = () => {
                     {t("admin.button.shares") || "Global Shares"}
                   </Text>
                   <Text size="xs" color="dimmed" sx={{ lineHeight: 1.5 }}>
-                    Inspect active shares across all users, inspect stored files, check expiration dates, or delete shares.
+                    Inspect active shares across all users, inspect stored
+                    files, check expiration dates, or delete shares.
                   </Text>
                 </Box>
 
-                <Group spacing={6} sx={{ color: "#10B981", fontSize: 13, fontWeight: 600 }}>
+                <Group
+                  spacing={6}
+                  sx={{ color: "#10B981", fontSize: 13, fontWeight: 600 }}
+                >
                   <span>Inspect Shares</span>
                   <TbArrowRight size={15} />
                 </Group>
@@ -406,7 +442,16 @@ const Admin = () => {
         {/* Appearance & Branding */}
         <Col xs={12} sm={6} md={4}>
           <Card interactive padded sx={{ height: "100%" }}>
-            <Link href="/admin/config/appearance" style={{ textDecoration: "none", color: "inherit", display: "flex", flexDirection: "column", height: "100%" }}>
+            <Link
+              href="/admin/config/appearance"
+              style={{
+                textDecoration: "none",
+                color: "inherit",
+                display: "flex",
+                flexDirection: "column",
+                height: "100%",
+              }}
+            >
               <Stack spacing={14} justify="space-between" sx={{ flex: 1 }}>
                 <Box>
                   <Group position="apart" mb={12}>
@@ -432,11 +477,15 @@ const Admin = () => {
                     Appearance & Themes
                   </Text>
                   <Text size="xs" color="dimmed" sx={{ lineHeight: 1.5 }}>
-                    Customize brand primary color, radius scales, default light/dark mode, and upload animation styles.
+                    Customize brand primary color, radius scales, default
+                    light/dark mode, and upload animation styles.
                   </Text>
                 </Box>
 
-                <Group spacing={6} sx={{ color: "#8B5CF6", fontSize: 13, fontWeight: 600 }}>
+                <Group
+                  spacing={6}
+                  sx={{ color: "#8B5CF6", fontSize: 13, fontWeight: 600 }}
+                >
                   <span>Configure Colors</span>
                   <TbArrowRight size={15} />
                 </Group>
@@ -448,7 +497,16 @@ const Admin = () => {
         {/* General & Security Configurations */}
         <Col xs={12} sm={6} md={4}>
           <Card interactive padded sx={{ height: "100%" }}>
-            <Link href="/admin/config/general" style={{ textDecoration: "none", color: "inherit", display: "flex", flexDirection: "column", height: "100%" }}>
+            <Link
+              href="/admin/config/general"
+              style={{
+                textDecoration: "none",
+                color: "inherit",
+                display: "flex",
+                flexDirection: "column",
+                height: "100%",
+              }}
+            >
               <Stack spacing={14} justify="space-between" sx={{ flex: 1 }}>
                 <Box>
                   <Group position="apart" mb={12}>
@@ -474,11 +532,15 @@ const Admin = () => {
                     General & App Settings
                   </Text>
                   <Text size="xs" color="dimmed" sx={{ lineHeight: 1.5 }}>
-                    Set application name, base URL, default language, registration policies, and share expiration defaults.
+                    Set application name, base URL, default language,
+                    registration policies, and share expiration defaults.
                   </Text>
                 </Box>
 
-                <Group spacing={6} sx={{ color: "#F59E0B", fontSize: 13, fontWeight: 600 }}>
+                <Group
+                  spacing={6}
+                  sx={{ color: "#F59E0B", fontSize: 13, fontWeight: 600 }}
+                >
                   <span>Configure General</span>
                   <TbArrowRight size={15} />
                 </Group>
@@ -490,7 +552,16 @@ const Admin = () => {
         {/* SMTP & Email */}
         <Col xs={12} sm={6} md={4}>
           <Card interactive padded sx={{ height: "100%" }}>
-            <Link href="/admin/config/smtp" style={{ textDecoration: "none", color: "inherit", display: "flex", flexDirection: "column", height: "100%" }}>
+            <Link
+              href="/admin/config/smtp"
+              style={{
+                textDecoration: "none",
+                color: "inherit",
+                display: "flex",
+                flexDirection: "column",
+                height: "100%",
+              }}
+            >
               <Stack spacing={14} justify="space-between" sx={{ flex: 1 }}>
                 <Box>
                   <Group position="apart" mb={12}>
@@ -516,11 +587,15 @@ const Admin = () => {
                     Email & Notifications
                   </Text>
                   <Text size="xs" color="dimmed" sx={{ lineHeight: 1.5 }}>
-                    Configure outbound SMTP relay host, test email deliveries, and share notification templates.
+                    Configure outbound SMTP relay host, test email deliveries,
+                    and share notification templates.
                   </Text>
                 </Box>
 
-                <Group spacing={6} sx={{ color: "#06B6D4", fontSize: 13, fontWeight: 600 }}>
+                <Group
+                  spacing={6}
+                  sx={{ color: "#06B6D4", fontSize: 13, fontWeight: 600 }}
+                >
                   <span>Setup Email</span>
                   <TbArrowRight size={15} />
                 </Group>
@@ -532,7 +607,16 @@ const Admin = () => {
         {/* Storage Backend (S3) */}
         <Col xs={12} sm={6} md={4}>
           <Card interactive padded sx={{ height: "100%" }}>
-            <Link href="/admin/config/s3" style={{ textDecoration: "none", color: "inherit", display: "flex", flexDirection: "column", height: "100%" }}>
+            <Link
+              href="/admin/config/s3"
+              style={{
+                textDecoration: "none",
+                color: "inherit",
+                display: "flex",
+                flexDirection: "column",
+                height: "100%",
+              }}
+            >
               <Stack spacing={14} justify="space-between" sx={{ flex: 1 }}>
                 <Box>
                   <Group position="apart" mb={12}>
@@ -558,11 +642,15 @@ const Admin = () => {
                     Object Storage (S3)
                   </Text>
                   <Text size="xs" color="dimmed" sx={{ lineHeight: 1.5 }}>
-                    Connect Amazon S3, MinIO, Cloudflare R2, or Wasabi buckets for scalable distributed file storage.
+                    Connect Amazon S3, MinIO, Cloudflare R2, or Wasabi buckets
+                    for scalable distributed file storage.
                   </Text>
                 </Box>
 
-                <Group spacing={6} sx={{ color: "#EC4899", fontSize: 13, fontWeight: 600 }}>
+                <Group
+                  spacing={6}
+                  sx={{ color: "#EC4899", fontSize: 13, fontWeight: 600 }}
+                >
                   <span>Configure S3</span>
                   <TbArrowRight size={15} />
                 </Group>

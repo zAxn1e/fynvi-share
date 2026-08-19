@@ -153,7 +153,9 @@ export class LocalFileService {
 
     return {
       metaData: {
-        mimeType: mime.contentType(fileMetaData.name.split(".").pop() || "") || "application/octet-stream",
+        mimeType:
+          mime.contentType(fileMetaData.name.split(".").pop() || "") ||
+          "application/octet-stream",
         ...fileMetaData,
         size: fileMetaData.size,
       },

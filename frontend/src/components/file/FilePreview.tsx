@@ -57,7 +57,15 @@ export interface FilePreviewProps {
 }
 
 export interface FileCategoryInfo {
-  type: "image" | "video" | "audio" | "pdf" | "code" | "text" | "archive" | "unknown";
+  type:
+    | "image"
+    | "video"
+    | "audio"
+    | "pdf"
+    | "code"
+    | "text"
+    | "archive"
+    | "unknown";
   label: string;
   variant: BadgeVariant;
 }
@@ -68,13 +76,24 @@ export const getFileCategory = (
 ): FileCategoryInfo => {
   const extension = fileName.split(".").pop()?.toLowerCase() || "";
 
-  if (mimeType.startsWith("image/") || ["png", "jpg", "jpeg", "gif", "webp", "svg", "bmp", "ico", "avif"].includes(extension)) {
+  if (
+    mimeType.startsWith("image/") ||
+    ["png", "jpg", "jpeg", "gif", "webp", "svg", "bmp", "ico", "avif"].includes(
+      extension,
+    )
+  ) {
     return { type: "image", label: "Image", variant: "primary" };
   }
-  if (mimeType.startsWith("video/") || ["mp4", "webm", "mov", "mkv", "avi", "wmv"].includes(extension)) {
+  if (
+    mimeType.startsWith("video/") ||
+    ["mp4", "webm", "mov", "mkv", "avi", "wmv"].includes(extension)
+  ) {
     return { type: "video", label: "Video", variant: "info" };
   }
-  if (mimeType.startsWith("audio/") || ["mp3", "wav", "ogg", "flac", "m4a", "aac"].includes(extension)) {
+  if (
+    mimeType.startsWith("audio/") ||
+    ["mp3", "wav", "ogg", "flac", "m4a", "aac"].includes(extension)
+  ) {
     return { type: "audio", label: "Audio", variant: "warning" };
   }
   if (mimeType === "application/pdf" || extension === "pdf") {
@@ -82,8 +101,30 @@ export const getFileCategory = (
   }
   if (
     [
-      "js", "jsx", "ts", "tsx", "html", "css", "scss", "json", "xml", "yaml", "yml",
-      "py", "rs", "go", "java", "c", "cpp", "h", "cs", "php", "rb", "sh", "sql", "md",
+      "js",
+      "jsx",
+      "ts",
+      "tsx",
+      "html",
+      "css",
+      "scss",
+      "json",
+      "xml",
+      "yaml",
+      "yml",
+      "py",
+      "rs",
+      "go",
+      "java",
+      "c",
+      "cpp",
+      "h",
+      "cs",
+      "php",
+      "rb",
+      "sh",
+      "sql",
+      "md",
     ].includes(extension)
   ) {
     return { type: "code", label: "Source Code", variant: "success" };
@@ -103,7 +144,11 @@ export const getFileCategory = (
     return { type: "archive", label: "Archive", variant: "warning" };
   }
 
-  return { type: "unknown", label: extension.toUpperCase() || "File", variant: "default" };
+  return {
+    type: "unknown",
+    label: extension.toUpperCase() || "File",
+    variant: "default",
+  };
 };
 
 export const FilePreviewContent: React.FC<{
@@ -127,7 +172,9 @@ export const FilePreviewContent: React.FC<{
 
   const fileUrl = `/api/shares/${shareId}/files/${file.id}?download=false`;
   const thumbnailUrl = `/api/shares/${shareId}/files/${file.id}/thumbnail`;
-  const mimeType = (mime.contentType(file.name) || "application/octet-stream").split(";")[0];
+  const mimeType = (
+    mime.contentType(file.name) || "application/octet-stream"
+  ).split(";")[0];
   const category = getFileCategory(mimeType, file.name);
   const parsedSize = parseInt(file.size, 10) || 0;
   const extension = file.name.split(".").pop()?.toUpperCase() || "FILE";
@@ -139,7 +186,10 @@ export const FilePreviewContent: React.FC<{
       axios
         .get(fileUrl, { responseType: "text", timeout: 8000 })
         .then((res) => {
-          const raw = typeof res.data === "string" ? res.data : JSON.stringify(res.data, null, 2);
+          const raw =
+            typeof res.data === "string"
+              ? res.data
+              : JSON.stringify(res.data, null, 2);
           setTextContent(raw.slice(0, 100000));
         })
         .catch(() => {
@@ -172,8 +222,11 @@ export const FilePreviewContent: React.FC<{
       <Box
         p="16px 20px"
         sx={{
-          borderBottom: "1px solid var(--border-subtle, rgba(255, 255, 255, 0.08))",
-          backgroundColor: isDark ? "rgba(255, 255, 255, 0.02)" : "rgba(0, 0, 0, 0.01)",
+          borderBottom:
+            "1px solid var(--border-subtle, rgba(255, 255, 255, 0.08))",
+          backgroundColor: isDark
+            ? "rgba(255, 255, 255, 0.02)"
+            : "rgba(0, 0, 0, 0.01)",
         }}
       >
         <Stack spacing={12}>
@@ -184,7 +237,8 @@ export const FilePreviewContent: React.FC<{
                   width: 44,
                   height: 44,
                   borderRadius: "var(--radius-md, 10px)",
-                  backgroundColor: "var(--brand-primary-subtle, rgba(37, 99, 235, 0.12))",
+                  backgroundColor:
+                    "var(--brand-primary-subtle, rgba(37, 99, 235, 0.12))",
                   color: "var(--brand-primary, #3B82F6)",
                   display: "flex",
                   alignItems: "center",
@@ -225,7 +279,9 @@ export const FilePreviewContent: React.FC<{
                   <Text size="xs" color="dimmed" className="font-mono">
                     {byteToHumanSizeString(parsedSize)}
                   </Text>
-                  <Text size="xs" color="dimmed">•</Text>
+                  <Text size="xs" color="dimmed">
+                    •
+                  </Text>
                   <Text size="xs" color="dimmed" className="font-mono">
                     {mimeType}
                   </Text>
@@ -254,7 +310,9 @@ export const FilePreviewContent: React.FC<{
                   borderRadius: "var(--radius-md, 8px)",
                   color: isDark ? "rgba(255,255,255,0.6)" : "rgba(0,0,0,0.6)",
                   "&:hover": {
-                    backgroundColor: isDark ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.06)",
+                    backgroundColor: isDark
+                      ? "rgba(255,255,255,0.1)"
+                      : "rgba(0,0,0,0.06)",
                     color: isDark ? "#FFFFFF" : "#000000",
                   },
                 }}
@@ -276,7 +334,9 @@ export const FilePreviewContent: React.FC<{
             ]}
             styles={{
               root: {
-                backgroundColor: isDark ? "rgba(0,0,0,0.35)" : "rgba(0,0,0,0.06)",
+                backgroundColor: isDark
+                  ? "rgba(0,0,0,0.35)"
+                  : "rgba(0,0,0,0.06)",
                 borderRadius: "var(--radius-md, 8px)",
               },
             }}
@@ -302,7 +362,11 @@ export const FilePreviewContent: React.FC<{
         >
           {/* Image Viewer with Progressive Loading */}
           {category.type === "image" && (
-            <Stack align="center" spacing={12} sx={{ width: "100%", height: "100%", justifyContent: "center" }}>
+            <Stack
+              align="center"
+              spacing={12}
+              sx={{ width: "100%", height: "100%", justifyContent: "center" }}
+            >
               <Box
                 sx={{
                   maxWidth: "100%",
@@ -371,7 +435,11 @@ export const FilePreviewContent: React.FC<{
                     }}
                   >
                     <Loader size={14} color="blue" />
-                    <Text size="xs" weight={500} sx={{ color: "rgba(255, 255, 255, 0.95)" }}>
+                    <Text
+                      size="xs"
+                      weight={500}
+                      sx={{ color: "rgba(255, 255, 255, 0.95)" }}
+                    >
                       Loading original...
                     </Text>
                   </Box>
@@ -382,11 +450,14 @@ export const FilePreviewContent: React.FC<{
               <Group
                 spacing={6}
                 sx={{
-                  backgroundColor: isDark ? "rgba(15, 19, 25, 0.85)" : "rgba(241, 245, 249, 0.85)",
+                  backgroundColor: isDark
+                    ? "rgba(15, 19, 25, 0.85)"
+                    : "rgba(241, 245, 249, 0.85)",
                   backdropFilter: "blur(8px)",
                   padding: "4px 8px",
                   borderRadius: "var(--radius-pill, 9999px)",
-                  border: "1px solid var(--border-subtle, rgba(255, 255, 255, 0.08))",
+                  border:
+                    "1px solid var(--border-subtle, rgba(255, 255, 255, 0.08))",
                 }}
               >
                 <Tooltip label="Zoom Out" withArrow>
@@ -437,7 +508,14 @@ export const FilePreviewContent: React.FC<{
 
           {/* Audio Player */}
           {category.type === "audio" && (
-            <Box sx={{ width: "100%", display: "flex", justifyContent: "center", py: 10 }}>
+            <Box
+              sx={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+                py: 10,
+              }}
+            >
               <AudioPlayer
                 src={fileUrl}
                 fileName={file.name}
@@ -472,7 +550,8 @@ export const FilePreviewContent: React.FC<{
                 backgroundColor: isDark
                   ? "var(--surface-1, #151B24)"
                   : "var(--surface-1, #F1F5F9)",
-                border: "1px solid var(--border-subtle, rgba(255, 255, 255, 0.07))",
+                border:
+                  "1px solid var(--border-subtle, rgba(255, 255, 255, 0.07))",
                 overflow: "hidden",
               }}
             >
@@ -514,7 +593,9 @@ export const FilePreviewContent: React.FC<{
                   width: 68,
                   height: 68,
                   borderRadius: "var(--radius-lg, 14px)",
-                  backgroundColor: isDark ? "var(--surface-1, #151B24)" : "#E2E8F0",
+                  backgroundColor: isDark
+                    ? "var(--surface-1, #151B24)"
+                    : "#E2E8F0",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
@@ -531,8 +612,13 @@ export const FilePreviewContent: React.FC<{
                 <Text size="sm" weight={700}>
                   Direct preview unavailable
                 </Text>
-                <Text size="xs" color="dimmed" sx={{ maxWidth: 280, textAlign: "center" }}>
-                  This file format cannot be rendered in-browser. Download file or inspect technical metadata.
+                <Text
+                  size="xs"
+                  color="dimmed"
+                  sx={{ maxWidth: 280, textAlign: "center" }}
+                >
+                  This file format cannot be rendered in-browser. Download file
+                  or inspect technical metadata.
                 </Text>
               </Stack>
               <Group spacing={10}>
@@ -572,7 +658,8 @@ export const FilePreviewContent: React.FC<{
                   ? "var(--surface-1, #151B24)"
                   : "var(--surface-1, #F1F5F9)",
                 borderRadius: "var(--radius-md, 10px)",
-                border: "1px solid var(--border-subtle, rgba(255, 255, 255, 0.07))",
+                border:
+                  "1px solid var(--border-subtle, rgba(255, 255, 255, 0.07))",
               }}
             >
               <Group position="apart" align="center">
@@ -582,7 +669,8 @@ export const FilePreviewContent: React.FC<{
                       width: 38,
                       height: 38,
                       borderRadius: "var(--radius-md, 8px)",
-                      backgroundColor: "var(--brand-primary-subtle, rgba(59, 130, 246, 0.15))",
+                      backgroundColor:
+                        "var(--brand-primary-subtle, rgba(59, 130, 246, 0.15))",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
@@ -612,23 +700,43 @@ export const FilePreviewContent: React.FC<{
               <Box
                 p="12px 14px"
                 sx={{
-                  backgroundColor: isDark ? "rgba(255, 255, 255, 0.02)" : "rgba(0, 0, 0, 0.02)",
+                  backgroundColor: isDark
+                    ? "rgba(255, 255, 255, 0.02)"
+                    : "rgba(0, 0, 0, 0.02)",
                   borderRadius: "var(--radius-md, 8px)",
-                  border: "1px solid var(--border-subtle, rgba(255, 255, 255, 0.06))",
+                  border:
+                    "1px solid var(--border-subtle, rgba(255, 255, 255, 0.06))",
                 }}
               >
                 <Group position="apart" align="flex-start" noWrap>
                   <Stack spacing={2} sx={{ minWidth: 0, flex: 1 }}>
-                    <Text size="xs" color="dimmed" weight={600} sx={{ textTransform: "uppercase", letterSpacing: "0.04em" }}>
+                    <Text
+                      size="xs"
+                      color="dimmed"
+                      weight={600}
+                      sx={{
+                        textTransform: "uppercase",
+                        letterSpacing: "0.04em",
+                      }}
+                    >
                       File Name
                     </Text>
-                    <Text size="sm" weight={600} sx={{ wordBreak: "break-all" }}>
+                    <Text
+                      size="sm"
+                      weight={600}
+                      sx={{ wordBreak: "break-all" }}
+                    >
                       {file.name}
                     </Text>
                   </Stack>
                   <CopyButton value={file.name}>
                     {({ copied, copy }) => (
-                      <ActionIcon size="sm" variant="light" color={copied ? "green" : "blue"} onClick={copy}>
+                      <ActionIcon
+                        size="sm"
+                        variant="light"
+                        color={copied ? "green" : "blue"}
+                        onClick={copy}
+                      >
                         {copied ? <TbCheck size={14} /> : <TbCopy size={14} />}
                       </ActionIcon>
                     )}
@@ -640,18 +748,31 @@ export const FilePreviewContent: React.FC<{
               <Box
                 p="12px 14px"
                 sx={{
-                  backgroundColor: isDark ? "rgba(255, 255, 255, 0.02)" : "rgba(0, 0, 0, 0.02)",
+                  backgroundColor: isDark
+                    ? "rgba(255, 255, 255, 0.02)"
+                    : "rgba(0, 0, 0, 0.02)",
                   borderRadius: "var(--radius-md, 8px)",
-                  border: "1px solid var(--border-subtle, rgba(255, 255, 255, 0.06))",
+                  border:
+                    "1px solid var(--border-subtle, rgba(255, 255, 255, 0.06))",
                 }}
               >
                 <Stack spacing={2}>
-                  <Text size="xs" color="dimmed" weight={600} sx={{ textTransform: "uppercase", letterSpacing: "0.04em" }}>
+                  <Text
+                    size="xs"
+                    color="dimmed"
+                    weight={600}
+                    sx={{ textTransform: "uppercase", letterSpacing: "0.04em" }}
+                  >
                     File Size
                   </Text>
                   <Text size="sm" weight={700} className="font-mono">
                     {byteToHumanSizeString(parsedSize)}{" "}
-                    <Text component="span" size="xs" color="dimmed" weight={400}>
+                    <Text
+                      component="span"
+                      size="xs"
+                      color="dimmed"
+                      weight={400}
+                    >
                       ({parsedSize.toLocaleString()} bytes)
                     </Text>
                   </Text>
@@ -662,23 +783,46 @@ export const FilePreviewContent: React.FC<{
               <Box
                 p="12px 14px"
                 sx={{
-                  backgroundColor: isDark ? "rgba(255, 255, 255, 0.02)" : "rgba(0, 0, 0, 0.02)",
+                  backgroundColor: isDark
+                    ? "rgba(255, 255, 255, 0.02)"
+                    : "rgba(0, 0, 0, 0.02)",
                   borderRadius: "var(--radius-md, 8px)",
-                  border: "1px solid var(--border-subtle, rgba(255, 255, 255, 0.06))",
+                  border:
+                    "1px solid var(--border-subtle, rgba(255, 255, 255, 0.06))",
                 }}
               >
                 <Group position="apart" align="flex-start" noWrap>
                   <Stack spacing={2} sx={{ minWidth: 0, flex: 1 }}>
-                    <Text size="xs" color="dimmed" weight={600} sx={{ textTransform: "uppercase", letterSpacing: "0.04em" }}>
+                    <Text
+                      size="xs"
+                      color="dimmed"
+                      weight={600}
+                      sx={{
+                        textTransform: "uppercase",
+                        letterSpacing: "0.04em",
+                      }}
+                    >
                       MIME Content-Type
                     </Text>
-                    <Text size="sm" className="font-mono" sx={{ color: "var(--brand-primary, #3B82F6)", wordBreak: "break-all" }}>
+                    <Text
+                      size="sm"
+                      className="font-mono"
+                      sx={{
+                        color: "var(--brand-primary, #3B82F6)",
+                        wordBreak: "break-all",
+                      }}
+                    >
                       {mimeType}
                     </Text>
                   </Stack>
                   <CopyButton value={mimeType}>
                     {({ copied, copy }) => (
-                      <ActionIcon size="sm" variant="light" color={copied ? "green" : "blue"} onClick={copy}>
+                      <ActionIcon
+                        size="sm"
+                        variant="light"
+                        color={copied ? "green" : "blue"}
+                        onClick={copy}
+                      >
                         {copied ? <TbCheck size={14} /> : <TbCopy size={14} />}
                       </ActionIcon>
                     )}
@@ -690,14 +834,25 @@ export const FilePreviewContent: React.FC<{
               <Box
                 p="12px 14px"
                 sx={{
-                  backgroundColor: isDark ? "rgba(255, 255, 255, 0.02)" : "rgba(0, 0, 0, 0.02)",
+                  backgroundColor: isDark
+                    ? "rgba(255, 255, 255, 0.02)"
+                    : "rgba(0, 0, 0, 0.02)",
                   borderRadius: "var(--radius-md, 8px)",
-                  border: "1px solid var(--border-subtle, rgba(255, 255, 255, 0.06))",
+                  border:
+                    "1px solid var(--border-subtle, rgba(255, 255, 255, 0.06))",
                 }}
               >
                 <Group position="apart" align="flex-start" noWrap mb={8}>
                   <Stack spacing={2} sx={{ minWidth: 0, flex: 1, pr: 8 }}>
-                    <Text size="xs" color="dimmed" weight={600} sx={{ textTransform: "uppercase", letterSpacing: "0.04em" }}>
+                    <Text
+                      size="xs"
+                      color="dimmed"
+                      weight={600}
+                      sx={{
+                        textTransform: "uppercase",
+                        letterSpacing: "0.04em",
+                      }}
+                    >
                       File ID
                     </Text>
                     <Text
@@ -716,7 +871,12 @@ export const FilePreviewContent: React.FC<{
                   </Stack>
                   <CopyButton value={file.id}>
                     {({ copied, copy }) => (
-                      <ActionIcon size="sm" variant="light" color={copied ? "green" : "blue"} onClick={copy}>
+                      <ActionIcon
+                        size="sm"
+                        variant="light"
+                        color={copied ? "green" : "blue"}
+                        onClick={copy}
+                      >
                         {copied ? <TbCheck size={14} /> : <TbCopy size={14} />}
                       </ActionIcon>
                     )}
@@ -727,7 +887,15 @@ export const FilePreviewContent: React.FC<{
 
                 <Group position="apart" align="flex-start" noWrap>
                   <Stack spacing={2} sx={{ minWidth: 0, flex: 1, pr: 8 }}>
-                    <Text size="xs" color="dimmed" weight={600} sx={{ textTransform: "uppercase", letterSpacing: "0.04em" }}>
+                    <Text
+                      size="xs"
+                      color="dimmed"
+                      weight={600}
+                      sx={{
+                        textTransform: "uppercase",
+                        letterSpacing: "0.04em",
+                      }}
+                    >
                       Parent Share ID
                     </Text>
                     <Text
@@ -745,7 +913,12 @@ export const FilePreviewContent: React.FC<{
                   </Stack>
                   <CopyButton value={shareId}>
                     {({ copied, copy }) => (
-                      <ActionIcon size="sm" variant="light" color={copied ? "green" : "blue"} onClick={copy}>
+                      <ActionIcon
+                        size="sm"
+                        variant="light"
+                        color={copied ? "green" : "blue"}
+                        onClick={copy}
+                      >
                         {copied ? <TbCheck size={14} /> : <TbCopy size={14} />}
                       </ActionIcon>
                     )}
@@ -757,14 +930,25 @@ export const FilePreviewContent: React.FC<{
               <Box
                 p="12px 14px"
                 sx={{
-                  backgroundColor: isDark ? "rgba(255, 255, 255, 0.02)" : "rgba(0, 0, 0, 0.02)",
+                  backgroundColor: isDark
+                    ? "rgba(255, 255, 255, 0.02)"
+                    : "rgba(0, 0, 0, 0.02)",
                   borderRadius: "var(--radius-md, 8px)",
-                  border: "1px solid var(--border-subtle, rgba(255, 255, 255, 0.06))",
+                  border:
+                    "1px solid var(--border-subtle, rgba(255, 255, 255, 0.06))",
                 }}
               >
                 <Group position="apart" align="flex-start" noWrap>
                   <Stack spacing={2} sx={{ minWidth: 0, flex: 1, pr: 8 }}>
-                    <Text size="xs" color="dimmed" weight={600} sx={{ textTransform: "uppercase", letterSpacing: "0.04em" }}>
+                    <Text
+                      size="xs"
+                      color="dimmed"
+                      weight={600}
+                      sx={{
+                        textTransform: "uppercase",
+                        letterSpacing: "0.04em",
+                      }}
+                    >
                       Raw Direct Stream URL
                     </Text>
                     <Text
@@ -784,8 +968,18 @@ export const FilePreviewContent: React.FC<{
                   <Group spacing={4} noWrap>
                     <CopyButton value={fullShareUrl}>
                       {({ copied, copy }) => (
-                        <ActionIcon size="sm" variant="light" color={copied ? "green" : "blue"} onClick={copy} title="Copy URL">
-                          {copied ? <TbCheck size={14} /> : <TbCopy size={14} />}
+                        <ActionIcon
+                          size="sm"
+                          variant="light"
+                          color={copied ? "green" : "blue"}
+                          onClick={copy}
+                          title="Copy URL"
+                        >
+                          {copied ? (
+                            <TbCheck size={14} />
+                          ) : (
+                            <TbCopy size={14} />
+                          )}
                         </ActionIcon>
                       )}
                     </CopyButton>

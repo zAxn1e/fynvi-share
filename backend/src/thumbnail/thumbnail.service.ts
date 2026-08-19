@@ -1,4 +1,10 @@
-import { Inject, Injectable, Logger, OnModuleInit, forwardRef } from "@nestjs/common";
+import {
+  Inject,
+  Injectable,
+  Logger,
+  OnModuleInit,
+  forwardRef,
+} from "@nestjs/common";
 import * as fs from "fs";
 import * as fsPromises from "fs/promises";
 import * as path from "path";
@@ -83,7 +89,7 @@ export class ThumbnailService implements OnModuleInit {
     private readonly config: ConfigService,
     @Inject(forwardRef(() => S3FileService))
     private readonly s3FileService: S3FileService,
-  ) { }
+  ) {}
 
   async onModuleInit() {
     this.hasFfmpeg = await this.checkFfmpegAvailable();
@@ -385,7 +391,8 @@ export class ThumbnailService implements OnModuleInit {
     } finally {
       // Clean up tmp files
       try {
-        if (fs.existsSync(tmpSourcePath)) await fsPromises.unlink(tmpSourcePath);
+        if (fs.existsSync(tmpSourcePath))
+          await fsPromises.unlink(tmpSourcePath);
         if (fs.existsSync(tmpThumbPath)) await fsPromises.unlink(tmpThumbPath);
       } catch {
         // ignore
@@ -419,9 +426,7 @@ export class ThumbnailService implements OnModuleInit {
       proc.on("close", async (code) => {
         if (code === 0 && fs.existsSync(tmpJpg)) {
           try {
-            await sharp(tmpJpg)
-              .webp({ quality: 80 })
-              .toFile(outputPath);
+            await sharp(tmpJpg).webp({ quality: 80 }).toFile(outputPath);
             await fsPromises.unlink(tmpJpg);
             resolve();
           } catch {
@@ -447,9 +452,7 @@ export class ThumbnailService implements OnModuleInit {
           fallbackProc.on("close", async (fallbackCode) => {
             if (fallbackCode === 0 && fs.existsSync(tmpJpg)) {
               try {
-                await sharp(tmpJpg)
-                  .webp({ quality: 80 })
-                  .toFile(outputPath);
+                await sharp(tmpJpg).webp({ quality: 80 }).toFile(outputPath);
                 await fsPromises.unlink(tmpJpg);
               } catch {
                 // ignore
@@ -485,8 +488,10 @@ export class ThumbnailService implements OnModuleInit {
     if (!fileRecord) return null;
 
     const ext = fileRecord.name.split(".").pop()?.toLowerCase() || "";
-    const isVideo = VIDEO_EXTENSIONS.has(ext) || fileRecord.mimeType?.startsWith("video/");
-    const isImage = IMAGE_EXTENSIONS.has(ext) || fileRecord.mimeType?.startsWith("image/");
+    const isVideo =
+      VIDEO_EXTENSIONS.has(ext) || fileRecord.mimeType?.startsWith("video/");
+    const isImage =
+      IMAGE_EXTENSIONS.has(ext) || fileRecord.mimeType?.startsWith("image/");
 
     if (!isVideo && !isImage) return null;
 
