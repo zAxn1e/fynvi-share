@@ -214,6 +214,22 @@ function App({ Component, pageProps }: AppProps) {
       2 * 60 * 1000, // 2 minutes
     );
 
+    if (typeof window !== "undefined" && "caches" in window) {
+      caches.keys().then((keys) => {
+        keys.forEach((key) => {
+          if (
+            key === "pages" ||
+            key === "start-url" ||
+            key === "apis" ||
+            key === "pages-rsc" ||
+            key === "pages-rsc-prefetch"
+          ) {
+            caches.delete(key);
+          }
+        });
+      });
+    }
+
     return () => clearInterval(interval);
   }, []);
 
