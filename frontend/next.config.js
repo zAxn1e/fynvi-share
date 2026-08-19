@@ -8,16 +8,21 @@ const withPWA = require("@ducanh2912/next-pwa").default({
   skipWaiting: true,
   clientsClaim: true,
   reloadOnOnline: false,
-  runtimeCaching: [
-    {
-      urlPattern: /^\/_next\/data\/.*/,
-      handler: "NetworkOnly",
-    },
-    {
-      urlPattern: /^https?.*/,
-      handler: "NetworkOnly",
-    },
-  ],
+  cacheStartUrl: false,
+  dynamicStartUrl: false,
+  extendDefaultRuntimeCaching: false,
+  workboxOptions: {
+    runtimeCaching: [
+      {
+        urlPattern: /^\/_next\/data\/.*/,
+        handler: "NetworkOnly",
+      },
+      {
+        urlPattern: /^https?.*/,
+        handler: "NetworkOnly",
+      },
+    ],
+  },
 });
 
 module.exports = withPWA({

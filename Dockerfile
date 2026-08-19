@@ -9,7 +9,7 @@ FROM oven/bun:1-slim AS frontend-builder
 WORKDIR /opt/app/frontend
 COPY ./frontend .
 COPY --from=frontend-dependencies /opt/app/frontend/node_modules ./node_modules
-RUN --mount=type=cache,target=/opt/app/frontend/.next/cache bun run build
+RUN bun run build
 
 # Stage 3: Backend dependencies
 FROM oven/bun:1-slim AS backend-dependencies
