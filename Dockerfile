@@ -1,25 +1,25 @@
 # Stage 1: Frontend dependencies
-FROM oven/bun:1-slim AS frontend-dependencies
+FROM oven/bun:1.3.14-slim AS frontend-dependencies
 WORKDIR /opt/app/frontend
 COPY frontend/package.json frontend/bun.lock* ./
 RUN --mount=type=cache,target=/root/.bun/install/cache bun install --frozen-lockfile
 
 # Stage 2: Build frontend
-FROM oven/bun:1-slim AS frontend-builder
+FROM oven/bun:1.3.14-slim AS frontend-builder
 WORKDIR /opt/app/frontend
 COPY ./frontend .
 COPY --from=frontend-dependencies /opt/app/frontend/node_modules ./node_modules
 RUN bun run build
 
 # Stage 3: Backend dependencies
-FROM oven/bun:1-slim AS backend-dependencies
+FROM oven/bun:1.3.14-slim AS backend-dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends python3 make g++ && rm -rf /var/lib/apt/lists/*
 WORKDIR /opt/app
 COPY backend/package.json backend/bun.lock* ./
 RUN --mount=type=cache,target=/root/.bun/install/cache bun install --frozen-lockfile
 
 # Stage 4: Build backend
-FROM oven/bun:1-slim AS backend-builder
+FROM oven/bun:1.3.14-slim AS backend-builder
 RUN apt-get update && apt-get install -y --no-install-recommends openssl && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /opt/app
@@ -31,7 +31,7 @@ RUN bunx prisma generate \
     && bun install --production
 
 # Stage 5: Final image
-FROM oven/bun:1-slim AS runner
+FROM oven/bun:1.3.14-slim AS runner
 ENV NODE_ENV=docker
 
 COPY --from=caddy:2 /usr/bin/caddy /usr/bin/caddy
