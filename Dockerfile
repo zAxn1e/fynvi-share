@@ -2,31 +2,32 @@
 FROM node:24-alpine AS frontend-dependencies
 WORKDIR /opt/app
 COPY frontend/package.json frontend/package-lock.json ./
-RUN npm ci
+RUN --mount=type=cache,target=/root/.npm npm ci
 
 # Stage 2: Build frontend
 FROM node:24-alpine AS frontend-builder
 WORKDIR /opt/app
 COPY ./frontend .
 COPY --from=frontend-dependencies /opt/app/node_modules ./node_modules
-RUN npm run build
+RUN --mount=type=cache,target=/opt/app/.next/cache npm run build
 
 # Stage 3: Backend dependencies
 FROM node:24-alpine AS backend-dependencies
 RUN apk add --no-cache python3
 WORKDIR /opt/app
 COPY backend/package.json backend/package-lock.json ./
-RUN npm ci
+RUN --mount=type=cache,target=/root/.npm npm ci
 
 # Stage 4: Build backend
 FROM node:24-alpine AS backend-builder
-RUN apk add openssl
+RUN apk add --no-cache openssl
 
 WORKDIR /opt/app
 COPY ./backend .
 COPY --from=backend-dependencies /opt/app/node_modules ./node_modules
-RUN npx prisma generate
-RUN npm run build && npx tsc prisma/seed/config.seed.ts --outDir dist/prisma/seed --rootDir prisma/seed && npm prune --production
+RUN --mount=type=cache,target=/root/.npm \
+    npx prisma generate \
+    && npm run build && npx tsc prisma/seed/config.seed.ts --outDir dist/prisma/seed --rootDir prisma/seed && npm prune --production
 
 # Stage 5: Final image
 FROM node:24-alpine AS runner
@@ -35,9 +36,7 @@ ENV NODE_ENV=docker
 # Delete default node user
 RUN deluser --remove-home node
 
-RUN apk update --no-cache \
-    && apk upgrade --no-cache \
-    && apk add --no-cache curl caddy su-exec openssl ffmpeg \
+RUN apk add --no-cache curl caddy su-exec openssl ffmpeg \
     && rm -rf /usr/local/lib/node_modules/npm /usr/local/bin/npm /usr/local/bin/npx
 
 WORKDIR /opt/app/frontend
