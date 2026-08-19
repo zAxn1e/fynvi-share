@@ -1,15 +1,15 @@
 # Stage 1: Frontend dependencies
 FROM oven/bun:1-slim AS frontend-dependencies
-WORKDIR /opt/app
+WORKDIR /opt/app/frontend
 COPY frontend/package.json frontend/bun.lock* ./
 RUN --mount=type=cache,target=/root/.bun/install/cache bun install --frozen-lockfile
 
 # Stage 2: Build frontend
 FROM oven/bun:1-slim AS frontend-builder
-WORKDIR /opt/app
+WORKDIR /opt/app/frontend
 COPY ./frontend .
-COPY --from=frontend-dependencies /opt/app/node_modules ./node_modules
-RUN --mount=type=cache,target=/opt/app/.next/cache bun run build
+COPY --from=frontend-dependencies /opt/app/frontend/node_modules ./node_modules
+RUN --mount=type=cache,target=/opt/app/frontend/.next/cache bun run build
 
 # Stage 3: Backend dependencies
 FROM oven/bun:1-slim AS backend-dependencies
@@ -45,11 +45,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /opt/app/frontend
-COPY --from=frontend-builder /opt/app/node_modules ./node_modules
-COPY --from=frontend-builder /opt/app/public ./public
-COPY --from=frontend-builder /opt/app/.next/standalone ./
-COPY --from=frontend-builder /opt/app/.next/static ./.next/static
-COPY --from=frontend-builder /opt/app/public/img /tmp/img
+COPY --from=frontend-builder /opt/app/frontend/public ./public
+COPY --from=frontend-builder /opt/app/frontend/.next/standalone ./
+COPY --from=frontend-builder /opt/app/frontend/.next/static ./.next/static
+COPY --from=frontend-builder /opt/app/frontend/public/img /tmp/img
 
 WORKDIR /opt/app/backend
 COPY --from=backend-builder /opt/app/node_modules ./node_modules

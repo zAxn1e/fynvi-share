@@ -4,6 +4,8 @@ import api from "./api.service";
 import { stringToTimespan } from "../utils/date.util";
 import { getDefaultConfig } from "../utils/defaultConfig.util";
 
+import { getConfigValue } from "../utils/config.util";
+
 const categories = [
   "general",
   "appearance",
@@ -36,42 +38,7 @@ const updateMany = async (data: UpdateConfig[]): Promise<AdminConfig[]> => {
   return (await api.patch("/configs/admin", data)).data;
 };
 
-const get = (
-  key: string,
-  configVariables: Config[],
-  returnDefault: boolean = false,
-): any => {
-  const vars =
-    configVariables && configVariables.length > 0
-      ? configVariables
-      : getDefaultConfig();
-
-  let configVariable = vars.find((variable) => variable.key === key);
-
-  if (!configVariable) {
-    configVariable = getDefaultConfig().find(
-      (variable) => variable.key === key,
-    );
-  }
-
-  if (!configVariable) {
-    return null;
-  }
-
-  const value = returnDefault
-    ? configVariable.defaultValue
-    : (configVariable.value ?? configVariable.defaultValue);
-
-  if (configVariable.type === "number" || configVariable.type === "filesize")
-    return parseInt(value || "0");
-  if (configVariable.type === "boolean") return value === "true";
-  if (configVariable.type === "string" || configVariable.type === "text")
-    return value ?? "";
-  if (configVariable.type === "timespan")
-    return stringToTimespan(value || "0 days");
-
-  return value;
-};
+const get = getConfigValue;
 
 const finishSetup = async (): Promise<AdminConfig[]> => {
   return (await api.post("/configs/admin/finishSetup")).data;

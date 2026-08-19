@@ -1,7 +1,8 @@
 /** @type {import('next').NextConfig} */
+const path = require("path");
 const { version } = require("./package.json");
 
-const withPWA = require("next-pwa")({
+const withPWA = require("@ducanh2912/next-pwa").default({
   dest: "public",
   disable: process.env.NODE_ENV === "development",
   skipWaiting: true,
@@ -20,8 +21,14 @@ const withPWA = require("next-pwa")({
 });
 
 module.exports = withPWA({
-  transpilePackages: ["@uiw/react-md-editor", "@uiw/react-markdown-preview"],
+  transpilePackages: [
+    "@uiw/react-md-editor",
+    "@uiw/react-markdown-preview",
+    "jose",
+    "jwt-decode",
+  ],
   output: "standalone",
+  outputFileTracingRoot: path.join(__dirname),
   images: {
     unoptimized: true,
   },

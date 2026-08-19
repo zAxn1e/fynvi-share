@@ -1,6 +1,6 @@
 import { jwtDecode } from "jwt-decode";
 import { NextRequest, NextResponse } from "next/server";
-import configService from "./services/config.service";
+import { getConfigValue } from "./utils/config.util";
 import { getDefaultConfig } from "./utils/defaultConfig.util";
 
 // This middleware redirects based on different conditions:
@@ -51,7 +51,7 @@ export async function middleware(request: NextRequest) {
   const config = await fetchConfig(apiUrl);
 
   const getConfig = (key: string) => {
-    return configService.get(key, config);
+    return getConfigValue(key, config);
   };
 
   const route = request.nextUrl.pathname;
