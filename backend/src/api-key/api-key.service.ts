@@ -1,11 +1,15 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import * as crypto from "crypto";
+import { I18nService } from "nestjs-i18n";
 import { PrismaService } from "../prisma/prisma.service";
 import { CreateApiKeyDto } from "./dto/create-api-key.dto";
 
 @Injectable()
 export class ApiKeyService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private readonly i18n: I18nService,
+  ) {}
 
   async create(userId: string, dto: CreateApiKeyDto) {
     const randomHex = crypto.randomBytes(24).toString("hex");
@@ -56,7 +60,7 @@ export class ApiKeyService {
     });
 
     if (!apiKey) {
-      throw new NotFoundException("API Key not found");
+      throw new NotFoundException(this.i18n.t("auth.apiKeyNotFound"));
     }
 
     await this.prisma.apiKey.delete({ where: { id } });

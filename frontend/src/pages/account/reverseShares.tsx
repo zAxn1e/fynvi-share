@@ -170,12 +170,12 @@ const ReverseShares = () => {
                         : "#F8FAFC",
                   }}
                 >
-                  <th>Token / Link</th>
-                  <th>Uploads Received</th>
-                  <th>Remaining Uses</th>
-                  <th>Max Size Limit</th>
-                  <th>Expires</th>
-                  <th style={{ textAlign: "right" }}>Actions</th>
+                  <th>{t("account.reverseShares.table.link")}</th>
+                  <th>{t("common.table.uploadsReceived")}</th>
+                  <th>{t("common.table.remainingUses")}</th>
+                  <th>{t("common.table.maxSizeLimit")}</th>
+                  <th>{t("common.table.expiration")}</th>
+                  <th style={{ textAlign: "right" }}>{t("common.table.actions")}</th>
                 </tr>
               </thead>
               <tbody>

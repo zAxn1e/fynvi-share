@@ -215,12 +215,12 @@ const MyShares = () => {
                         : "#F8FAFC",
                   }}
                 >
-                  <th style={{ width: "25%" }}>Share</th>
-                  <th>Files & Size</th>
-                  <th>Views</th>
-                  <th>Expiration</th>
-                  <th>Status</th>
-                  <th style={{ textAlign: "right" }}>Actions</th>
+                  <th style={{ width: "25%" }}>{t("common.table.shareName")}</th>
+                  <th>{t("common.table.size")}</th>
+                  <th>{t("common.table.views")}</th>
+                  <th>{t("common.table.expiration")}</th>
+                  <th>{t("common.table.status")}</th>
+                  <th style={{ textAlign: "right" }}>{t("common.table.actions")}</th>
                 </tr>
               </thead>
               <tbody>

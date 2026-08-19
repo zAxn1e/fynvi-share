@@ -5,11 +5,15 @@ import {
   UnauthorizedException,
 } from "@nestjs/common";
 import * as crypto from "crypto";
+import { I18nService } from "nestjs-i18n";
 import { PrismaService } from "../../prisma/prisma.service";
 
 @Injectable()
 export class ApiKeyGuard implements CanActivate {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private readonly i18n: I18nService,
+  ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
@@ -22,7 +26,7 @@ export class ApiKeyGuard implements CanActivate {
     }
 
     if (!token) {
-      throw new UnauthorizedException("API key required");
+      throw new UnauthorizedException(this.i18n.t("auth.apiKeyRequired"));
     }
 
     const hashedKey = crypto.createHash("sha256").update(token).digest("hex");
@@ -33,11 +37,11 @@ export class ApiKeyGuard implements CanActivate {
     });
 
     if (!apiKey) {
-      throw new UnauthorizedException("Invalid API key");
+      throw new UnauthorizedException(this.i18n.t("auth.invalidApiKey"));
     }
 
     if (apiKey.expiresAt && apiKey.expiresAt < new Date()) {
-      throw new UnauthorizedException("API key has expired");
+      throw new UnauthorizedException(this.i18n.t("auth.apiKeyExpired"));
     }
 
     // Async update last used timestamp

@@ -21,6 +21,7 @@ import {
 } from "react-icons/tb";
 import api from "../../services/api.service";
 import toast from "../../utils/toast.util";
+import useTranslate from "../../hooks/useTranslate.hook";
 import { Button } from "../common/Button";
 import { Card } from "../common/Card";
 
@@ -33,6 +34,7 @@ export interface ApiKeyItem {
 }
 
 export const ApiKeyManager: React.FC = () => {
+  const t = useTranslate();
   const clipboard = useClipboard({ timeout: 2000 });
   const [keys, setKeys] = useState<ApiKeyItem[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -111,10 +113,10 @@ export const ApiKeyManager: React.FC = () => {
       <Group position="apart" mb="md">
         <div>
           <Text weight={600} size="md">
-            API Keys & Integrations
+            {t("account.apiKey.title")}
           </Text>
           <Text size="xs" color="dimmed">
-            Manage long-lived API keys for ShareX, CLI, and custom scripts.
+            {t("account.apiKey.description")}
           </Text>
         </div>
         <Group spacing={8}>
@@ -124,7 +126,7 @@ export const ApiKeyManager: React.FC = () => {
             size="xs"
             onClick={() => handleDownloadShareX()}
           >
-            Download ShareX Config
+            {t("account.apiKey.modal.created.downloadShareX")}
           </Button>
           <Button
             leftIcon={<TbPlus size={15} />}
@@ -132,25 +134,24 @@ export const ApiKeyManager: React.FC = () => {
             size="xs"
             onClick={() => setIsModalOpen(true)}
           >
-            Generate Key
+            {t("account.apiKey.button.create")}
           </Button>
         </Group>
       </Group>
 
       {keys.length === 0 ? (
         <Text size="sm" color="dimmed" py={12}>
-          No active API keys found. Click &quot;Generate Key&quot; to create
-          one.
+          {t("account.apiKey.description")}
         </Text>
       ) : (
         <Table highlightOnHover>
           <thead>
             <tr>
-              <th>Name</th>
-              <th>Key Prefix</th>
-              <th>Created</th>
-              <th>Last Used</th>
-              <th>Action</th>
+              <th>{t("account.apiKey.table.name")}</th>
+              <th>{t("account.apiKey.table.keyPrefix")}</th>
+              <th>{t("account.apiKey.table.created")}</th>
+              <th>{t("account.apiKey.table.lastUsed")}</th>
+              <th>{t("account.apiKey.table.actions")}</th>
             </tr>
           </thead>
           <tbody>
@@ -173,11 +174,11 @@ export const ApiKeyManager: React.FC = () => {
                   <Text size="xs" color="dimmed">
                     {key.lastUsedAt
                       ? new Date(key.lastUsedAt).toLocaleDateString()
-                      : "Never"}
+                      : "-"}
                   </Text>
                 </td>
                 <td>
-                  <Tooltip label="Revoke Key" withArrow>
+                  <Tooltip label={t("common.button.delete")} withArrow>
                     <ActionIcon
                       color="red"
                       variant="subtle"
@@ -201,7 +202,7 @@ export const ApiKeyManager: React.FC = () => {
           setIsModalOpen(false);
           setNewRawKey(null);
         }}
-        title="Generate New API Key"
+        title={t("account.apiKey.modal.create.title")}
         centered
         radius="lg"
       >
@@ -209,7 +210,7 @@ export const ApiKeyManager: React.FC = () => {
           {!newRawKey ? (
             <>
               <TextInput
-                label="Key Name / Label"
+                label={t("account.apiKey.modal.create.input.name")}
                 placeholder="e.g. Desktop ShareX, CLI Tool"
                 value={keyName}
                 onChange={(e) => setKeyName(e.currentTarget.value)}
@@ -221,7 +222,7 @@ export const ApiKeyManager: React.FC = () => {
                   size="xs"
                   onClick={() => setIsModalOpen(false)}
                 >
-                  Cancel
+                  {t("common.button.cancel")}
                 </Button>
                 <Button
                   variant="primary"
@@ -229,15 +230,14 @@ export const ApiKeyManager: React.FC = () => {
                   loading={loading}
                   onClick={handleCreateKey}
                 >
-                  Generate
+                  {t("common.button.generate")}
                 </Button>
               </Group>
             </>
           ) : (
             <>
               <Text size="sm" color="dimmed">
-                Please copy your API key now. You will not be able to see it
-                again!
+                {t("account.apiKey.modal.created.warning")}
               </Text>
               <TextInput
                 readOnly
@@ -246,7 +246,7 @@ export const ApiKeyManager: React.FC = () => {
                   <ActionIcon
                     onClick={() => {
                       clipboard.copy(newRawKey);
-                      toast.success("API key copied to clipboard");
+                      toast.success(t("common.notify.copied"));
                     }}
                   >
                     {clipboard.copied ? (
@@ -266,7 +266,7 @@ export const ApiKeyManager: React.FC = () => {
                     setNewRawKey(null);
                   }}
                 >
-                  Done
+                  {t("common.button.done")}
                 </Button>
               </Group>
             </>

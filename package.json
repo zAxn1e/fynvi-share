@@ -5,6 +5,7 @@
   "scripts": {
     "format": "cd frontend && bun run format && cd ../backend && bun run format",
     "lint": "cd frontend && bun run lint && cd ../backend && bun run lint",
+    "test:i18n": "bun scripts/validate-translations.ts",
     "version": "conventional-changelog -p conventionalcommits --skip-unstable -i CHANGELOG.md -o CHANGELOG.md && git add CHANGELOG.md",
     "release:patch": "cd backend && npm version patch --commit-hooks false && cd ../frontend && npm version patch --commit-hooks false && cd .. && git add . && npm version patch --force -m 'release: %s' && git push && git push --tags",
     "release:minor": "cd backend && npm version minor --commit-hooks false && cd ../frontend && npm version minor --commit-hooks false && cd .. && git add . && npm version minor --force -m 'release: %s' && git push && git push --tags",

@@ -91,11 +91,11 @@ const ReceivedShares = () => {
                         : "#F8FAFC",
                   }}
                 >
-                  <th>Share Name</th>
-                  <th>Shared By</th>
-                  <th>Files & Size</th>
-                  <th>Expires</th>
-                  <th style={{ textAlign: "right" }}>Action</th>
+                  <th>{t("common.table.shareName")}</th>
+                  <th>{t("common.table.sharedBy")}</th>
+                  <th>{t("common.table.size")}</th>
+                  <th>{t("common.table.expiration")}</th>
+                  <th style={{ textAlign: "right" }}>{t("common.table.actions")}</th>
                 </tr>
               </thead>
               <tbody>
@@ -118,7 +118,7 @@ const ReceivedShares = () => {
                       </td>
                       <td>
                         <Badge variant="default" size="sm">
-                          {share.creator?.username || "Anonymous"}
+                          {share.creator?.username || t("common.anonymous")}
                         </Badge>
                       </td>
                       <td>
@@ -135,7 +135,7 @@ const ReceivedShares = () => {
                       <td>
                         <Text size="xs" color={isExpired ? "red" : "dimmed"}>
                           {moment(share.expiration).unix() === 0
-                            ? "Never"
+                            ? t("home.dashboard.neverExpires")
                             : moment(share.expiration).fromNow()}
                         </Text>
                       </td>
@@ -148,7 +148,7 @@ const ReceivedShares = () => {
                             size="xs"
                             leftIcon={<TbExternalLink size={14} />}
                           >
-                            Open Share
+                            {t("home.dashboard.openShare")}
                           </Button>
                         </Group>
                       </td>

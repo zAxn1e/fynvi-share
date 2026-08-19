@@ -26,6 +26,7 @@ import {
   TbVolumeOff,
 } from "react-icons/tb";
 import { byteToHumanSizeString } from "../../utils/fileSize.util";
+import useTranslate from "../../hooks/useTranslate.hook";
 import { Badge } from "../common/Badge";
 
 export interface AudioPlayerProps {
@@ -54,6 +55,7 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({
   fileSize,
   autoPlay = false,
 }) => {
+  const t = useTranslate();
   const theme = useMantineTheme();
   const isDark = theme.colorScheme === "dark";
 
@@ -648,7 +650,7 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({
           {/* Speed Selector */}
           <Menu shadow="md" width={110} position="top-end">
             <Menu.Target>
-              <Tooltip label="Playback Speed" withArrow>
+              <Tooltip label={t("common.speed")} withArrow>
                 <ActionIcon
                   variant="subtle"
                   size="md"
@@ -671,7 +673,7 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({
             </Menu.Target>
 
             <Menu.Dropdown>
-              <Menu.Label>Speed</Menu.Label>
+              <Menu.Label>{t("common.speed")}</Menu.Label>
               {[0.5, 0.75, 1, 1.25, 1.5, 2].map((rate) => (
                 <Menu.Item
                   key={rate}

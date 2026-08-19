@@ -481,10 +481,10 @@ const FileList = ({
                         onChange={toggleSelectAll}
                       />
                     </th>
-                    <th>Name</th>
-                    <th>Type</th>
-                    <th>Size</th>
-                    <th style={{ textAlign: "right" }}>Actions</th>
+                    <th>{t("common.table.name")}</th>
+                    <th>{t("common.table.type")}</th>
+                    <th>{t("common.table.size")}</th>
+                    <th style={{ textAlign: "right" }}>{t("common.table.actions")}</th>
                   </tr>
                 </thead>
                 <tbody>

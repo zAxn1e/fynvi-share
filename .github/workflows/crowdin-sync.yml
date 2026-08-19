@@ -1,0 +1,44 @@
+name: Crowdin Translation Synchronization
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "frontend/src/i18n/translations/en-US.ts"
+      - "backend/src/i18n/en-US/**"
+      - "crowdin.yml"
+  schedule:
+    # Synchronize translations every Sunday at midnight
+    - cron: "0 0 * * 0"
+  workflow_dispatch:
+
+concurrency:
+  group: crowdin-sync-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  synchronize-with-crowdin:
+    name: Sync with Crowdin
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Synchronize source and translations
+        uses: crowdin/github-action@v2
+        with:
+          upload_sources: true
+          upload_translations: false
+          download_translations: true
+          create_pull_request: true
+          pull_request_title: "chore(translations): sync translations from Crowdin"
+          pull_request_body: "Automated PR created by Crowdin Sync GitHub Action containing updated translations from https://crowdin.com/project/fynvi-share"
+          pull_request_labels: "translations, crowdin"
+          pull_request_branch: "chore/crowdin-translations"
+          localization_branch_name: "chore/crowdin-translations"
+          commit_message: "chore(translations): update translations from Crowdin"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
+          CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}

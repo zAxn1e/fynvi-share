@@ -7,7 +7,7 @@ import { LOCALES } from "../../i18n/locales";
 const LanguagePicker = () => {
   const t = useTranslate();
   const [selectedLanguage, setSelectedLanguage] = useState(
-    getCookie("language")?.toString(),
+    getCookie("language")?.toString() || "en-US",
   );
 
   const languages = Object.values(LOCALES).map((locale) => ({
@@ -19,8 +19,9 @@ const LanguagePicker = () => {
       value={selectedLanguage}
       description={t("account.card.language.description")}
       onChange={(value) => {
-        setSelectedLanguage(value ?? "en");
-        setCookie("language", value, {
+        const nextLang = value ?? "en-US";
+        setSelectedLanguage(nextLang);
+        setCookie("language", nextLang, {
           sameSite: "lax",
           expires: new Date(
             new Date().setFullYear(new Date().getFullYear() + 1),

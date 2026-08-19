@@ -198,7 +198,7 @@ export default function Home() {
             }}
           >
             <TbSparkles size={15} />
-            <span>Fast, Secure & Self-Hosted File Sharing</span>
+            <span>{t("home.hero.badge")}</span>
           </Box>
 
           <Stack spacing={10} align="center">
@@ -214,16 +214,16 @@ export default function Home() {
                 },
               }}
             >
-              Share files seamlessly with{" "}
-              <span style={{ color: primaryColor }}>{appName}</span>
+              {t("home.hero.title", {
+                appName: <span key="appName" style={{ color: primaryColor }}>{appName}</span>,
+              })}
             </Title>
             <Text
               size="md"
               color="dimmed"
               sx={{ maxWidth: 580, lineHeight: 1.6 }}
             >
-              End-to-end resumable chunk transfers, instant in-browser media
-              previews, password protection, and custom link expirations.
+              {t("home.hero.description")}
             </Text>
           </Stack>
 
@@ -234,7 +234,7 @@ export default function Home() {
               variant="secondary"
               size="md"
             >
-              Sign In
+              {t("home.hero.button.signIn")}
             </Button>
 
             {allowRegistration && (
@@ -244,7 +244,7 @@ export default function Home() {
                 variant="subtle"
                 size="md"
               >
-                Create Account
+                {t("home.hero.button.signUp")}
               </Button>
             )}
           </Group>
@@ -261,7 +261,7 @@ export default function Home() {
         >
           <Dropzone
             onFilesChanged={handleFilesAddedFromHome}
-            title="Drop files or click here to upload immediately"
+            title={t("home.dropzone.title")}
           />
         </Box>
 
@@ -295,11 +295,10 @@ export default function Home() {
                     <TbBolt size={22} />
                   </Box>
                   <Text size="sm" weight={600}>
-                    Resumable Chunk Engine
+                    {t("home.features.resumable.title")}
                   </Text>
                   <Text size="xs" color="dimmed" sx={{ lineHeight: 1.5 }}>
-                    Upload large files and full directories reliably with
-                    automatic chunk retries and live speed metrics.
+                    {t("home.features.resumable.description")}
                   </Text>
                 </Stack>
               </Card>
@@ -325,11 +324,10 @@ export default function Home() {
                     <TbShieldCheck size={22} />
                   </Box>
                   <Text size="sm" weight={600}>
-                    Privacy & Password Locks
+                    {t("home.features.security.title")}
                   </Text>
                   <Text size="xs" color="dimmed" sx={{ lineHeight: 1.5 }}>
-                    Set custom expiration timers, view limits, and bcrypt
-                    password protection for every shared link.
+                    {t("home.features.security.description")}
                   </Text>
                 </Stack>
               </Card>
@@ -355,11 +353,10 @@ export default function Home() {
                     <TbPhoto size={22} />
                   </Box>
                   <Text size="sm" weight={600}>
-                    Rich In-Browser Inspector
+                    {t("home.features.preview.title")}
                   </Text>
                   <Text size="xs" color="dimmed" sx={{ lineHeight: 1.5 }}>
-                    Preview images, HTML5 video, audio, PDFs, and code directly
-                    with detailed metadata inspection.
+                    {t("home.features.preview.description")}
                   </Text>
                 </Stack>
               </Card>
@@ -415,7 +412,7 @@ export default function Home() {
           <Stack spacing={1} sx={{ overflow: "hidden" }}>
             <Group spacing={8}>
               <Title order={3} sx={{ letterSpacing: "-0.02em" }}>
-                Welcome back, {user.username}
+                {t("home.dashboard.welcome", { username: user.username })}
               </Title>
               {user.isAdmin && (
                 <Badge variant="primary" size="sm">
@@ -424,8 +421,7 @@ export default function Home() {
               )}
             </Group>
             <Text size="xs" color="dimmed">
-              Manage your active shares, inspect files, or drop files below to
-              upload immediately.
+              {t("home.dashboard.description")}
             </Text>
           </Stack>
         </Group>
@@ -438,7 +434,7 @@ export default function Home() {
             size="xs"
             leftIcon={<TbArrowsExchange size={14} />}
           >
-            Reverse Share
+            {t("navbar.links.reverse")}
           </Button>
         </Group>
       </Group>
@@ -447,7 +443,7 @@ export default function Home() {
       <Box mb={24} sx={{ position: "relative", zIndex: 1 }}>
         <Dropzone
           onFilesChanged={handleFilesAddedFromHome}
-          title="Drag & drop files or click here to start a new share"
+          title={t("home.dashboard.dropzoneTitle")}
           maxShareSize={
             user.shareSizeLimit
               ? parseInt(user.shareSizeLimit)
@@ -463,13 +459,15 @@ export default function Home() {
             <Group position="apart">
               <Stack spacing={4}>
                 <Text size="xs" color="dimmed" weight={500}>
-                  Active Shares
+                  {t("home.dashboard.metrics.activeShares")}
                 </Text>
                 <Text size="xl" weight={700} className="font-mono">
                   {activeShares.length}
                 </Text>
                 <Text size="xs" color="dimmed">
-                  {shares.length - activeShares.length} expired
+                  {t("home.dashboard.metrics.expired", {
+                    count: shares.length - activeShares.length,
+                  })}
                 </Text>
               </Stack>
               <Box
@@ -497,13 +495,13 @@ export default function Home() {
             <Group position="apart">
               <Stack spacing={4}>
                 <Text size="xs" color="dimmed" weight={500}>
-                  Total Link Views
+                  {t("home.dashboard.metrics.totalViews")}
                 </Text>
                 <Text size="xl" weight={700} className="font-mono">
                   {totalViews.toLocaleString()}
                 </Text>
                 <Text size="xs" color="dimmed">
-                  Across all shared items
+                  {t("home.dashboard.metrics.viewsSubtitle")}
                 </Text>
               </Stack>
               <Box
@@ -531,15 +529,17 @@ export default function Home() {
             <Group position="apart">
               <Stack spacing={4}>
                 <Text size="xs" color="dimmed" weight={500}>
-                  Storage Capacity
+                  {t("home.dashboard.metrics.storageCapacity")}
                 </Text>
                 <Text size="xl" weight={700} className="font-mono">
                   {byteToHumanSizeString(totalUploadedBytes)}
                 </Text>
                 <Text size="xs" color="dimmed">
                   {totalBytes > 0
-                    ? `${usedPercent}% quota used`
-                    : "Unlimited quota"}
+                    ? t("home.dashboard.metrics.quotaUsed", {
+                        percent: usedPercent,
+                      })
+                    : t("home.dashboard.metrics.unlimited")}
                 </Text>
               </Stack>
               <Box
@@ -567,7 +567,7 @@ export default function Home() {
       <Box sx={{ position: "relative", zIndex: 1 }}>
         <Group position="apart" mb={14}>
           <Text size="sm" weight={600}>
-            Recent Active Shares
+            {t("home.dashboard.recentShares")}
           </Text>
           {shares.length > 0 && (
             <Button
@@ -577,7 +577,7 @@ export default function Home() {
               size="xs"
               rightIcon={<TbChevronRight size={14} />}
             >
-              View All Shares ({shares.length})
+              {t("home.dashboard.viewAllShares", { count: shares.length })}
             </Button>
           )}
         </Group>
@@ -585,8 +585,8 @@ export default function Home() {
         {shares.length === 0 ? (
           <EmptyState
             icon={TbFolders}
-            title="No shares created yet"
-            description="Drag files into the dropzone above or paste anywhere to share files."
+            title={t("home.dashboard.noShares.title")}
+            description={t("home.dashboard.noShares.description")}
           />
         ) : (
           <Stack spacing={8}>
@@ -627,7 +627,10 @@ export default function Home() {
                             {share.name || `Share #${share.id}`}
                           </Text>
                           {share.security?.passwordProtected && (
-                            <Tooltip label="Password protected" withArrow>
+                            <Tooltip
+                              label={t("home.dashboard.passwordProtected")}
+                              withArrow
+                            >
                               <Box
                                 sx={{
                                   display: "flex",
@@ -653,7 +656,7 @@ export default function Home() {
                         <TbClock size={14} color="#9CA3AF" />
                         <Text size="xs" color={isExpired ? "red" : "dimmed"}>
                           {moment(share.expiration).unix() === 0
-                            ? "Never expires"
+                            ? t("home.dashboard.neverExpires")
                             : moment(share.expiration).fromNow()}
                         </Text>
                       </Group>
@@ -663,10 +666,12 @@ export default function Home() {
                         size="sm"
                         dot
                       >
-                        {isExpired ? "Expired" : "Active"}
+                        {isExpired
+                          ? t("home.dashboard.status.expired")
+                          : t("home.dashboard.status.active")}
                       </Badge>
 
-                      <Tooltip label="Copy Link" withArrow>
+                      <Tooltip label={t("home.dashboard.copyLink")} withArrow>
                         <ActionIcon
                           size="sm"
                           variant="subtle"
@@ -683,7 +688,7 @@ export default function Home() {
                         </ActionIcon>
                       </Tooltip>
 
-                      <Tooltip label="Open Share" withArrow>
+                      <Tooltip label={t("home.dashboard.openShare")} withArrow>
                         <ActionIcon
                           size="sm"
                           variant="subtle"

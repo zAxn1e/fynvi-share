@@ -199,7 +199,7 @@ const Account = () => {
                     notifications.
                   </Text>
                 </Stack>
-                {user?.isLdap && <Badge variant="info">LDAP Account</Badge>}
+                {user?.isLdap && <Badge variant="info">{t("account.ldapAccount")}</Badge>}
               </Group>
 
               <form

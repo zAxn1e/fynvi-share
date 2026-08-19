@@ -21,6 +21,7 @@ import {
   TbClock,
   TbInfinity,
 } from "react-icons/tb";
+import useTranslate from "../../hooks/useTranslate.hook";
 import { Timespan } from "../../types/timespan.type";
 
 export interface ExpirationPickerProps {
@@ -44,6 +45,7 @@ export const ExpirationPicker: React.FC<ExpirationPickerProps> = ({
   maxExpiration,
   allowNever = true,
 }) => {
+  const t = useTranslate();
   const theme = useMantineTheme();
   const isDark = theme.colorScheme === "dark";
 
@@ -312,7 +314,7 @@ export const ExpirationPicker: React.FC<ExpirationPickerProps> = ({
               }}
             >
               <TbCalendarEvent size={14} />
-              <span>Custom Date</span>
+              <span>{t("common.customDate")}</span>
             </UnstyledButton>
           </Grid.Col>
         </Grid>

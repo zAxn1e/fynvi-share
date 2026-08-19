@@ -376,7 +376,7 @@ const Admin = () => {
                     fontWeight: 600,
                   }}
                 >
-                  <span>Open Users Panel</span>
+                  <span>{t("admin.quickActions.users")}</span>
                   <TbArrowRight size={15} />
                 </Group>
               </Stack>
@@ -431,7 +431,7 @@ const Admin = () => {
                   spacing={6}
                   sx={{ color: "#10B981", fontSize: 13, fontWeight: 600 }}
                 >
-                  <span>Inspect Shares</span>
+                  <span>{t("admin.quickActions.shares")}</span>
                   <TbArrowRight size={15} />
                 </Group>
               </Stack>
@@ -486,7 +486,7 @@ const Admin = () => {
                   spacing={6}
                   sx={{ color: "#8B5CF6", fontSize: 13, fontWeight: 600 }}
                 >
-                  <span>Configure Colors</span>
+                  <span>{t("admin.quickActions.colors")}</span>
                   <TbArrowRight size={15} />
                 </Group>
               </Stack>
@@ -541,7 +541,7 @@ const Admin = () => {
                   spacing={6}
                   sx={{ color: "#F59E0B", fontSize: 13, fontWeight: 600 }}
                 >
-                  <span>Configure General</span>
+                  <span>{t("admin.quickActions.general")}</span>
                   <TbArrowRight size={15} />
                 </Group>
               </Stack>
@@ -596,7 +596,7 @@ const Admin = () => {
                   spacing={6}
                   sx={{ color: "#06B6D4", fontSize: 13, fontWeight: 600 }}
                 >
-                  <span>Setup Email</span>
+                  <span>{t("admin.quickActions.email")}</span>
                   <TbArrowRight size={15} />
                 </Group>
               </Stack>
@@ -651,7 +651,7 @@ const Admin = () => {
                   spacing={6}
                   sx={{ color: "#EC4899", fontSize: 13, fontWeight: 600 }}
                 >
-                  <span>Configure S3</span>
+                  <span>{t("admin.quickActions.s3")}</span>
                   <TbArrowRight size={15} />
                 </Group>
               </Stack>
