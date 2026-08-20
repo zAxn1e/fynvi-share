@@ -98,7 +98,7 @@ const useTranslate = () => {
         { id, defaultMessage: fallbackText },
         values,
       );
-      return typeof result === "string" ? result : String(result);
+      return result as any;
     } catch {
       return fallbackText;
     }
@@ -146,7 +146,7 @@ export const translateOutsideContext = () => {
         { id, defaultMessage: fallbackText },
         values,
       );
-      return typeof result === "string" ? result : String(result);
+      return result as any;
     } catch {
       return fallbackText;
     }
