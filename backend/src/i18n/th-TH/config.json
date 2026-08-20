@@ -1,12 +1,12 @@
 {
-  "redisUrlNotSet": "ไม่ได้ตั้งค่า Redis URL",
-  "redisTimedOut": "Redis หมดเวลา",
-  "redisConnectionFailed": "การเชื่อมต่อ Redis ล้มเหลว",
-  "redisUnexpectedResponse": "การตอบกลับจาก Redis ไม่เป็นไปตามที่คาดไว้",
-  "redisError": "ข้อผิดพลาด Redis",
-  "variableNotFound": "ไม่พบตัวแปรการกำหนดค่า",
-  "editNotAllowed": "คุณสามารถอัปเดตตัวแปรการกำหนดค่าผ่านไฟล์ config.yaml เท่านั้น",
-  "invalidType": "ตัวแปรการกำหนดค่าต้องเป็นประเภท {type}",
-  "shareIdLengthValidation": "ความยาวของ Share ID ต้องอยู่ระหว่าง 2 ถึง 50",
-  "zipCompressionLevelValidation": "ระดับการบีบอัด Zip ต้องอยู่ระหว่าง 0 ถึง 9"
+  "redisUrlNotSet": "Redis URL is not set",
+  "redisTimedOut": "Redis timed out",
+  "redisConnectionFailed": "Redis connection failed",
+  "redisUnexpectedResponse": "Unexpected response from Redis",
+  "redisError": "Redis error",
+  "variableNotFound": "Config variable not found",
+  "editNotAllowed": "You are only allowed to update config variables via the config.yaml file",
+  "invalidType": "Config variable must be of type {type}",
+  "shareIdLengthValidation": "Share ID length must be between 2 and 50",
+  "zipCompressionLevelValidation": "Zip compression level must be between 0 and 9"
 }
