@@ -95,7 +95,9 @@ const ReceivedShares = () => {
                   <th>{t("common.table.sharedBy")}</th>
                   <th>{t("common.table.size")}</th>
                   <th>{t("common.table.expiration")}</th>
-                  <th style={{ textAlign: "right" }}>{t("common.table.actions")}</th>
+                  <th style={{ textAlign: "right" }}>
+                    {t("common.table.actions")}
+                  </th>
                 </tr>
               </thead>
               <tbody>

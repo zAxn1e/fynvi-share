@@ -72,7 +72,9 @@ const Admin = () => {
     ]).finally(() => setLoading(false));
   }, []);
 
-  const totalUploadedBytes = shares.reduce((acc, s) => acc + (s.size || 0), 0);
+  const totalUploadedBytes = Array.isArray(shares)
+    ? shares.reduce((acc, s) => acc + (s.size || 0), 0)
+    : 0;
   const usedBytes = systemInfo?.used || totalUploadedBytes;
   const totalBytes = systemInfo?.total || 1;
   const usedPercent = Math.min(100, Math.round((usedBytes / totalBytes) * 100));
@@ -259,7 +261,7 @@ const Admin = () => {
               </Text>
             </Group>
             <Text size="xs" color="dimmed" mt={4} className="font-mono">
-              Version v{process.env.VERSION || "0.1.0"}
+              Version v{process.env.VERSION || "0.2.0"}
             </Text>
           </Card>
         </Col>

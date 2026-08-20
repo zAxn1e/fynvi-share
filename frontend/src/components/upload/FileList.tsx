@@ -20,6 +20,8 @@ import { HoverTip } from "../core/HoverTip";
 import showFilePreviewModal from "../share/modals/showFilePreviewModal";
 import showTextEditorModal from "./modals/showTextEditorModal";
 import UploadProgressIndicator from "./UploadProgressIndicator";
+import { FileIcon, getFileCategory } from "../../utils/fileIcon.util";
+import { AudioPlayer } from "../file/AudioPlayer";
 
 const renderFileName = (name: string) => {
   const parts = name.split("/");
@@ -178,28 +180,104 @@ const FileList = <T extends FileListItem = FileListItem>({
     if ("id" in file && shareId) {
       showFilePreviewModal(shareId, file as unknown as FileMetaData, modals);
     } else if (file instanceof File || "type" in file) {
-      const isImage =
-        (file as File).type?.startsWith("image/") ||
-        file.name.match(/\.(png|jpg|jpeg|gif|webp|svg)$/i);
-      if (isImage && file instanceof File) {
-        const objectUrl = URL.createObjectURL(file);
+      const localFile = file as File;
+      const mimeType = localFile.type || "";
+      const category = getFileCategory(mimeType, localFile.name);
+      const isImage = category.type === "image";
+      const isVideo = category.type === "video";
+      const isAudio = category.type === "audio";
+
+      if (localFile instanceof File) {
+        const objectUrl = URL.createObjectURL(localFile);
         modals.openModal({
-          title: file.name,
+          title: localFile.name,
           size: "md",
           children: (
-            <Center py={16}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={objectUrl}
-                alt={file.name}
-                style={{
-                  maxWidth: "100%",
-                  maxHeight: "60vh",
-                  objectFit: "contain",
-                  borderRadius: 8,
-                }}
-              />
-            </Center>
+            <Stack spacing={16} py={8}>
+              {isAudio ? (
+                <Box
+                  sx={{
+                    width: "100%",
+                    display: "flex",
+                    justifyContent: "center",
+                    py: 8,
+                  }}
+                >
+                  <AudioPlayer
+                    src={objectUrl}
+                    fileName={localFile.name}
+                    fileSize={localFile.size}
+                  />
+                </Box>
+              ) : isVideo ? (
+                <Center py={8}>
+                  <video
+                    src={objectUrl}
+                    controls
+                    playsInline
+                    style={{
+                      maxWidth: "100%",
+                      maxHeight: "50vh",
+                      borderRadius: 8,
+                    }}
+                  />
+                </Center>
+              ) : isImage ? (
+                <Center py={8}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={objectUrl}
+                    alt={localFile.name}
+                    style={{
+                      maxWidth: "100%",
+                      maxHeight: "60vh",
+                      objectFit: "contain",
+                      borderRadius: 8,
+                    }}
+                  />
+                </Center>
+              ) : (
+                <Box
+                  sx={{
+                    backgroundColor: "rgba(0, 0, 0, 0.15)",
+                    borderRadius: 8,
+                    padding: "28px 16px",
+                    textAlign: "center",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    gap: 8,
+                  }}
+                >
+                  <Box
+                    sx={{
+                      width: 52,
+                      height: 52,
+                      borderRadius: 12,
+                      backgroundColor: category.bgColor,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      color: category.color,
+                    }}
+                  >
+                    <FileIcon
+                      fileName={localFile.name}
+                      mimeType={mimeType}
+                      category={category}
+                      size={28}
+                    />
+                  </Box>
+                  <Text size="sm" weight={600}>
+                    {category.label}
+                  </Text>
+                  <Text size="xs" color="dimmed">
+                    Direct visual preview unavailable for this file format in
+                    browser
+                  </Text>
+                </Box>
+              )}
+            </Stack>
           ),
         });
       }

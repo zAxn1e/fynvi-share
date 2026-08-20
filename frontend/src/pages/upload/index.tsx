@@ -17,6 +17,8 @@ import {
   UploadItemState,
 } from "../../components/upload/UploadItem";
 import { AudioPlayer } from "../../components/file/AudioPlayer";
+import { FileIcon, getFileCategory } from "../../utils/fileIcon.util";
+import { Badge } from "../../components/common/Badge";
 import useConfig from "../../hooks/config.hook";
 import useConfirmLeave from "../../hooks/confirm-leave.hook";
 import useTranslate from "../../hooks/useTranslate.hook";
@@ -112,14 +114,12 @@ const Upload = ({
           typeof window !== "undefined" &&
           file instanceof File
         ) {
-          const isImageOrMedia =
-            file.type.startsWith("image/") ||
-            file.type.startsWith("video/") ||
-            file.type.startsWith("audio/") ||
-            file.name.match(
-              /\.(png|jpg|jpeg|gif|webp|svg|bmp|mp4|webm|mov|mkv|avi|mp3|wav|ogg|flac|m4a|aac)$/i,
-            );
-          if (isImageOrMedia) {
+          const category = getFileCategory(file.type, file.name);
+          if (
+            category.type === "image" ||
+            category.type === "video" ||
+            category.type === "audio"
+          ) {
             try {
               previewUrl = URL.createObjectURL(file);
             } catch (err) {
@@ -146,88 +146,129 @@ const Upload = ({
     });
   }, [files, isUploading]);
 
+  const QueuedFilePreview: React.FC<{ item: UploadItemState }> = ({ item }) => {
+    const [loadError, setLoadError] = useState(false);
+    const mimeType = item.file?.type || "";
+    const category = getFileCategory(mimeType, item.name);
+    const isVideo = category.type === "video";
+    const isAudio = category.type === "audio";
+    const isImage = category.type === "image";
+
+    if (item.previewUrl && isAudio) {
+      return (
+        <Box
+          sx={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+            py: 8,
+          }}
+        >
+          <AudioPlayer
+            src={item.previewUrl}
+            fileName={item.name}
+            fileSize={item.size}
+          />
+        </Box>
+      );
+    }
+
+    if (item.previewUrl && (isVideo || isImage) && !loadError) {
+      return (
+        <Box
+          sx={{
+            backgroundColor: "rgba(0, 0, 0, 0.25)",
+            borderRadius: 8,
+            padding: 12,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            maxHeight: "50vh",
+            overflow: "hidden",
+          }}
+        >
+          {isVideo ? (
+            <video
+              src={item.previewUrl}
+              controls
+              playsInline
+              onError={() => setLoadError(true)}
+              style={{
+                maxWidth: "100%",
+                maxHeight: "45vh",
+                borderRadius: 6,
+              }}
+            />
+          ) : (
+            <img
+              src={item.previewUrl}
+              alt={item.name}
+              onError={() => setLoadError(true)}
+              style={{
+                maxWidth: "100%",
+                maxHeight: "45vh",
+                objectFit: "contain",
+                borderRadius: 6,
+              }}
+            />
+          )}
+        </Box>
+      );
+    }
+
+    return (
+      <Box
+        sx={{
+          backgroundColor: "rgba(0, 0, 0, 0.15)",
+          borderRadius: 8,
+          padding: "28px 16px",
+          textAlign: "center",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: 8,
+        }}
+      >
+        <Box
+          sx={{
+            width: 52,
+            height: 52,
+            borderRadius: 12,
+            backgroundColor: category.bgColor,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            color: category.color,
+          }}
+        >
+          <FileIcon
+            fileName={item.name}
+            mimeType={mimeType}
+            category={category}
+            size={28}
+          />
+        </Box>
+        <Text size="sm" weight={600}>
+          {category.label}
+        </Text>
+        <Text size="xs" color="dimmed">
+          No visual thumbnail preview for this file type
+        </Text>
+      </Box>
+    );
+  };
+
   const handleInspectQueuedFile = (item: UploadItemState) => {
-    const isVideo =
-      item.file?.type.startsWith("video/") ||
-      item.name.match(/\.(mp4|webm|mov|mkv|avi)$/i);
-    const isAudio =
-      item.file?.type.startsWith("audio/") ||
-      item.name.match(/\.(mp3|wav|ogg|flac|m4a|aac|opus)$/i);
+    const mimeType = item.file?.type || "";
+    const category = getFileCategory(mimeType, item.name);
+    const isAudio = category.type === "audio";
 
     modals.openModal({
       title: `Queued File: ${item.name}`,
       size: isAudio ? "md" : "md",
       children: (
         <Stack spacing={16}>
-          {item.previewUrl ? (
-            isAudio ? (
-              <Box
-                sx={{
-                  width: "100%",
-                  display: "flex",
-                  justifyContent: "center",
-                  py: 8,
-                }}
-              >
-                <AudioPlayer
-                  src={item.previewUrl}
-                  fileName={item.name}
-                  fileSize={item.size}
-                />
-              </Box>
-            ) : (
-              <Box
-                sx={{
-                  backgroundColor: "rgba(0, 0, 0, 0.25)",
-                  borderRadius: 8,
-                  padding: 12,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  maxHeight: "50vh",
-                  overflow: "hidden",
-                }}
-              >
-                {isVideo ? (
-                  <video
-                    src={item.previewUrl}
-                    controls
-                    playsInline
-                    style={{
-                      maxWidth: "100%",
-                      maxHeight: "45vh",
-                      borderRadius: 6,
-                    }}
-                  />
-                ) : (
-                  /* eslint-disable-next-line @next/next/no-img-element */
-                  <img
-                    src={item.previewUrl}
-                    alt={item.name}
-                    style={{
-                      maxWidth: "100%",
-                      maxHeight: "45vh",
-                      objectFit: "contain",
-                      borderRadius: 6,
-                    }}
-                  />
-                )}
-              </Box>
-            )
-          ) : (
-            <Box
-              sx={{
-                backgroundColor: "rgba(0, 0, 0, 0.15)",
-                borderRadius: 8,
-                padding: "32px 16px",
-                textAlign: "center",
-              }}
-            >
-              <Text size="sm" color="dimmed">
-                No visual thumbnail preview for this file type
-              </Text>
-            </Box>
-          )}
+          <QueuedFilePreview item={item} />
 
           <Box
             p={14}

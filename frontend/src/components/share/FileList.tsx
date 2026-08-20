@@ -60,28 +60,8 @@ import toast from "../../utils/toast.util";
 import { Badge } from "../common/Badge";
 import { Button } from "../common/Button";
 import { Card } from "../common/Card";
-import { getFileCategory } from "../file/FilePreview";
+import { FileIcon, getFileCategory } from "../../utils/fileIcon.util";
 import showFilePreviewModal from "./modals/showFilePreviewModal";
-
-const getCategoryIcon = (category: string, size = 20) => {
-  switch (category) {
-    case "Image":
-      return <TbPhoto size={size} />;
-    case "Video":
-      return <TbVideo size={size} />;
-    case "Audio":
-      return <TbMusic size={size} />;
-    case "Document":
-    case "PDF Document":
-      return <TbFileDescription size={size} />;
-    case "Source Code":
-      return <TbFileCode size={size} />;
-    case "Archive":
-      return <TbFileZip size={size} />;
-    default:
-      return <TbFile size={size} />;
-  }
-};
 
 const renderFileName = (name: string) => {
   const parts = name.split("/");
@@ -114,14 +94,14 @@ const MediaThumbnail: React.FC<{
     return (
       <Box
         sx={{
-          color: "var(--brand-primary)",
+          color: category.color,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           gap: 6,
         }}
       >
-        {getCategoryIcon(category.label, 44)}
+        <FileIcon fileName={file.name} category={category} size={44} />
         <Text size="xs" color="dimmed" weight={600} className="font-mono">
           {file.name.split(".").pop()?.toUpperCase()}
         </Text>
@@ -484,7 +464,9 @@ const FileList = ({
                     <th>{t("common.table.name")}</th>
                     <th>{t("common.table.type")}</th>
                     <th>{t("common.table.size")}</th>
-                    <th style={{ textAlign: "right" }}>{t("common.table.actions")}</th>
+                    <th style={{ textAlign: "right" }}>
+                      {t("common.table.actions")}
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -530,10 +512,16 @@ const FileList = ({
                               <Box
                                 sx={{
                                   display: "flex",
-                                  color: "var(--brand-primary, #3B82F6)",
+                                  alignItems: "center",
+                                  justifyContent: "center",
                                 }}
                               >
-                                {getCategoryIcon(category.label, 17)}
+                                <FileIcon
+                                  fileName={file.name}
+                                  mimeType={mimeType}
+                                  category={category}
+                                  size={17}
+                                />
                               </Box>
                               <Text
                                 size="sm"
@@ -727,11 +715,17 @@ const FileList = ({
                             />
                             <Box
                               sx={{
-                                color: "var(--brand-primary)",
                                 display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
                               }}
                             >
-                              {getCategoryIcon(category.label, 16)}
+                              <FileIcon
+                                fileName={file.name}
+                                mimeType={mimeType}
+                                category={category}
+                                size={16}
+                              />
                             </Box>
                             <Text
                               size="sm"
@@ -886,17 +880,52 @@ const FileList = ({
                             file={file}
                             category={category}
                           />
+                        ) : category.type === "audio" ? (
+                          <Box
+                            sx={{
+                              display: "flex",
+                              flexDirection: "column",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              gap: 10,
+                            }}
+                          >
+                            <Box
+                              sx={{
+                                width: 54,
+                                height: 54,
+                                borderRadius: "50%",
+                                backgroundColor: category.bgColor,
+                                border: `1.5px solid ${category.color}`,
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                color: category.color,
+                                boxShadow: `0 0 16px ${category.bgColor}`,
+                              }}
+                            >
+                              <TbMusic size={26} />
+                            </Box>
+                            <Badge variant="warning" size="xs">
+                              {file.name.split(".").pop()?.toUpperCase() ||
+                                "AUDIO"}
+                            </Badge>
+                          </Box>
                         ) : (
                           <Box
                             sx={{
-                              color: "var(--brand-primary)",
+                              color: category.color,
                               display: "flex",
                               flexDirection: "column",
                               alignItems: "center",
                               gap: 6,
                             }}
                           >
-                            {getCategoryIcon(category.label, 44)}
+                            <FileIcon
+                              fileName={file.name}
+                              category={category}
+                              size={44}
+                            />
                             <Text
                               size="xs"
                               color="dimmed"

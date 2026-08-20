@@ -1,12 +1,17 @@
 {
   "name": "fynvi-share-frontend",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --webpack",
     "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint .",
-    "format": "prettier --end-of-line=auto --write \"src/**/*.ts*\""
+    "format": "prettier --end-of-line=auto --write \"src/**/*.ts*\"",
+    "screenshot": "playwright test e2e/screenshots",
+    "screenshot:desktop": "playwright test e2e/screenshots --project=desktop-dark --project=desktop-light",
+    "screenshot:mobile": "playwright test e2e/screenshots --project=mobile-dark --project=mobile-light",
+    "screenshot:video": "playwright test e2e/video --project=video",
+    "screenshot:all": "playwright test e2e"
   },
   "overrides": {
     "serialize-javascript": "^7.0.5",
@@ -44,6 +49,7 @@
     "yup": "^1.4.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.62.1",
     "@types/mime-types": "^2.1.4",
     "@types/node": "22.5.5",
     "@types/qrcode": "^1.5.5",

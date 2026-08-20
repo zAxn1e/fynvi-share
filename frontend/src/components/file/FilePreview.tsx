@@ -47,6 +47,15 @@ import { Badge, BadgeVariant } from "../common/Badge";
 import { Button } from "../common/Button";
 import { VideoPlayer } from "./VideoPlayer";
 import { AudioPlayer } from "./AudioPlayer";
+import {
+  FileIcon,
+  getFileCategory,
+  FileCategoryInfo,
+  FileCategoryType,
+} from "../../utils/fileIcon.util";
+
+export { getFileCategory };
+export type { FileCategoryInfo, FileCategoryType };
 
 export interface FilePreviewProps {
   file: FileMetaData;
@@ -55,101 +64,6 @@ export interface FilePreviewProps {
   onClose: () => void;
   onDownload?: () => void;
 }
-
-export interface FileCategoryInfo {
-  type:
-    | "image"
-    | "video"
-    | "audio"
-    | "pdf"
-    | "code"
-    | "text"
-    | "archive"
-    | "unknown";
-  label: string;
-  variant: BadgeVariant;
-}
-
-export const getFileCategory = (
-  mimeType: string,
-  fileName: string,
-): FileCategoryInfo => {
-  const extension = fileName.split(".").pop()?.toLowerCase() || "";
-
-  if (
-    mimeType.startsWith("image/") ||
-    ["png", "jpg", "jpeg", "gif", "webp", "svg", "bmp", "ico", "avif"].includes(
-      extension,
-    )
-  ) {
-    return { type: "image", label: "Image", variant: "primary" };
-  }
-  if (
-    mimeType.startsWith("video/") ||
-    ["mp4", "webm", "mov", "mkv", "avi", "wmv"].includes(extension)
-  ) {
-    return { type: "video", label: "Video", variant: "info" };
-  }
-  if (
-    mimeType.startsWith("audio/") ||
-    ["mp3", "wav", "ogg", "flac", "m4a", "aac"].includes(extension)
-  ) {
-    return { type: "audio", label: "Audio", variant: "warning" };
-  }
-  if (mimeType === "application/pdf" || extension === "pdf") {
-    return { type: "pdf", label: "PDF Document", variant: "danger" };
-  }
-  if (
-    [
-      "js",
-      "jsx",
-      "ts",
-      "tsx",
-      "html",
-      "css",
-      "scss",
-      "json",
-      "xml",
-      "yaml",
-      "yml",
-      "py",
-      "rs",
-      "go",
-      "java",
-      "c",
-      "cpp",
-      "h",
-      "cs",
-      "php",
-      "rb",
-      "sh",
-      "sql",
-      "md",
-    ].includes(extension)
-  ) {
-    return { type: "code", label: "Source Code", variant: "success" };
-  }
-  if (
-    mimeType.startsWith("text/") ||
-    ["txt", "log", "csv", "env", "ini", "conf"].includes(extension)
-  ) {
-    return { type: "text", label: "Plain Text", variant: "default" };
-  }
-  if (
-    ["zip", "tar", "gz", "7z", "rar", "bz2", "xz"].includes(extension) ||
-    mimeType.includes("zip") ||
-    mimeType.includes("tar") ||
-    mimeType.includes("archive")
-  ) {
-    return { type: "archive", label: "Archive", variant: "warning" };
-  }
-
-  return {
-    type: "unknown",
-    label: extension.toUpperCase() || "File",
-    variant: "default",
-  };
-};
 
 export const FilePreviewContent: React.FC<{
   file: FileMetaData;
@@ -237,23 +151,20 @@ export const FilePreviewContent: React.FC<{
                   width: 44,
                   height: 44,
                   borderRadius: "var(--radius-md, 10px)",
-                  backgroundColor:
-                    "var(--brand-primary-subtle, rgba(37, 99, 235, 0.12))",
-                  color: "var(--brand-primary, #3B82F6)",
+                  backgroundColor: category.bgColor,
+                  color: category.color,
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
                   flexShrink: 0,
                 }}
               >
-                {category.type === "image" && <TbPhoto size={24} />}
-                {category.type === "video" && <TbVideo size={24} />}
-                {category.type === "audio" && <TbMusic size={24} />}
-                {category.type === "pdf" && <TbFileDescription size={24} />}
-                {category.type === "code" && <TbCode size={24} />}
-                {category.type === "text" && <TbFileInfo size={24} />}
-                {category.type === "archive" && <TbFileZip size={24} />}
-                {category.type === "unknown" && <TbFile size={24} />}
+                <FileIcon
+                  fileName={file.name}
+                  mimeType={mimeType}
+                  category={category}
+                  size={24}
+                />
               </Box>
 
               <Box sx={{ overflow: "hidden", flex: 1 }}>
@@ -585,28 +496,31 @@ export const FilePreviewContent: React.FC<{
             </Box>
           )}
 
-          {/* Archive / Unknown Viewer */}
-          {(category.type === "archive" || category.type === "unknown") && (
+          {/* Archive / Spreadsheet / Other Formats Viewer */}
+          {!["image", "video", "audio", "pdf", "code", "text"].includes(
+            category.type,
+          ) && (
             <Stack align="center" spacing={16} py={24}>
               <Box
                 sx={{
                   width: 68,
                   height: 68,
                   borderRadius: "var(--radius-lg, 14px)",
-                  backgroundColor: isDark
-                    ? "var(--surface-1, #151B24)"
-                    : "#E2E8F0",
+                  backgroundColor:
+                    category.bgColor ||
+                    (isDark ? "var(--surface-1, #151B24)" : "#E2E8F0"),
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  color: "var(--text-secondary, #94A3B8)",
+                  color: category.color,
                 }}
               >
-                {category.type === "archive" ? (
-                  <TbFileZip size={34} color="#FBBF24" />
-                ) : (
-                  <TbFile size={34} />
-                )}
+                <FileIcon
+                  fileName={file.name}
+                  mimeType={mimeType}
+                  category={category}
+                  size={36}
+                />
               </Box>
               <Stack align="center" spacing={4}>
                 <Text size="sm" weight={700}>
@@ -617,8 +531,8 @@ export const FilePreviewContent: React.FC<{
                   color="dimmed"
                   sx={{ maxWidth: 280, textAlign: "center" }}
                 >
-                  This file format cannot be rendered in-browser. Download file
-                  or inspect technical metadata.
+                  This file format cannot be rendered directly in-browser.
+                  Download file or inspect technical metadata.
                 </Text>
               </Stack>
               <Group spacing={10}>
@@ -669,15 +583,19 @@ export const FilePreviewContent: React.FC<{
                       width: 38,
                       height: 38,
                       borderRadius: "var(--radius-md, 8px)",
-                      backgroundColor:
-                        "var(--brand-primary-subtle, rgba(59, 130, 246, 0.15))",
+                      backgroundColor: category.bgColor,
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      color: "var(--brand-primary, #3B82F6)",
+                      color: category.color,
                     }}
                   >
-                    <TbFileDescription size={22} />
+                    <FileIcon
+                      fileName={file.name}
+                      mimeType={mimeType}
+                      category={category}
+                      size={22}
+                    />
                   </Box>
                   <Box>
                     <Text size="sm" weight={700}>

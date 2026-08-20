@@ -25,7 +25,32 @@ Derived from Pingvin Share X 1.22.1, Fynvi Share elevates personal and team file
   - Role-based administration.
 - **Email Notifications**: Share recipient links, delivery alerts, and password reset workflows via SMTP.
 - **Security Scans**: Optional ClamAV integration to automatically inspect uploaded payloads for viruses and malware.
+- **Rich Media & File Type Previews**: Native in-browser players for audio and video, image inspection, and unified classification for 15+ file categories.
 - **Internationalization**: Multi-language support with user-selectable locale preferences.
+
+---
+
+## Showcase
+
+### Desktop Experience
+
+<p align="center">
+  <img src="./showcases/desktop_landing.png" alt="Fynvi Share Desktop Landing & File Dropzone" width="880" />
+</p>
+
+<p align="center">
+  <img src="./showcases/desktop_administration.png" alt="Fynvi Share Administration Center & Storage Health" width="880" />
+</p>
+
+<p align="center">
+  <img src="./showcases/desktop_config.png" alt="Fynvi Share Configuration & Settings" width="880" />
+</p>
+
+### Mobile Experience
+
+<p align="center">
+  <img src="./showcases/iphone_share-landing-upload.png" alt="Fynvi Share Mobile iPhone Interface - Share Landing & Upload" width="880" />
+</p>
 
 ---
 
@@ -120,6 +145,28 @@ bun run dev
 ```
 
 The frontend development server starts on `http://localhost:3000` with API proxying to backend `http://localhost:8080`.
+
+---
+
+## Product Demo Screenshots & Video Generation
+
+Fynvi Share includes an automated Playwright-based demo screenshot and interactive video generation system with zero backend dependencies:
+
+```bash
+# Generate high-DPI desktop screenshots (Dark & Light)
+bun run screenshot:desktop
+
+# Generate mobile screenshots (Dark & Light)
+bun run screenshot:mobile
+
+# Record the interactive video walkthrough demo
+bun run screenshot:video
+
+# Run the complete test suite
+bun run screenshot:all
+```
+
+For complete architecture details, view [`docs/screenshots.md`](./docs/screenshots.md).
 
 ---
 

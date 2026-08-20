@@ -81,7 +81,7 @@ export default function AppShellDemo() {
   const [isSaving, setIsSaving] = useState(false);
 
   const isEditingAllowed = (): boolean => {
-    return !configVariables || configVariables[0].allowEdit;
+    return !configVariables || configVariables[0]?.allowEdit;
   };
 
   const saveConfigVariables = async () => {

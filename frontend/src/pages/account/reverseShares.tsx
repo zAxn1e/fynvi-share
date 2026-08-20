@@ -175,7 +175,9 @@ const ReverseShares = () => {
                   <th>{t("common.table.remainingUses")}</th>
                   <th>{t("common.table.maxSizeLimit")}</th>
                   <th>{t("common.table.expiration")}</th>
-                  <th style={{ textAlign: "right" }}>{t("common.table.actions")}</th>
+                  <th style={{ textAlign: "right" }}>
+                    {t("common.table.actions")}
+                  </th>
                 </tr>
               </thead>
               <tbody>

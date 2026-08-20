@@ -8,18 +8,11 @@ import {
   Tooltip,
   UnstyledButton,
 } from "@mantine/core";
-import React from "react";
+import React, { useState } from "react";
 import {
   TbAlertCircle,
   TbCheck,
   TbEye,
-  TbFile,
-  TbFileCode,
-  TbFileDescription,
-  TbFileZip,
-  TbMovie,
-  TbMusic,
-  TbPhoto,
   TbPlayerPause,
   TbPlayerPlay,
   TbRefresh,
@@ -27,6 +20,7 @@ import {
 } from "react-icons/tb";
 import { byteToHumanSizeString } from "../../utils/fileSize.util";
 import { Badge, BadgeVariant } from "../common/Badge";
+import { FileIcon, getFileCategory } from "../../utils/fileIcon.util";
 
 export interface UploadItemState {
   id: string;
@@ -59,42 +53,6 @@ export interface UploadItemProps {
   onInspect?: (item: UploadItemState) => void;
 }
 
-const getFileIcon = (fileName: string) => {
-  const ext = fileName.split(".").pop()?.toLowerCase() || "";
-  if (["png", "jpg", "jpeg", "gif", "webp", "svg", "bmp"].includes(ext)) {
-    return <TbPhoto size={18} color="#60A5FA" />;
-  }
-  if (["mp4", "webm", "mkv", "avi", "mov"].includes(ext)) {
-    return <TbMovie size={18} color="#A78BFA" />;
-  }
-  if (["mp3", "wav", "flac", "ogg", "m4a"].includes(ext)) {
-    return <TbMusic size={18} color="#34D399" />;
-  }
-  if (["zip", "tar", "gz", "7z", "rar"].includes(ext)) {
-    return <TbFileZip size={18} color="#FBBF24" />;
-  }
-  if (
-    [
-      "js",
-      "ts",
-      "jsx",
-      "tsx",
-      "py",
-      "json",
-      "html",
-      "css",
-      "yaml",
-      "yml",
-    ].includes(ext)
-  ) {
-    return <TbFileCode size={18} color="#F472B6" />;
-  }
-  if (["pdf", "txt", "md", "doc", "docx"].includes(ext)) {
-    return <TbFileDescription size={18} color="#9CA3AF" />;
-  }
-  return <TbFile size={18} color="#9CA3AF" />;
-};
-
 export const UploadItem: React.FC<UploadItemProps> = ({
   item,
   onPause,
@@ -103,6 +61,15 @@ export const UploadItem: React.FC<UploadItemProps> = ({
   onRemove,
   onInspect,
 }) => {
+  const [imgError, setImgError] = useState(false);
+
+  const mimeType = item.file?.type || "";
+  const category = getFileCategory(mimeType, item.name);
+  const isVideo = category.type === "video";
+  const isImage = category.type === "image";
+  const canRenderVisualThumbnail =
+    (isImage || isVideo) && Boolean(item.previewUrl) && !imgError;
+
   const getStatusBadge = (): {
     label: string;
     variant: BadgeVariant;
@@ -163,7 +130,7 @@ export const UploadItem: React.FC<UploadItemProps> = ({
     >
       <Group position="apart" align="center" noWrap mb={6}>
         <Group spacing={10} noWrap sx={{ overflow: "hidden", maxWidth: "65%" }}>
-          {item.previewUrl ? (
+          {canRenderVisualThumbnail ? (
             <Box
               sx={{
                 width: 32,
@@ -176,19 +143,19 @@ export const UploadItem: React.FC<UploadItemProps> = ({
                 position: "relative",
               }}
             >
-              {item.file?.type.startsWith("video/") ||
-              item.name.match(/\.(mp4|webm|mov|mkv|avi)$/i) ? (
+              {isVideo ? (
                 <video
                   src={item.previewUrl}
                   muted
                   playsInline
+                  onError={() => setImgError(true)}
                   style={{ width: "100%", height: "100%", objectFit: "cover" }}
                 />
               ) : (
-                /* eslint-disable-next-line @next/next/no-img-element */
                 <img
                   src={item.previewUrl}
                   alt={item.name}
+                  onError={() => setImgError(true)}
                   style={{ width: "100%", height: "100%", objectFit: "cover" }}
                 />
               )}
@@ -201,15 +168,24 @@ export const UploadItem: React.FC<UploadItemProps> = ({
                 borderRadius: 6,
                 backgroundColor:
                   theme.colorScheme === "dark"
-                    ? "var(--surface-2, #1C2430)"
-                    : "var(--surface-1, #F1F5F9)",
+                    ? category.bgColor || "var(--surface-2, #1C2430)"
+                    : category.bgColor || "var(--surface-1, #F1F5F9)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 flexShrink: 0,
+                border:
+                  theme.colorScheme === "dark"
+                    ? "1px solid rgba(255, 255, 255, 0.06)"
+                    : "1px solid rgba(0, 0, 0, 0.04)",
               })}
             >
-              {getFileIcon(item.name)}
+              <FileIcon
+                fileName={item.name}
+                mimeType={mimeType}
+                category={category}
+                size={18}
+              />
             </Box>
           )}
 

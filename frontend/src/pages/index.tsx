@@ -81,7 +81,9 @@ export default function Home() {
   useEffect(() => {
     if (user) {
       Promise.all([
-        shareService.getMyShares().then((data) => setShares(data)),
+        shareService
+          .getMyShares()
+          .then((data) => setShares(Array.isArray(data) ? data : [])),
         user.isAdmin
           ? systemService.getSystemInfo().then((info) => setSystemInfo(info))
           : Promise.resolve(),
@@ -144,13 +146,19 @@ export default function Home() {
     return () => window.removeEventListener("paste", handleGlobalPaste);
   }, [router]);
 
-  const totalUploadedBytes = shares.reduce((acc, s) => acc + (s.size || 0), 0);
-  const totalViews = shares.reduce((acc, s) => acc + (s.views || 0), 0);
-  const activeShares = shares.filter(
-    (s) =>
-      moment(s.expiration).unix() === 0 ||
-      moment(s.expiration).isAfter(moment()),
-  );
+  const totalUploadedBytes = Array.isArray(shares)
+    ? shares.reduce((acc, s) => acc + (s.size || 0), 0)
+    : 0;
+  const totalViews = Array.isArray(shares)
+    ? shares.reduce((acc, s) => acc + (s.views || 0), 0)
+    : 0;
+  const activeShares = Array.isArray(shares)
+    ? shares.filter(
+        (s) =>
+          moment(s.expiration).unix() === 0 ||
+          moment(s.expiration).isAfter(moment()),
+      )
+    : [];
 
   const usedBytes = systemInfo?.used || totalUploadedBytes;
   const totalBytes =
@@ -215,7 +223,11 @@ export default function Home() {
               }}
             >
               {t("home.hero.title", {
-                appName: <span key="appName" style={{ color: primaryColor }}>{appName}</span>,
+                appName: (
+                  <span key="appName" style={{ color: primaryColor }}>
+                    {appName}
+                  </span>
+                ),
               })}
             </Title>
             <Text
@@ -582,7 +594,7 @@ export default function Home() {
           )}
         </Group>
 
-        {shares.length === 0 ? (
+        {!Array.isArray(shares) || shares.length === 0 ? (
           <EmptyState
             icon={TbFolders}
             title={t("home.dashboard.noShares.title")}

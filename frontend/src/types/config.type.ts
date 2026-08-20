@@ -1,4 +1,4 @@
-type Config = {
+export type Config = {
   key: string;
   defaultValue: string;
   value: string;

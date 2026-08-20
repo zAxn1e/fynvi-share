@@ -90,7 +90,7 @@ export class ThumbnailService implements OnModuleInit {
     private readonly config: ConfigService,
     @Inject(forwardRef(() => S3FileService))
     private readonly s3FileService: S3FileService,
-  ) { }
+  ) {}
 
   async onModuleInit() {
     this.hasFfmpeg = await this.checkFfmpegAvailable();

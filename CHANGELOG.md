@@ -11,6 +11,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.2.0] - 2026-08-20
+
+### Added
+- **Universal File Type Classification & Icons**: Introduced `fileIcon.util.tsx` supporting 15 distinct file categories (Audio, Video, Image, PDF, Spreadsheet, Presentation, Document, Source Code, Plain Text, Archive, Database, 3D Model, Font, Binary, and Unknown) with dedicated Obsidian Aurora icons, badges, and thematic color palettes.
+- **Interactive Staging & Queued File Previews**: Added interactive `QueuedFilePreview` modal inspector and file list previews for client-side audio playback (`AudioPlayer`), responsive video players, image previews, and structured metadata fallback cards before upload.
+- **Automated Product Demo & Showcase System**: Built a Playwright-based screenshot and demo video generation engine (`frontend/e2e/`) with deterministic mock API server, realistic fixtures, retina viewports for Dark/Light themes, and interactive 60fps desktop walkthrough recording (`bun run screenshot:all`).
+- **Showcase Visuals**: Added high-resolution rendered product showcase images in `showcases/` representing Desktop Landing & Dropzone, Administration & Health, Configuration Center, and Mobile iPhone experiences.
+
+### Changed
+- **Unified File Preview Modal**: Refactored `FilePreview.tsx` to leverage universal file category detection and custom icon badges across share views and downloads.
+- **Upload & Staging Experience**: Refactored `UploadItem.tsx` and upload `FileList.tsx` with thumbnail error handling (`onError`), themed category borders, and audio player integration.
+- **README Showcase**: Enhanced `README.md` with a structured, high-resolution Desktop and Mobile product showcase.
+
+### Fixed & Reliability
+- **Middleware Route Guards**: Fixed public route routing for root `/` and cleaned up redirect condition for `general.showHomePage` in `frontend/src/middleware.ts` to prevent redundant redirects when authenticated.
+- **Defensive Data Handling**: Added `Array.isArray` safety guards for share data in dashboard analytics (`frontend/src/pages/index.tsx`) and admin storage calculations (`frontend/src/pages/admin/index.tsx`).
+- **Admin Config Safety**: Added optional chaining in `frontend/src/pages/admin/config/[category].tsx` to prevent crashes on empty category variable sets.
+
+---
+
 ## [0.1.1] - 2026-08-20
 
 ### Performance & Docker

@@ -75,3 +75,8 @@ yarn-error.log*
 # Temporary files & generative scratchpads
 /temp/**
 temp/
+
+# Playwright Test Artifacts
+/frontend/e2e/test-results/
+/frontend/playwright-report/
+

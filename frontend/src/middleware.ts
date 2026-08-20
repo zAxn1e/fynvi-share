@@ -32,8 +32,9 @@ async function fetchConfig(apiUrl: string): Promise<any> {
 
 export async function middleware(request: NextRequest) {
   const routes = {
-    unauthenticated: new Routes(["/auth/*", "/"]),
+    unauthenticated: new Routes(["/auth/*"]),
     public: new Routes([
+      "/",
       "/share/*",
       "/s/*",
       "/upload/*",
@@ -123,7 +124,7 @@ export async function middleware(request: NextRequest) {
     },
     // Home page
     {
-      condition: (!getConfig("general.showHomePage") || user) && route == "/",
+      condition: !getConfig("general.showHomePage") && route == "/",
       path: "/upload",
     },
     // Imprint redirect
