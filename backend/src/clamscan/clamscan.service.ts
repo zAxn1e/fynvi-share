@@ -1,9 +1,11 @@
 import { Injectable, Logger } from "@nestjs/common";
-import * as NodeClam from "clamscan";
+import NodeClam from "clamscan";
 import * as fs from "fs";
-import { FileService } from "src/file/file.service";
-import { PrismaService } from "src/prisma/prisma.service";
+import { FileService } from "../file/file.service";
+import { PrismaService } from "../prisma/prisma.service";
 import { CLAMAV_HOST, CLAMAV_PORT, SHARE_DIRECTORY } from "../constants";
+
+const ClamScanConstructor: any = (NodeClam as any)?.default || NodeClam;
 
 const clamscanConfig = {
   clamdscan: {
@@ -22,7 +24,7 @@ export class ClamScanService {
     private prisma: PrismaService,
   ) {}
 
-  private ClamScan: Promise<NodeClam | null> = new NodeClam()
+  private ClamScan: Promise<NodeClam | null> = new ClamScanConstructor()
     .init(clamscanConfig)
     .then((res) => {
       this.logger.log("ClamAV is active");

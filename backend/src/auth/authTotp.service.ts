@@ -12,12 +12,14 @@ import {
   verify,
   createGuardrails,
 } from "otplib";
-import * as qrcode from "qrcode-svg";
+import QRCode from "qrcode-svg";
 import { I18nService } from "nestjs-i18n";
-import { ConfigService } from "src/config/config.service";
-import { PrismaService } from "src/prisma/prisma.service";
+import { ConfigService } from "../config/config.service";
+import { PrismaService } from "../prisma/prisma.service";
 import { AuthService } from "./auth.service";
 import { AuthSignInTotpDTO } from "./dto/authSignInTotp.dto";
+
+const QRCodeConstructor: any = (QRCode as any)?.default || QRCode;
 
 const legacyGuardrails = createGuardrails({
   MIN_SECRET_BYTES: 10,
@@ -115,7 +117,7 @@ export class AuthTotpService {
     });
 
     // TODO: Maybe we should generate the QR code on the client rather than the server?
-    const qrCode = new qrcode({
+    const qrCode = new QRCodeConstructor({
       content: otpURL,
       container: "svg-viewbox",
       join: true,
