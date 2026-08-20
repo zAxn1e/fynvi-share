@@ -12,14 +12,16 @@ import {
   verify,
   createGuardrails,
 } from "otplib";
-import QRCode from "qrcode-svg";
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const _QRCode = require("qrcode-svg");
 import { I18nService } from "nestjs-i18n";
 import { ConfigService } from "../config/config.service";
 import { PrismaService } from "../prisma/prisma.service";
 import { AuthService } from "./auth.service";
 import { AuthSignInTotpDTO } from "./dto/authSignInTotp.dto";
 
-const QRCodeConstructor: any = (QRCode as any)?.default || QRCode;
+const QRCodeConstructor: any =
+  _QRCode?.default?.default || _QRCode?.default || _QRCode;
 
 const legacyGuardrails = createGuardrails({
   MIN_SECRET_BYTES: 10,
