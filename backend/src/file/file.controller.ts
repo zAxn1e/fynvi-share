@@ -17,7 +17,7 @@ import {
 } from "@nestjs/common";
 import { SkipThrottle } from "@nestjs/throttler";
 import * as contentDisposition from "content-disposition";
-import { Request, Response } from "express";
+import type { Request, Response } from "express";
 import { CreateShareGuard } from "src/share/guard/createShare.guard";
 import { StrictShareOwnerGuard } from "src/share/guard/strictShareOwner.guard";
 import { IdValidation } from "src/share/guard/shareIdValidation.guard";

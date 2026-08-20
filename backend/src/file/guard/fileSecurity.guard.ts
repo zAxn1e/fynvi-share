@@ -5,7 +5,7 @@ import {
   NotFoundException,
   BadRequestException,
 } from "@nestjs/common";
-import { Request } from "express";
+import type { Request } from "express";
 import * as moment from "moment";
 import type { User } from "@prisma/client";
 import { I18nService } from "nestjs-i18n";

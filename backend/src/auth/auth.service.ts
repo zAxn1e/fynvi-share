@@ -11,7 +11,7 @@ import { JwtService } from "@nestjs/jwt";
 import { Prisma, type User } from "@prisma/client";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import * as argon from "argon2";
-import { Request, Response } from "express";
+import type { Request, Response } from "express";
 import * as moment from "moment";
 import { I18nService } from "nestjs-i18n";
 import { ConfigService } from "src/config/config.service";

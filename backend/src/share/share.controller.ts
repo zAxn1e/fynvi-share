@@ -15,7 +15,7 @@ import {
 import { JwtService } from "@nestjs/jwt";
 import { Throttle } from "@nestjs/throttler";
 import type { Share, ShareSecurity, User } from "@prisma/client";
-import { Request, Response } from "express";
+import type { Request, Response } from "express";
 import * as moment from "moment";
 import { GetUser } from "src/auth/decorator/getUser.decorator";
 import { AdministratorGuard } from "src/auth/guard/isAdmin.guard";

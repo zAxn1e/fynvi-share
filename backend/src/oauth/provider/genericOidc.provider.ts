@@ -1,6 +1,6 @@
 import { InternalServerErrorException, Logger } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
-import { Cache } from "cache-manager";
+import type { Cache } from "cache-manager";
 import * as jmespath from "jmespath";
 import { nanoid } from "nanoid";
 import { ConfigService } from "../../config/config.service";

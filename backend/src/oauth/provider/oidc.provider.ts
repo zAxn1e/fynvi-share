@@ -3,7 +3,7 @@ import { Inject, Injectable } from "@nestjs/common";
 import { ConfigService } from "../../config/config.service";
 import { JwtService } from "@nestjs/jwt";
 import { CACHE_MANAGER } from "@nestjs/cache-manager";
-import { Cache } from "cache-manager";
+import type { Cache } from "cache-manager";
 import { OAuthCallbackDto } from "../dto/oauthCallback.dto";
 import { OAuthSignInDto } from "../dto/oauthSignIn.dto";
 import { OAuthToken } from "./oauthProvider.interface";

@@ -11,7 +11,7 @@ import {
   UseGuards,
 } from "@nestjs/common";
 import type { User } from "@prisma/client";
-import { Request, Response } from "express";
+import type { Request, Response } from "express";
 import { nanoid } from "nanoid";
 import { AuthService } from "../auth/auth.service";
 import { GetUser } from "../auth/decorator/getUser.decorator";

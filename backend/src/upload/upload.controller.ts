@@ -9,7 +9,7 @@ import {
   Req,
 } from "@nestjs/common";
 import { SkipThrottle } from "@nestjs/throttler";
-import { Request } from "express";
+import type { Request } from "express";
 import { CreateUploadSessionDto } from "./dto/create-session.dto";
 import { UploadService } from "./upload.service";
 
