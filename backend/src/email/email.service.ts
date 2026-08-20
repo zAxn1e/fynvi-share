@@ -4,10 +4,10 @@ import {
   Logger,
 } from "@nestjs/common";
 import type { User } from "@prisma/client";
-import * as moment from "moment";
+import moment from "moment";
 import * as nodemailer from "nodemailer";
 import { I18nService } from "nestjs-i18n";
-import { ConfigService } from "src/config/config.service";
+import { ConfigService } from "../config/config.service";
 
 @Injectable()
 export class EmailService {

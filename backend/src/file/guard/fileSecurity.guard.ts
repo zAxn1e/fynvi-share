@@ -6,13 +6,13 @@ import {
   BadRequestException,
 } from "@nestjs/common";
 import type { Request } from "express";
-import * as moment from "moment";
+import moment from "moment";
 import type { User } from "@prisma/client";
 import { I18nService } from "nestjs-i18n";
-import { PrismaService } from "src/prisma/prisma.service";
-import { ShareSecurityGuard } from "src/share/guard/shareSecurity.guard";
-import { ShareService } from "src/share/share.service";
-import { ConfigService } from "src/config/config.service";
+import { PrismaService } from "../../prisma/prisma.service";
+import { ShareSecurityGuard } from "../../share/guard/shareSecurity.guard";
+import { ShareService } from "../../share/share.service";
+import { ConfigService } from "../../config/config.service";
 
 @Injectable()
 export class FileSecurityGuard extends ShareSecurityGuard {

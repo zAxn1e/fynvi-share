@@ -1,11 +1,11 @@
 import { BadRequestException, Injectable } from "@nestjs/common";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
-import * as moment from "moment";
+import moment from "moment";
 import { I18nService } from "nestjs-i18n";
-import { ConfigService } from "src/config/config.service";
-import { FileService } from "src/file/file.service";
-import { PrismaService } from "src/prisma/prisma.service";
-import { parseRelativeDateToAbsolute } from "src/utils/date.util";
+import { ConfigService } from "../config/config.service";
+import { FileService } from "../file/file.service";
+import { PrismaService } from "../prisma/prisma.service";
+import { parseRelativeDateToAbsolute } from "../utils/date.util";
 import { CreateReverseShareDTO } from "./dto/createReverseShare.dto";
 
 @Injectable()

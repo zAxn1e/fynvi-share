@@ -12,11 +12,11 @@ import { Prisma, type User } from "@prisma/client";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import * as argon from "argon2";
 import type { Request, Response } from "express";
-import * as moment from "moment";
+import moment from "moment";
 import { I18nService } from "nestjs-i18n";
-import { ConfigService } from "src/config/config.service";
-import { EmailService } from "src/email/email.service";
-import { PrismaService } from "src/prisma/prisma.service";
+import { ConfigService } from "../config/config.service";
+import { EmailService } from "../email/email.service";
+import { PrismaService } from "../prisma/prisma.service";
 import { OAuthService } from "../oauth/oauth.service";
 import { GenericOidcProvider } from "../oauth/provider/genericOidc.provider";
 import { UserSevice } from "../user/user.service";
@@ -99,6 +99,7 @@ export class AuthService {
           );
         }
       }
+      throw e;
     }
   }
 

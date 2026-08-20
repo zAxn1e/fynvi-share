@@ -12,16 +12,12 @@ import {
   verify,
   createGuardrails,
 } from "otplib";
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const _QRCode = require("qrcode-svg");
+import QRCode from "qrcode-svg";
 import { I18nService } from "nestjs-i18n";
 import { ConfigService } from "../config/config.service";
 import { PrismaService } from "../prisma/prisma.service";
 import { AuthService } from "./auth.service";
 import { AuthSignInTotpDTO } from "./dto/authSignInTotp.dto";
-
-const QRCodeConstructor: any =
-  _QRCode?.default?.default || _QRCode?.default || _QRCode;
 
 const legacyGuardrails = createGuardrails({
   MIN_SECRET_BYTES: 10,
@@ -119,7 +115,7 @@ export class AuthTotpService {
     });
 
     // TODO: Maybe we should generate the QR code on the client rather than the server?
-    const qrCode = new QRCodeConstructor({
+    const qrCode = new QRCode({
       content: otpURL,
       container: "svg-viewbox",
       join: true,

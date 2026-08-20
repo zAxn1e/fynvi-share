@@ -57,11 +57,13 @@ export class AuthController {
 
     const result = await this.authService.signUp(dto, ip);
 
-    this.authService.addTokensToResponse(
-      response,
-      result.refreshToken,
-      result.accessToken,
-    );
+    if (result && "refreshToken" in result && "accessToken" in result) {
+      this.authService.addTokensToResponse(
+        response,
+        result.refreshToken,
+        result.accessToken,
+      );
+    }
 
     return result;
   }

@@ -1,11 +1,11 @@
 import { Injectable, Logger } from "@nestjs/common";
 import { Cron } from "@nestjs/schedule";
 import * as fs from "fs";
-import * as moment from "moment";
-import { FileService } from "src/file/file.service";
-import { PrismaService } from "src/prisma/prisma.service";
-import { ReverseShareService } from "src/reverseShare/reverseShare.service";
-import { ConfigService } from "src/config/config.service";
+import moment from "moment";
+import { FileService } from "../file/file.service";
+import { PrismaService } from "../prisma/prisma.service";
+import { ReverseShareService } from "../reverseShare/reverseShare.service";
+import { ConfigService } from "../config/config.service";
 import { SHARE_DIRECTORY } from "../constants";
 
 @Injectable()
