@@ -3,7 +3,7 @@ import {
   InternalServerErrorException,
   Logger,
 } from "@nestjs/common";
-import { User } from "@prisma/client";
+import type { User } from "@prisma/client";
 import * as moment from "moment";
 import * as nodemailer from "nodemailer";
 import { I18nService } from "nestjs-i18n";

@@ -4,7 +4,7 @@ import {
   Injectable,
   UnauthorizedException,
 } from "@nestjs/common";
-import { User } from "@prisma/client";
+import type { User } from "@prisma/client";
 import {
   generateSecret,
   generateURI,

@@ -8,7 +8,7 @@ import {
   Req,
   UseGuards,
 } from "@nestjs/common";
-import { User } from "@prisma/client";
+import type { User } from "@prisma/client";
 import { Request } from "express";
 import { GetUser } from "../auth/decorator/getUser.decorator";
 import { JwtGuard } from "../auth/guard/jwt.guard";
