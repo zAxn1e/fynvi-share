@@ -7,8 +7,8 @@ import {
 import type { User } from "@prisma/client";
 import type { Request } from "express";
 import { I18nService } from "nestjs-i18n";
-import { ConfigService } from "src/config/config.service";
-import { PrismaService } from "src/prisma/prisma.service";
+import { ConfigService } from "../../config/config.service";
+import { PrismaService } from "../../prisma/prisma.service";
 import { JwtGuard } from "../../auth/guard/jwt.guard";
 
 @Injectable()

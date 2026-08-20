@@ -12,13 +12,13 @@ import * as fs from "fs/promises";
 import * as path from "path";
 import * as mime from "mime-types";
 import { I18nService } from "nestjs-i18n";
-import { ConfigService } from "src/config/config.service";
-import { PrismaService } from "src/prisma/prisma.service";
-import { validate as isValidUUID } from "uuid";
+import { ConfigService } from "../config/config.service";
+import { PrismaService } from "../prisma/prisma.service";
 import { SHARE_DIRECTORY } from "../constants";
 import { Readable } from "stream";
-import { ThumbnailService } from "src/thumbnail/thumbnail.service";
+import { ThumbnailService } from "../thumbnail/thumbnail.service";
 import { Inject, forwardRef } from "@nestjs/common";
+import { validate as isValidUUID } from "uuid";
 
 @Injectable()
 export class LocalFileService {

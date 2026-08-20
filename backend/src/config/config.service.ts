@@ -9,12 +9,12 @@ import type { Config } from "@prisma/client";
 import * as argon from "argon2";
 import { EventEmitter } from "events";
 import * as fs from "fs";
-import { PrismaService } from "src/prisma/prisma.service";
-import { stringToTimespan } from "src/utils/date.util";
+import { PrismaService } from "../prisma/prisma.service";
+import { stringToTimespan } from "../utils/date.util";
 import { parse as yamlParse } from "yaml";
 import { I18nContext } from "nestjs-i18n";
 import { YamlConfig } from "../../prisma/seed/config.seed";
-import { CONFIG_FILE } from "src/constants";
+import { CONFIG_FILE } from "../constants";
 
 /**
  * ConfigService extends EventEmitter to allow listening for config updates,

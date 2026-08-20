@@ -12,9 +12,9 @@ import {
 } from "@nestjs/common";
 import type { User } from "@prisma/client";
 import type { Response } from "express";
-import { GetUser } from "src/auth/decorator/getUser.decorator";
-import { AdministratorGuard } from "src/auth/guard/isAdmin.guard";
-import { JwtGuard } from "src/auth/guard/jwt.guard";
+import { GetUser } from "../auth/decorator/getUser.decorator";
+import { AdministratorGuard } from "../auth/guard/isAdmin.guard";
+import { JwtGuard } from "../auth/guard/jwt.guard";
 import { ConfigService } from "../config/config.service";
 import { CreateUserDTO } from "./dto/createUser.dto";
 import { UpdateOwnUserDTO } from "./dto/updateOwnUser.dto";

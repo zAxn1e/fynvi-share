@@ -12,9 +12,10 @@ import * as os from "os";
 import { spawn } from "child_process";
 import * as _sharp from "sharp";
 const sharp = (_sharp as any).default || _sharp;
-import { PrismaService } from "src/prisma/prisma.service";
-import { ConfigService } from "src/config/config.service";
+import { PrismaService } from "../prisma/prisma.service";
+import { ConfigService } from "../config/config.service";
 import { SHARE_DIRECTORY } from "../constants";
+import { S3FileService } from "../file/s3.service";
 import { Readable } from "stream";
 import {
   GetObjectCommand,
@@ -22,7 +23,6 @@ import {
   DeleteObjectCommand,
   HeadObjectCommand,
 } from "@aws-sdk/client-s3";
-import { S3FileService } from "src/file/s3.service";
 
 const IMAGE_EXTENSIONS = new Set([
   "jpg",

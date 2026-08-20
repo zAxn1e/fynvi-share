@@ -18,8 +18,8 @@ import {
   UploadPartCommand,
   UploadPartCommandOutput,
 } from "@aws-sdk/client-s3";
-import { PrismaService } from "src/prisma/prisma.service";
-import { ConfigService } from "src/config/config.service";
+import { PrismaService } from "../prisma/prisma.service";
+import { ConfigService } from "../config/config.service";
 import { I18nService } from "nestjs-i18n";
 import * as crypto from "crypto";
 import * as mime from "mime-types";

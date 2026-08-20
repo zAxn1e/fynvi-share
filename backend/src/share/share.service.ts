@@ -28,7 +28,7 @@ import { parseRelativeDateToAbsolute } from "../utils/date.util";
 import { SHARE_DIRECTORY } from "../constants";
 import { CreateShareDTO } from "./dto/createShare.dto";
 import { UpdateShareDTO } from "./dto/updateShare.dto";
-import { ThumbnailService } from "src/thumbnail/thumbnail.service";
+import { ThumbnailService } from "../thumbnail/thumbnail.service";
 import { Inject, forwardRef } from "@nestjs/common";
 
 @Injectable()
