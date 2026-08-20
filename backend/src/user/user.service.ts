@@ -1,18 +1,12 @@
-import {
-  BadRequestException,
-  Inject,
-  Injectable,
-  Logger,
-  forwardRef,
-} from "@nestjs/common";
+import { BadRequestException, Injectable, Logger } from "@nestjs/common";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import * as argon from "argon2";
 import * as crypto from "crypto";
 import { Entry } from "ldapts";
 import { I18nService } from "nestjs-i18n";
-import { AuthSignInDTO } from "src/auth/dto/authSignIn.dto";
-import { EmailService } from "src/email/email.service";
-import { PrismaService } from "src/prisma/prisma.service";
+import { AuthSignInDTO } from "../auth/dto/authSignIn.dto";
+import { EmailService } from "../email/email.service";
+import { PrismaService } from "../prisma/prisma.service";
 import { inspect } from "util";
 import { ConfigService } from "../config/config.service";
 import { FileService } from "../file/file.service";
@@ -26,7 +20,6 @@ export class UserSevice {
   constructor(
     private prisma: PrismaService,
     private emailService: EmailService,
-    @Inject(forwardRef(() => FileService))
     private fileService: FileService,
     private configService: ConfigService,
     private readonly i18n: I18nService,
