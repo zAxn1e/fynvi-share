@@ -687,5 +687,5 @@ export default {
   "admin.quickActions.general": "Configure General",
   "admin.quickActions.email": "Setup Email",
   "admin.quickActions.s3": "Configure S3",
-  "admin.intro.title": "Welcome to Fynvi Share",
+  "admin.intro.title": "Welcome to Fynvi Share"
 };
