@@ -1,11 +1,11 @@
 {
-  "shareRecipientsCreatorFallback": "ผู้ส่ง",
-  "shareRecipientsDescFallback": "ไม่มีคำอธิบาย",
-  "shareRecipientsExpiresNeverFallback": "ไม่มีวันหมดอายุ",
-  "smtpDisabled": "ไม่ได้เปิดใช้งานระบบส่งอีเมล SMTP",
-  "emailServiceDisabled": "ระบบบริการอีเมลถูกปิดใช้งาน",
-  "testSubject": "อีเมลทดสอบ",
-  "testText": "นี่คืออีเมลทดสอบจาก Fynvi Share",
-  "sendFailed": "ส่งอีเมลไม่สำเร็จ",
-  "locale": "th-TH"
+  "shareRecipientsCreatorFallback": "Someone",
+  "shareRecipientsDescFallback": "No description",
+  "shareRecipientsExpiresNeverFallback": "in: never",
+  "smtpDisabled": "SMTP is disabled",
+  "emailServiceDisabled": "Email service disabled",
+  "testSubject": "Test email",
+  "testText": "This is a test email",
+  "sendFailed": "Failed to send email",
+  "locale": "en-US"
 }
