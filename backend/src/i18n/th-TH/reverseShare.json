@@ -1,5 +1,5 @@
 {
-  "notFound": "ไม่พบโทเค็นรีเวิร์สแชร์",
-  "maxShareSizeExceeded": "ขนาดการแชร์สูงสุดต้องไม่เกิน {maxSize} ไบต์",
-  "tokenInUse": "โทเค็นรีเวิร์สแชร์นี้ถูกใช้งานแล้ว"
+  "notFound": "Reverse share token not found",
+  "maxShareSizeExceeded": "Max share size can't be greater than {maxSize} bytes.",
+  "tokenInUse": "Reverse share token already in use"
 }
