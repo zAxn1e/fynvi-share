@@ -22,8 +22,8 @@ All contributors are expected to adhere to our [Code of Conduct](file:///CODE_OF
    git checkout -b feat/my-new-feature
    ```
 3. **Install Dependencies**:
-   - Backend: `cd backend && npm install`
-   - Frontend: `cd frontend && npm install`
+   - Backend: `cd backend && bun install`
+   - Frontend: `cd frontend && bun install`
 
 ---
 
@@ -33,24 +33,24 @@ All contributors are expected to adhere to our [Code of Conduct](file:///CODE_OF
 - Run backend database setup and dev server:
   ```bash
   cd backend
-  npx prisma db push
-  npx prisma db seed
-  npm run dev
+  bun run db:push
+  bun run db:seed
+  bun run dev
   ```
 - Run frontend dev server:
   ```bash
   cd frontend
-  npm run dev
+  bun run dev
   ```
 
 ### Code Style & Formatting
 - Format code using Prettier:
   ```bash
-  npm run format
+  bun run format
   ```
 - Check for lint errors:
   ```bash
-  npm run lint
+  bun run lint
   ```
 
 ---

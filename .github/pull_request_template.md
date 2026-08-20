@@ -17,7 +17,7 @@ What kind of change does this PR introduce?
 ## Testing & Verification
 
 - [ ] Tested locally
-- [ ] Linting passed (`npm run lint`)
+- [ ] Linting passed (`bun run lint`)
 - [ ] Types checked (`npx tsc --noEmit`)
 - [ ] No unintentional secrets or debug logs committed
 

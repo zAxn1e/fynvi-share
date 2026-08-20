@@ -1,6 +1,6 @@
 {
   "name": "fynvi-share",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A modern, self-hosted file sharing platform with local-first storage and a polished sharing experience.",
   "scripts": {
     "format": "cd frontend && bun run format && cd ../backend && bun run format",

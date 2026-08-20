@@ -19,21 +19,21 @@ We welcome community contributions to **Fynvi Share**! You can submit issues, fe
 ### Backend
 ```bash
 cd backend
-npm install
-npm run db:push
-npm run db:seed
-npm run dev
+bun install
+bun run db:push
+bun run db:seed
+bun run dev
 ```
 
 ### Frontend
 ```bash
 cd frontend
-npm install
-npm run dev
+bun install
+bun run dev
 ```
 
 ## Pull Request Checklist
 - Follow [Conventional Commits](https://www.conventionalcommits.org/): `feat:`, `fix:`, `docs:`, `refactor:`, `chore:`.
-- Ensure code is formatted: `npm run format`.
-- Verify lint checks pass: `npm run lint`.
+- Ensure code is formatted: `bun run format`.
+- Verify lint checks pass: `bun run lint`.
 - Make sure no credentials, secrets, or temporary files are included.

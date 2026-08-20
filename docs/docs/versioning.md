@@ -18,4 +18,4 @@ Releases use `v`-prefixed tags such as `v0.1.0`, `v0.2.0`, and `v0.2.1`.
 
 ## Release Process
 
-Use `npm run release:minor` or `npm run release:patch` from the repository root. Changes should use Conventional Commit types, including `feat`, `fix`, `docs`, `refactor`, and `chore`, so release notes remain clear.
+Use `bun run release:minor` or `bun run release:patch` from the repository root. Changes should use Conventional Commit types, including `feat`, `fix`, `docs`, `refactor`, and `chore`, so release notes remain clear.
