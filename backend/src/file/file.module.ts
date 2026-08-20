@@ -13,8 +13,8 @@ import { S3FileService } from "./s3.service";
   imports: [
     JwtModule.register({}),
     EmailModule,
-    ReverseShareModule,
-    ShareModule,
+    forwardRef(() => ReverseShareModule),
+    forwardRef(() => ShareModule),
     forwardRef(() => ThumbnailModule),
   ],
   controllers: [FileController],
